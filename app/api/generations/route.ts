@@ -16,6 +16,8 @@ export async function POST(req: Request) {
       inputUrl = "",
       project = v.project,
       style = v.style;
+    let scene = v.scene,
+      season = v.season;
     if (v.kind === "video") {
       const { data: p } = await db
         .from("generations")
@@ -35,6 +37,8 @@ export async function POST(req: Request) {
       inputUrl = signed.data.signedUrl;
       project = p.project_subtype;
       style = p.style_preset;
+      scene = p.price_quote?.scene || "source_context";
+      season = p.price_quote?.season || "source";
     } else {
       if (!source.startsWith(user.id + "/") || source.includes(".."))
         throw new ApiError("Invalid source image");
@@ -46,8 +50,8 @@ export async function POST(req: Request) {
     }
     const prompt =
       v.kind === "image"
-        ? promptFor(project, style, v.notes)
-        : videoPromptFor(project, v.motion, v.notes);
+        ? promptFor(project, style, v.notes, scene, season)
+        : videoPromptFor(project, v.motion, v.notes, scene, season);
     let selected;
     try {
       selected = selectModel(
@@ -105,7 +109,7 @@ export async function POST(req: Request) {
       p_parent: v.parent_id || null,
       p_model: model,
       p_cost: quote.credits,
-      p_quote: quote,
+      p_quote: { ...quote, scene, season },
     });
     if (error)
       throw new ApiError(

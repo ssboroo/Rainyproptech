@@ -19,6 +19,17 @@ export const generationSchema = z
       .default("auto"),
     model_id: z.string().min(1).max(180).optional(),
     kind: z.enum(["image", "video"]),
+    scene: z
+      .enum([
+        "ulaanbaatar",
+        "mongolia_steppe",
+        "mongolia_countryside",
+        "source_context",
+      ])
+      .default("ulaanbaatar"),
+    season: z
+      .enum(["source", "summer", "autumn", "winter", "spring"])
+      .default("summer"),
     project: z.enum(projectKeys as [Project, ...Project[]]),
     style: z.enum(styleKeys as [Style, ...Style[]]),
     motion: z.enum(["drone_pull_back", "drone_orbit", "facade_pan"]),

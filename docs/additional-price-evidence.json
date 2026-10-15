@@ -1,0 +1,461 @@
+{
+  "checkedAt": "2026-10-15",
+  "models": [
+    {
+      "id": "openai/gpt-image-2.5/sunburst/edit",
+      "url": "https://fal.ai/models/openai/gpt-image-2.5/sunburst/edit",
+      "paragraphs": [
+        "Text tokens (per 1M): $5.00 input, $1.25 cached, $10.00 output. Image tokens (per 1M): $8.00 input, $2.00 cached, $30.00 output. Changing the quality parameter significantly affects cost; by default we use high. Adjust it to your preference. See the description at the bottom of this page for more details on how much canonical image sizes cost. Total cost is rounded up to the closest hundredth of a cent ($0.0001)."
+      ]
+    },
+    {
+      "id": "openai/gpt-image-2/edit",
+      "url": "https://fal.ai/models/openai/gpt-image-2/edit",
+      "paragraphs": [
+        "Text tokens (per 1M): $5.00 input, $1.25 cached, $10.00 output. Image tokens (per 1M): $8.00 input, $2.00 cached, $30.00 output. Changing the quality parameter significantly affects cost; by default we use high. Adjust it to your preference. See the description at the bottom of this page for more details on how much canonical image sizes cost. Total cost is rounded up to the closest hundredth of a cent ($0.0001)."
+      ]
+    },
+    {
+      "id": "google/nano-banana-2.1/edit",
+      "url": "https://fal.ai/models/google/nano-banana-2.1/edit",
+      "paragraphs": [
+        "Text/thinking tokens (per 1M): $1.764 input, $8.823 output. Image tokens (per 1M): $1.764 input, $35.294 output. Changing the resolution parameter significantly affects cost; by default we use 1K. See the description at the bottom of this page for more details on how much canonical image sizes cost."
+      ]
+    },
+    {
+      "id": "openai/gpt-image-2.5/flare/edit",
+      "url": "https://fal.ai/models/openai/gpt-image-2.5/flare/edit",
+      "paragraphs": [
+        "Text tokens (per 1M): $5.00 input, $1.25 cached, $10.00 output. Image tokens (per 1M): $8.00 input, $2.00 cached, $30.00 output. Changing the quality parameter significantly affects cost; by default we use high. Adjust it to your preference. See the description at the bottom of this page for more details on how much canonical image sizes cost. Total cost is rounded up to the closest hundredth of a cent ($0.0001)."
+      ]
+    },
+    {
+      "id": "fal-ai/flux-pro/kontext",
+      "url": "https://fal.ai/models/fal-ai/flux-pro/kontext",
+      "paragraphs": [
+        "Your request will cost $0.04 per image.",
+        "Your request will cost $0.04 per image. Our transparent, per-image pricing makes it cost-effective for both experimentation and production use:"
+      ]
+    },
+    {
+      "id": "fal-ai/seedvr/upscale/image",
+      "url": "https://fal.ai/models/fal-ai/seedvr/upscale/image",
+      "paragraphs": [
+        "Your request will cost $0.001 per megapixel."
+      ]
+    },
+    {
+      "id": "fal-ai/bytedance/seedream/v4.5/edit",
+      "url": "https://fal.ai/models/fal-ai/bytedance/seedream/v4.5/edit",
+      "paragraphs": [
+        "Your request will cost $0.04 per image.",
+        "ByteDance's Seedream 4.5 transforms existing images through natural language instructions at $0.04 per edit, processing up to 10 reference images simultaneously for complex multi-source compositions. Trading simple single-image workflows for sophisticated context-aware editing, this unified architecture references multiple sources, copies specific elements between images, and maintains spatial relationships without manual masking. Built for e-commerce teams assembling product composites, designers prototyping layout variations, and marketing workflows requiring consistent brand element integration across visuals."
+      ]
+    },
+    {
+      "id": "fal-ai/flux-2-pro/edit",
+      "url": "https://fal.ai/models/fal-ai/flux-2-pro/edit",
+      "paragraphs": [
+        "Your request will cost $0.03 for the first megapixel of output, plus $0.015 per extra megapixel of input and output, rounded up to the nearest megapixel. For example, a 1024x1024 image will cost $0.03, and a 1920x1080 image will cost $0.045 ($0.03 for first megapixel + $0.015 for the second megapixel). Similarly, a 512x512 output will cost $0.03 ($0.03 for0.25 megapixels, rounded to 1 megapixel)"
+      ]
+    },
+    {
+      "id": "fal-ai/esrgan",
+      "url": "https://fal.ai/models/fal-ai/esrgan",
+      "paragraphs": [
+        "Your request will cost $0.00111 per compute second"
+      ]
+    },
+    {
+      "id": "blackforestlabs/flux-3/edit-image",
+      "url": "https://fal.ai/models/blackforestlabs/flux-3/edit-image",
+      "paragraphs": [
+        "Image pricing varies by resolution, starting at $0.0205 per image. A 1K (1 MP) image costs $0.024.",
+        "Note: these promotional launch rates are 50% off for a limited time. The discount ends October 8, after which a 1K (1 MP) image will cost $0.048"
+      ]
+    },
+    {
+      "id": "fal-ai/bytedance/seedream/v4/edit",
+      "url": "https://fal.ai/models/fal-ai/bytedance/seedream/v4/edit",
+      "paragraphs": [
+        "Your request will cost $0.03 per image."
+      ]
+    },
+    {
+      "id": "xai/grok-imagine-image/edit",
+      "url": "https://fal.ai/models/xai/grok-imagine-image/edit",
+      "paragraphs": [
+        "Your request will cost $0.022 per image ($0.02 for image output + $0.002 for image input)."
+      ]
+    },
+    {
+      "id": "meta/muse-image/edit",
+      "url": "https://fal.ai/models/meta/muse-image/edit",
+      "paragraphs": [
+        "Your request will cost $0.01 per image."
+      ]
+    },
+    {
+      "id": "fal-ai/clarity-upscaler",
+      "url": "https://fal.ai/models/fal-ai/clarity-upscaler",
+      "paragraphs": [
+        "Your request will cost $0.03 per megapixel."
+      ]
+    },
+    {
+      "id": "xai/grok-imagine-image/v2.0/edit",
+      "url": "https://fal.ai/models/xai/grok-imagine-image/v2.0/edit",
+      "paragraphs": [
+        "Your request will cost $0.04 (low) or $0.06 (medium) per image for 1K, and $0.06 (low) or $0.08 (medium) per image for 2K, plus $0.01 per input image."
+      ]
+    },
+    {
+      "id": "google/nano-banana-lite/edit",
+      "url": "https://fal.ai/models/google/nano-banana-lite/edit",
+      "paragraphs": [
+        "Text tokens (per 1M): $0.3125 input, $1.875 output. Image tokens (per 1M): $0.3125 input, $37.50 output. Output images are generated at a fixed 1K (1024x1024px)"
+      ]
+    },
+    {
+      "id": "ideogram/v4.5/edit",
+      "url": "https://fal.ai/models/ideogram/v4.5/edit",
+      "paragraphs": [
+        "Your request will cost $0.008 per image with Very Low, $0.03 with Low, $0.06 with Medium, and $0.22 with High quality. The image size does not change the price."
+      ]
+    },
+    {
+      "id": "topaz/upscale/image/precision",
+      "url": "https://fal.ai/models/topaz/upscale/image/precision",
+      "paragraphs": [
+        "Your request will cost $0.08 per started 24 megapixels of output for every precision model. For example, an output up to 24 MP costs $0.08, over 24 MP and up to 48 MP costs $0.16, and over 48 MP and up to 72 MP costs $0.24."
+      ]
+    },
+    {
+      "id": "fal-ai/flux-2/klein/9b/edit",
+      "url": "https://fal.ai/models/fal-ai/flux-2/klein/9b/edit",
+      "paragraphs": [
+        "Requests cost $0.011 per megapixel of input and output. Input images will be resized to 1MP. For example, a 1024×1024 generation with a 512×512 input image will cost $0.022 (1 MP input + 1 MP output, each costing $0.011)."
+      ]
+    },
+    {
+      "id": "fal-ai/recraft/upscale/crisp",
+      "url": "https://fal.ai/models/fal-ai/recraft/upscale/crisp",
+      "paragraphs": [
+        "Your request will cost $0.004 per image."
+      ]
+    },
+    {
+      "id": "fal-ai/gpt-image-1.5/edit",
+      "url": "https://fal.ai/models/fal-ai/gpt-image-1.5/edit",
+      "paragraphs": []
+    },
+    {
+      "id": "fal-ai/flux-2/edit",
+      "url": "https://fal.ai/models/fal-ai/flux-2/edit",
+      "paragraphs": [
+        "Requests cost $0.012 per megapixel of input and output. Input images will be resized to 1MP. For example, a 1024x1024 generation with 512*512 size image input will cost 0.024 (1 MP input + 1 MP output, each costing 0.012)."
+      ]
+    },
+    {
+      "id": "pixelcut/background-removal",
+      "url": "https://fal.ai/models/pixelcut/background-removal",
+      "paragraphs": [
+        "Your request will cost $0.016 per image."
+      ]
+    },
+    {
+      "id": "fal-ai/qwen-image-edit-2511",
+      "url": "https://fal.ai/models/fal-ai/qwen-image-edit-2511",
+      "paragraphs": [
+        "Your request will cost $0.03 per megapixel."
+      ]
+    },
+    {
+      "id": "bytedance/seedream/v5/flash/edit",
+      "url": "https://fal.ai/models/bytedance/seedream/v5/flash/edit",
+      "paragraphs": [
+        "Your request will cost $0.027 per image."
+      ]
+    },
+    {
+      "id": "fal-ai/aura-sr",
+      "url": "https://fal.ai/models/fal-ai/aura-sr",
+      "paragraphs": [
+        "Your request will cost $0 per compute second."
+      ]
+    },
+    {
+      "id": "fal-ai/qwen-image-edit-2511-multiple-angles",
+      "url": "https://fal.ai/models/fal-ai/qwen-image-edit-2511-multiple-angles",
+      "paragraphs": [
+        "Your request will cost $0.035 per megapixel."
+      ]
+    },
+    {
+      "id": "alibaba/qwen-image-3/edit",
+      "url": "https://fal.ai/models/alibaba/qwen-image-3/edit",
+      "paragraphs": [
+        "Your request will cost $0.04 per generated image at 1K resolution, and $0.075 per generated image at 2K resolution."
+      ]
+    },
+    {
+      "id": "topaz/upscale/image/generative",
+      "url": "https://fal.ai/models/topaz/upscale/image/generative",
+      "paragraphs": [
+        "Your request will cost $0.08 per started 8 megapixels of output with Wonder 3 or Wonder 3.5, and $0.08 per started 4 megapixels with Wonder, Wonder 2, Recover 3, Standard MAX, Redefine, Recovery, or Recovery V2. A 24 MP output therefore costs $0.24 with Wonder 3/3.5 or $0.48 with the other models."
+      ]
+    },
+    {
+      "id": "fal-ai/flux/dev/image-to-image",
+      "url": "https://fal.ai/models/fal-ai/flux/dev/image-to-image",
+      "paragraphs": [
+        "Your request will cost $0.03 per megapixel.",
+        "Your request will cost $0.03 per megapixel. Images are billed by rounding up to the nearest megapixel. Our transparent, usage-based pricing scales with your needs:"
+      ]
+    },
+    {
+      "id": "fal-ai/flux-2/flash/edit",
+      "url": "https://fal.ai/models/fal-ai/flux-2/flash/edit",
+      "paragraphs": [
+        "Requests cost $0.005 per megapixel of input and output. Input images will be resized to 1MP. For example, a 1024x1024 generation with 512*512 size image input will cost 0.010 (1 MP input + 1 MP output, each costing 0.005)."
+      ]
+    },
+    {
+      "id": "fal-ai/flux-2-max/edit",
+      "url": "https://fal.ai/models/fal-ai/flux-2-max/edit",
+      "paragraphs": [
+        "The first processed megapixel will cost $0.07. Each additional megapixel will cost 0.03. Input images counted as processed megapixel."
+      ]
+    },
+    {
+      "id": "fal-ai/sam2/image",
+      "url": "https://fal.ai/models/fal-ai/sam2/image",
+      "paragraphs": [
+        "Your request will cost $0 per compute second."
+      ]
+    },
+    {
+      "id": "fal-ai/flux-2/klein/4b/edit",
+      "url": "https://fal.ai/models/fal-ai/flux-2/klein/4b/edit",
+      "paragraphs": [
+        "Your request will cost $0.01 per megapixel."
+      ]
+    },
+    {
+      "id": "fal-ai/flux-kontext/dev",
+      "url": "https://fal.ai/models/fal-ai/flux-kontext/dev",
+      "paragraphs": [
+        "Your request will cost $0.025 per megapixel."
+      ]
+    },
+    {
+      "id": "clarityai/crystal-upscaler",
+      "url": "https://fal.ai/models/clarityai/crystal-upscaler",
+      "paragraphs": [
+        "Your request will cost $0.016 per megapixel.",
+        "Clarity AI's Crystal Upscaler delivers specialized facial enhancement at $0.016 per megapixel with portrait-optimized upscaling up to 200x scale factor. Trading general-purpose upscaling for facial detail precision, it targets portrait photographers and content creators who need professional-grade facial enhancement without complex post-processing workflows.",
+        "Crystal Upscaler positions as a specialized facial upscaling tool at $0.016 per megapixel, making cost directly proportional to output resolution rather than fixed per-image pricing.",
+        "Resolution-Based Pricing: Pay only for output megapixels rather than per-image, making small upscaling jobs (2x on 512px) cost $0.004 while large restoration projects (10x on 1024px) scale proportionally",
+        "FASHN Virtual Try-On V1.5 ($0.05) – Crystal Upscaler ($0.016/MP for 4MP = $0.064) trades fashion-specific try-on capabilities for general portrait enhancement at comparable cost for typical outputs. FASHN prioritizes garment fit visualization and body-aware composition for e-commerce workflows where clothing presentation drives conversion."
+      ]
+    },
+    {
+      "id": "bytedance/seedream/v5/lite/edit",
+      "url": "https://fal.ai/models/bytedance/seedream/v5/lite/edit",
+      "paragraphs": [
+        "Your request will cost $0.035 per image."
+      ]
+    },
+    {
+      "id": "fal-ai/flux-2-pro/outpaint",
+      "url": "https://fal.ai/models/fal-ai/flux-2-pro/outpaint",
+      "paragraphs": [
+        "Your request will cost $0.03 for the first megapixel of output, plus $0.015 per extra megapixel of input and output, rounded up to the nearest megapixel. For example, a 1024x1024 image will cost $0.03, and a 1920x1080 image will cost $0.045 ($0.03 for first megapixel + $0.015 for the second megapixel). Similarly, a 512x512 output will cost $0.03 ($0.03 for 0.25 megapixels, rounded to 1 megapixel)."
+      ]
+    },
+    {
+      "id": "bytedance/seedream/v5/pro/layerize",
+      "url": "https://fal.ai/models/bytedance/seedream/v5/pro/layerize",
+      "paragraphs": [
+        "Your request will cost $0.03375 per generated layer for total pixel area under 1536x1536. For total pixel area over 1536x1536, each request will cost $0.0675 per generated layer . Please note that total pixel area is determined from the size of the generated base layer."
+      ]
+    },
+    {
+      "id": "xai/grok-imagine-image/quality/edit",
+      "url": "https://fal.ai/models/xai/grok-imagine-image/quality/edit",
+      "paragraphs": [
+        "Your request with cost $0.05 per output image for 1K and $0.07 per output image for 2K in addition to $0.01 per input image."
+      ]
+    },
+    {
+      "id": "fal-ai/flux-pro/kontext/max/multi",
+      "url": "https://fal.ai/models/fal-ai/flux-pro/kontext/max/multi",
+      "paragraphs": [
+        "Your request will cost $0.08 per image."
+      ]
+    },
+    {
+      "id": "fal-ai/evf-sam",
+      "url": "https://fal.ai/models/fal-ai/evf-sam",
+      "paragraphs": [
+        "Your request will cost $0.005 per ."
+      ]
+    },
+    {
+      "id": "minimax/h3-max/reference-to-video",
+      "url": "https://fal.ai/models/minimax/h3-max/reference-to-video",
+      "paragraphs": [
+        "Billing uses the requested output duration at $0.05 per second for 480p, $0.08 for 768p, and $0.16 for 1080p. Each request includes 4,096 reference tokens, shared across all reference images, videos, and audio clips; additional usage costs $0.02 per 1,000 tokens, prorated. Square reference images, including 1024 × 1024 and 2048 × 2048 uploads, contribute 1,024 tokens each. With no video or audio references, the first four square images add no reference charge, and each additional square image adds $0.02048 (about $0.02). For example, a 5-second 768p output costs $0.40 with up to four square reference images, or $0.42048 with five. See the pricing details below for other image shapes, video references, and audio references.",
+        "Every request includes 4,096 reference tokens at no additional charge, shared across all reference images, videos, and audio clips. Additional reference tokens cost $0.02 per 1,000 tokens, prorated to the actual token count. The allowance covers reference processing; output generation is billed separately.",
+        "Square reference images, including 1024 × 1024 and 2048 × 2048 uploads, contribute 1,024 tokens each. When no video or audio references use the allowance, four square reference images are included; each additional square image adds $0.02048 (about $0.02).",
+        "These are marginal charges, not minimum fees. If the combined image, video, and audio references remain within 4,096 tokens, the reference surcharge is $0. An audio track embedded in a reference-video file is not counted as a separately supplied audio reference."
+      ]
+    },
+    {
+      "id": "bytedance/seedance-2.5/reference-to-video",
+      "url": "https://fal.ai/models/bytedance/seedance-2.5/reference-to-video",
+      "paragraphs": [
+        "For 480p, your request will cost roughly $0.2205 per second of generated video, for 720p, you will be charged roughly $0.4730 per second of generated video, and for 1080p, roughly $1.164 per second of generated video. Your request will cost $0.0214 per 1000 tokens for 480p and 720p video and roughly $0.0234 per 1000 tokens for 1080p video. The number of tokens is roughly given by (height of output video * width of output video * (input video duration + output video duration) * 24) / 1024. If video inputs are provided the price is multiplied by 0.6. With video inputs and 720p resolution, the price is roughly $0.2838 per second of generated video. With video references, you will be charged for both input and output videos.",
+        "You are charged $0.0214 per 1000 tokens at both 480p and 720p. If any video references are provided, the price is multiplied by 0.6. Image and audio references are not billed."
+      ]
+    },
+    {
+      "id": "bytedance/seedance-2.5/image-to-video",
+      "url": "https://fal.ai/models/bytedance/seedance-2.5/image-to-video",
+      "paragraphs": [
+        "For 480p, your request will cost roughly $0.2205 per second of generated video, for 720p, you will be charged roughly $0.4730 per second of generated video, and for 1080p, roughly $1.164 per second of generated video. Your request will cost $0.0214 per 1000 tokens for 480p and 720p video and roughly $0.0234 per 1000 tokens for 1080p. The number of tokens is roughly given by (height of output video * width of output video * (input video duration + output video duration) * 24) / 1024.",
+        "You are charged $0.0214 per 1000 tokens at both 480p and 720p. Input images are not billed — you pay only for generated output."
+      ]
+    },
+    {
+      "id": "bytedance/seedance-2.0/image-to-video",
+      "url": "https://fal.ai/models/bytedance/seedance-2.0/image-to-video",
+      "paragraphs": [
+        "For every second of 720p video you generated, you will be charged $0.3034/second and for 1080p you will be charged $0.682/second. Your request will cost $0.014 per 1000 tokens for 480p, 720p and 1080p. Your request will cost $0.008 per 1000 tokens for 4k. The number of tokens is given by (height of output video * width of output video * duration * 24) / 1024."
+      ]
+    },
+    {
+      "id": "bytedance/seedance-2.0/reference-to-video",
+      "url": "https://fal.ai/models/bytedance/seedance-2.0/reference-to-video",
+      "paragraphs": [
+        "For every second of 720p video you generated, you will be charged $0.3034/second and for 1080p you will be charged $0.682/second. Your request will cost $0.014 per 1000 tokens for 480p, 720p and 1080p. Your request will cost $0.008 per 1000 tokens for 4k. The number of tokens is given by (height of output video * width of output video * (input video duration + output video duration) * 24) / 1024. If video inputs are provided the price is multiplied by 0.6. With video inputs and 720p resolution the price is $0.1814 per second."
+      ]
+    },
+    {
+      "id": "fal-ai/bytedance/seedance/v1.5/pro/image-to-video",
+      "url": "https://fal.ai/models/fal-ai/bytedance/seedance/v1.5/pro/image-to-video",
+      "paragraphs": [
+        "Each 720p 5 second video with audio costs roughly $0.26. For other resolutions, 1 million video tokens with audio costs $2.4. Without audio, the price is 1.2 per millition tokens. tokens(video) = (height x width x FPS x duration) / 1024."
+      ]
+    },
+    {
+      "id": "bytedance/seedance-2.5/us/reference-to-video",
+      "url": "https://fal.ai/models/bytedance/seedance-2.5/us/reference-to-video",
+      "paragraphs": [
+        "For every second of 720p video you generate, you will be charged roughly $0.5676/second, and for 480p you will be charged $0.2646/second, and for every second of 1080p video, you will be charged roughly 1.396278 per second. Your request will cost $0.02568 per 1000 tokens for 480p and 720p, and $0.02808 per 1000 tokens for 1080p. The number of tokens is given by (height of output video * width of output video * (input video duration + output video duration) * 24) / 1024. If video inputs are provided the price is multiplied by 0.6. With video inputs and 720p resolution, the price is roughly $0.34056 per second."
+      ]
+    },
+    {
+      "id": "bytedance/seedance-2.0/fast/image-to-video",
+      "url": "https://fal.ai/models/bytedance/seedance-2.0/fast/image-to-video",
+      "paragraphs": [
+        "For every second of 720p video you generated, you will be charged $0.2419/second. Your request will cost $0.0112 per 1000 tokens. The number of tokens is given by (height of output video * width of output video * duration * 24) / 1024.",
+        "A 10-second fast clip costs approximately $2.42, versus ~$3.03 on standard."
+      ]
+    },
+    {
+      "id": "fal-ai/bytedance/seedance/v1/pro/fast/image-to-video",
+      "url": "https://fal.ai/models/fal-ai/bytedance/seedance/v1/pro/fast/image-to-video",
+      "paragraphs": [
+        "Each 1080p 5 second video costs roughly $0.243. For other resolutions, 1 million video tokens costs $1.0. tokens(video) = (height x width x FPS x duration) / 1024."
+      ]
+    },
+    {
+      "id": "blackforestlabs/flux-3/image-to-video",
+      "url": "https://fal.ai/models/blackforestlabs/flux-3/image-to-video",
+      "paragraphs": [
+        "Your request will be charged at 0.17 $ per second of generated video at 720p, and 0.29 $ per second at 1080p."
+      ]
+    },
+    {
+      "id": "bytedance/seedance-2.0/fast/reference-to-video",
+      "url": "https://fal.ai/models/bytedance/seedance-2.0/fast/reference-to-video",
+      "paragraphs": [
+        "For every second of 720p video you generated, you will be charged $0.2419/second. Your request will cost $0.0112 per 1000 tokens. The number of tokens is given by (height of output video * width of output video * (input video duration + output video duration) * 24) / 1024. If video inputs are provided the price is multiplied by 0.6. With video inputs and 720p resolution the price is $0.14515 per second."
+      ]
+    },
+    {
+      "id": "fal-ai/bytedance/seedance/v1/pro/image-to-video",
+      "url": "https://fal.ai/models/fal-ai/bytedance/seedance/v1/pro/image-to-video",
+      "paragraphs": [
+        "Each 1080p 5 second video costs roughly $0.62. For other resolutions, 1 million video tokens costs $2.5. tokens(video) = (height x width x FPS x duration) / 1024.",
+        "Each 1080p 5 second video costs roughly $0.74 (Pro version). For other resolutions, 1 million video tokens costs $3.0. The Lite version costs $0.18 per 720p 5 second video, with 1 million video tokens costing $1.8."
+      ]
+    },
+    {
+      "id": "fal-ai/wan/v2.2-a14b/image-to-video/turbo",
+      "url": "https://fal.ai/models/fal-ai/wan/v2.2-a14b/image-to-video/turbo",
+      "paragraphs": [
+        "Your request will cost $0.10 per video for 720p, $0.075 per video for 580p, $0.05 per video for 480p."
+      ]
+    },
+    {
+      "id": "fal-ai/pixverse/v6/image-to-video",
+      "url": "https://fal.ai/models/fal-ai/pixverse/v6/image-to-video",
+      "paragraphs": [
+        "Billing is calculated per second of video generated. For 360p, your request will cost $0.025 per second without audio and $0.035 per second with audio. For 540p, it will cost $0.035 per second without audio and $0.045 per second with audio. For 720p, it will cost $0.045 per second without audio and $0.060 per second with audio. For 1080p, it will cost $0.090 per second without audio and $0.115 per second with audio. For $1 you can run this model for approximately 40 seconds at 360p (no audio) or about 11 seconds at 1080p (no audio)."
+      ]
+    },
+    {
+      "id": "fal-ai/vidu/q4/image-to-video",
+      "url": "https://fal.ai/models/fal-ai/vidu/q4/image-to-video",
+      "paragraphs": [
+        "For every second of video you generate, you will be charged $0.0315 at 540p, $0.0665 at 720p, $0.084 at 1080p, $0.133 at 2K or $0.273 at 4K. For example, a 5s video at 720p (the default) will cost $0.3325.",
+        "Note: these are promotional rates, 30% off until November 30, after which 540p is $0.045/second, 720p is $0.095/second, 1080p is $0.12/second, 2K is $0.19/second and 4K is $0.39/second."
+      ]
+    },
+    {
+      "id": "google/gemini-omni-flash/image-to-video",
+      "url": "https://fal.ai/models/google/gemini-omni-flash/image-to-video",
+      "paragraphs": [
+        "Billing is based on total token consumption. Input tokens (text/audio/video) cost $1.875 per 1 million tokens. Output tokens cost $21.875 per 1 million tokens. For 720p video this costs approximately $0.13 per second of video."
+      ]
+    },
+    {
+      "id": "bytedance/seedance-2.5/us/image-to-video",
+      "url": "https://fal.ai/models/bytedance/seedance-2.5/us/image-to-video",
+      "paragraphs": [
+        "For every second of 720p video you generate, you will be charged roughly $0.5676/second, and for 480p you will be charged $0.2646/second, and for every second of 1080p video, you will be charged roughly 1.396278 per second. Your request will cost $0.02568 per 1000 tokens for 480p and 720p, and $0.02808 per 1000 tokens for 1080p. The number of tokens is given by (height of output video * width of output video * duration * 24) / 1024."
+      ]
+    },
+    {
+      "id": "bytedance/seedance-2.0/mini/reference-to-video",
+      "url": "https://fal.ai/models/bytedance/seedance-2.0/mini/reference-to-video",
+      "paragraphs": [
+        "For every second of video generated, you will be charged roughly $0.0721/second for 480p and $0.1547/second for 720p. If a video input is provided, the video input is charged at 0.6 times the per-second price for the selected resolution. This is roughly $0.0433/second for 480p video and $0.0928/second for 720p video. You will be charged for video input and output, at the rate for the output resolution. Actual cost calculations are based on token prices, with token costs being $0.007 per 1,000 tokens for both 480p and 720p. The number of tokens is given by (height of output video * width of output video * (input video duration + output video duration) * 24) / 1024."
+      ]
+    },
+    {
+      "id": "bytedance/seedance-2.0/mini/image-to-video",
+      "url": "https://fal.ai/models/bytedance/seedance-2.0/mini/image-to-video",
+      "paragraphs": [
+        "For every second of video generated, you will be charged roughly $0.0721/second for 480p and $0.1547/second for 720p. Actual cost calculations are based on token prices, with token costs being $0.007 per 1,000 tokens for both 480p and 720p. The number of tokens is given by (height of output video * width of output video * duration * 24) / 1024."
+      ]
+    },
+    {
+      "id": "fal-ai/wan/v2.2-a14b/image-to-video",
+      "url": "https://fal.ai/models/fal-ai/wan/v2.2-a14b/image-to-video",
+      "paragraphs": [
+        "Your request will cost $0.08 per video second for 720p, $0.06 per video second for 580p, $0.04 per video second for 480p. Video seconds are calculated at 16 frames per second."
+      ]
+    },
+    {
+      "id": "fal-ai/vidu/q4/reference-to-video",
+      "url": "https://fal.ai/models/fal-ai/vidu/q4/reference-to-video",
+      "paragraphs": [
+        "For every second of video you generate, you will be charged $0.0315 at 540p, $0.0665 at 720p, $0.084 at 1080p, $0.133 at 2K or $0.273 at 4K. Turning on audio does not change the price. For example, a 5s video at 720p (the default) will cost $0.3325.",
+        "Note: these are promotional rates, 30% off until November 30, after which 540p is $0.045/second, 720p is $0.095/second, 1080p is $0.12/second, 2K is $0.19/second and 4K is $0.39/second."
+      ]
+    }
+  ]
+}

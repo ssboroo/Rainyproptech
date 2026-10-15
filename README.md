@@ -101,9 +101,9 @@ npm test
 npm run build
 ```
 
-The refresh script preserves the prior snapshot unless exactly 100 compatible entries are collected; it retries bounded catalog rate limits. Commit and deploy a refreshed snapshot after validation. The runtime validates against this versioned snapshot; catalog additions are not silently enabled without that validation. All image models still use 2 app credits, videos 6 app credits. Provider prices differ: these units are not a USD price quote or a profitability guarantee. Review provider billing before public sales.
+The refresh script preserves the prior snapshot unless exactly 100 compatible entries are collected; it retries bounded catalog rate limits. Commit and deploy a refreshed snapshot after validation. The runtime validates against this versioned snapshot; catalog additions are not silently enabled without that validation. Generation credits are calculated server-side from reviewed provider tariffs, resolution, duration and the pricing policy. See docs/pricing.md. Published tariffs are available for all 100 entries; 51 models have prepaid quote adapters, while metered models remain unavailable until their quantities can be quoted reliably.
 
-Manual video adapters use five seconds where the schema supports it; some providers require another documented duration. The UI does not promise a universal duration or resolution across all 100 models.
+Video duration and resolution are selectable from each adapter’s schema. The server submits and quotes the same supported settings.
 
 ## Brand and workspace design
 
@@ -124,3 +124,8 @@ The catalog now includes **31 project typologies** and **30 styles**, including 
 ## Photographic design library
 
 Thirty original AI architectural concept photographs now illustrate the welcome canvas, project and style libraries, visual journal and cinematic section. These are clearly labelled inspiration assets, never inserted into the private results gallery or used as proof of a customer generation. Controls and CAD source previews remain accurate to the selected file. Each concept has a full-size optimized WebP and a 640px thumbnail under `public/visuals/`; library images load lazily. The prompt briefs and generation provenance are in `docs/visual-assets.json`. Repeated material families share relevant concept references.
+
+
+### Mongolia workflow and credit packs
+
+`/guide` explains uploading, Mongolia/season context, reference checks, video length, credits and failure handling. `/pricing` starts at Starter ₮50,000 / 500 credits, then Studio ₮150,000 / 1,500 and Business ₮500,000 / 5,000. There is no connected online checkout. All inference uses the server-owned FAL_KEY: internal site credits and the owner’s Fal provider balance are separate ledgers. See docs/pricing.md for the full charge/refund flow.

@@ -3960,3 +3960,231 @@ h1 {
 .audit-pagination button:disabled {
   opacity: 0.35;
 }
+/* Local context controls and a concise, separate getting-started destination. */
+.mongolia-controls {
+  padding: 16px;
+  background: #eef3ec;
+  border: 1px solid #dce6d8;
+  border-radius: 12px;
+  margin: 12px 0;
+  color: var(--ink);
+}
+.mongolia-controls .section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.local-badge {
+  margin-left: auto;
+  background: var(--green);
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+.mongolia-controls label:not(.section-label) {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+.mongolia-controls label svg {
+  display: inline;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+.mongolia-controls select {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccd7ca;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+}
+.mongolia-controls p {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #53685c;
+  margin: 12px 0 0;
+}
+.guide-page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 0 48px;
+}
+.guide-page .page-heading h1 {
+  font-size: clamp(24px, 3vw, 40px);
+  max-width: 650px;
+  line-height: 1.2;
+  margin: 14px 0;
+}
+.guide-page .page-heading p {
+  font-size: 15px;
+  color: #53685c;
+}
+.guide-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+.guide-steps article {
+  position: relative;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.guide-steps article > span {
+  position: absolute;
+  right: 24px;
+  color: #6b806f;
+  font-size: 12px;
+  font-weight: 700;
+}
+.guide-steps article > svg {
+  color: var(--green);
+  margin-bottom: 20px;
+}
+.guide-page h2 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 0 0 12px;
+}
+.guide-page p {
+  line-height: 1.75;
+  color: #53685c;
+}
+.guide-example {
+  display: flex;
+  gap: 20px;
+  background: var(--green);
+  color: white;
+  padding: 28px;
+  border-radius: 12px;
+  margin: 24px 0;
+}
+.guide-example > svg {
+  flex-shrink: 0;
+  color: var(--lime);
+}
+.guide-example p {
+  color: #e0eadd;
+  max-width: 780px;
+}
+.guide-example button {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  border: 0;
+  background: var(--lime);
+  color: var(--ink);
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+.guide-faq {
+  padding: 24px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.guide-faq details {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.guide-faq details:last-child {
+  border-bottom: 0;
+}
+.guide-faq summary {
+  font-weight: 600;
+  cursor: pointer;
+  line-height: 1.5;
+}
+.guide-faq details p {
+  max-width: 850px;
+  margin-bottom: 0;
+}
+.guide-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 0;
+  line-height: 1.5;
+}
+.guide-cta a {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+.managed-billing {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border: 1px solid #dce6d8;
+  background: #eef3ec;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+.managed-billing > svg {
+  flex-shrink: 0;
+}
+.managed-billing p {
+  margin: 8px 0 0;
+  line-height: 1.6;
+  color: #53685c;
+}
+.tariff-detail {
+  max-width: 360px;
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.tariff-detail summary {
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--green);
+}
+.tariff-detail p {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  margin: 10px 0;
+}
+.tariff-note {
+  padding: 8px;
+  background: #f4f1e7;
+  color: #655025;
+}
+@media (max-width: 760px) {
+  .guide-steps {
+    grid-template-columns: 1fr;
+  }
+  .guide-page {
+    padding-top: 8px;
+  }
+  .guide-example {
+    padding: 20px;
+    gap: 12px;
+  }
+  .guide-cta {
+    flex-wrap: wrap;
+  }
+  .guide-cta a {
+    margin-left: 32px;
+  }
+  .studio-nav {
+    gap: 12px;
+  }
+}

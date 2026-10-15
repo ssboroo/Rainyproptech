@@ -120,8 +120,8 @@ export function buildModelInput(
     "resolution",
     model.kind === "image"
       ? mode === "speed"
-        ? ["2K", "1K"]
-        : ["4K", "2K", "1K"]
+        ? ["2K", "2k", "1K", "1k"]
+        : ["4K", "4k", "2K", "2k", "1K", "1k"]
       : ["1080p", "1080", "720p"],
   );
   pick("aspect_ratio", ["auto"]);
@@ -131,7 +131,11 @@ export function buildModelInput(
       p.type === "integer" || p.type === "number"
         ? [5, 4, 6, 3]
         : ["5", "5s", "4", "4s", "6", "6s"];
-    const v = p.enum ? choices.find((c) => p.enum!.includes(c)) : choices[0];
+    const v = p.enum
+      ? [5, "5", "5s", 4, "4", "4s", 6, "6", "6s", 3, "3", "3s"].find((c) =>
+          p.enum!.includes(c),
+        )
+      : choices[0];
     if (v !== undefined) body.duration = v;
   }
   if (model.kind === "video") {

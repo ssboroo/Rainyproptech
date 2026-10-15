@@ -3,7 +3,7 @@ import type { ModelDescriptor } from "./model-router";
 
 // Reviewed list prices, not historical averages. See docs/pricing.md and source URLs.
 export const pricingPolicy = {
-  version: "2026-10-15.2",
+  version: "2026-10-15.3",
   reviewedAt: "2026-10-15",
   validUntil: "2026-11-15",
   creditMnt: 100,
@@ -14,17 +14,66 @@ export const pricingPolicy = {
   providerReserve: 0.05,
 } as const;
 export const creditPacks = [
-  { name: "Starter", credits: 100, priceMnt: 10000 },
-  { name: "Studio", credits: 500, priceMnt: 50000 },
-  { name: "Business", credits: 2000, priceMnt: 200000 },
+  { name: "Starter", credits: 500, priceMnt: 50000 },
+  { name: "Studio", credits: 1500, priceMnt: 150000 },
+  { name: "Business", credits: 5000, priceMnt: 500000 },
 ];
 type Rule = {
   flat?: number;
   resolutions?: Record<string, number>;
   perSecond?: number;
   input?: number;
+  qualities?: Record<string, number>;
+  qualityResolutions?: Record<string, Record<string, number>>;
 };
 const rules: Record<string, Rule> = {
+  "fal-ai/flux-pro/kontext": { flat: 0.04 },
+  "fal-ai/flux-pro/kontext/max/multi": { flat: 0.08 },
+  "fal-ai/bytedance/seedream/v4.5/edit": { flat: 0.04 },
+  "fal-ai/bytedance/seedream/v4/edit": { flat: 0.03 },
+  "bytedance/seedream/v5/flash/edit": { flat: 0.027 },
+  "bytedance/seedream/v5/lite/edit": { flat: 0.035 },
+  "xai/grok-imagine-image/edit": { flat: 0.022 },
+  "xai/grok-imagine-image/quality/edit": {
+    resolutions: { "1k": 0.05, "2k": 0.07 },
+    input: 0.01,
+  },
+  "xai/grok-imagine-image/v2.0/edit": {
+    qualityResolutions: {
+      low: { "1k": 0.04, "2k": 0.06 },
+      medium: { "1k": 0.06, "2k": 0.08 },
+    },
+    input: 0.01,
+  },
+  "ideogram/v4.5/edit": {
+    qualities: { very_low: 0.008, low: 0.03, medium: 0.06, high: 0.22 },
+  },
+  "blackforestlabs/flux-3/image-to-video": {
+    resolutions: { "720p": 0.17, "1080p": 0.29 },
+  },
+  "fal-ai/pixverse/v6/image-to-video": {
+    resolutions: { "360p": 0.025, "540p": 0.035, "720p": 0.045, "1080p": 0.09 },
+  },
+  // Q4 promotional tariffs expire November 30; review gate is November 15.
+  "fal-ai/vidu/q4/image-to-video": {
+    resolutions: {
+      "540p": 0.0315,
+      "720p": 0.0665,
+      "1080p": 0.084,
+      "2k": 0.133,
+      "4k": 0.273,
+    },
+  },
+  "fal-ai/vidu/q4/reference-to-video": {
+    resolutions: {
+      "540p": 0.0315,
+      "720p": 0.0665,
+      "1080p": 0.084,
+      "2k": 0.133,
+      "4k": 0.273,
+    },
+  },
+
   "fal-ai/nano-banana-pro/edit": {
     resolutions: { "1k": 0.15, "2k": 0.15, "4k": 0.3 },
   },
@@ -166,9 +215,16 @@ export function quoteFor(
   const source = input[model.sourceField];
   if (Array.isArray(source) && source.length !== 1)
     throw new Error("Quote supports one reference");
-  const unit = rule.resolutions
-    ? rule.resolutions[resolution]
-    : (rule.perSecond ?? rule.flat);
+  const quality = String(
+    input.quality ?? props.quality?.default ?? "",
+  ).toLowerCase();
+  const unit = rule.qualityResolutions
+    ? rule.qualityResolutions[quality]?.[resolution]
+    : rule.qualities
+      ? rule.qualities[quality]
+      : rule.resolutions
+        ? rule.resolutions[resolution]
+        : (rule.perSecond ?? rule.flat);
   if (!unit) throw new Error("Unpriced resolution");
   const apiUsd = Number((unit * duration + (rule.input || 0)).toFixed(6));
   const credits = retailCredits(apiUsd);

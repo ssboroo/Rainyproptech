@@ -128,7 +128,7 @@ export function ModelPicker({
                     {m.name} ·{" "}
                     {m.priced
                       ? t("Үнэ баталгаажсан", "Priced")
-                      : t("Үнэ баталгаажуулж байна", "Price review")}
+                      : t("Хувьсах хэрэглээг хэмжих", "Metered usage pending")}
                   </option>
                 ))}
             </select>
@@ -136,7 +136,7 @@ export function ModelPicker({
         ))}
         <p className="hint">
           {t(
-            "100 загварын каталог. Үнэ баталгаажсан загваруудыг ашиглана. Токен/GPU болон хувьсах өртөгтэй загварын үнийг баталгаажуулж байна. Бүх загварыг төлбөртэй үүсгэлтээр туршаагүй.",
+            "100 загварын каталог. Үнэ баталгаажсан загваруудыг ашиглана. Токен/GPU болон хувьсах хэрэглээтэй загварын тариф AI загварууд хуудсанд бий; хэрэглээний хэмжилт бэлэн болтол сонгохгүй. Бүх загварыг төлбөртэй үүсгэлтээр туршаагүй.",
             "100-model catalog. Reviewed-price models are enabled; token/GPU and variable-cost models await price verification. Not all models have been tested with paid generations.",
           )}
         </p>

@@ -5,6 +5,9 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ModelAudit } from "@/components/model-audit";
+import { MongoliaControls } from "@/components/mongolia-controls";
+import { StudioGuide } from "@/components/studio-guide";
+import type { Scene, Season } from "@/lib/mongolia-context";
 import { VideoControls } from "@/components/video-controls";
 import { PricingPanel } from "@/components/pricing-panel";
 import type { PriceQuote } from "@/lib/pricing";
@@ -78,17 +81,21 @@ export default function Studio() {
   const pathname = usePathname(),
     router = useRouter();
   const view =
-    pathname === "/video"
-      ? "video"
-      : pathname === "/pricing"
-        ? "pricing"
-        : pathname === "/library"
-          ? "library"
-          : pathname === "/projects"
-            ? "projects"
-            : pathname === "/models"
-              ? "models"
-              : "studio";
+    pathname === "/guide"
+      ? "guide"
+      : pathname === "/video"
+        ? "video"
+        : pathname === "/pricing"
+          ? "pricing"
+          : pathname === "/library"
+            ? "library"
+            : pathname === "/projects"
+              ? "projects"
+              : pathname === "/models"
+                ? "models"
+                : "studio";
+  const [scene, setScene] = useState<Scene>("ulaanbaatar"),
+    [season, setSeason] = useState<Season>("summer");
   const [videoDuration, setVideoDuration] = useState(5),
     [videoResolution, setVideoResolution] = useState("1080p");
   const db = useMemo(() => browserDb(), []);
@@ -411,6 +418,8 @@ export default function Studio() {
           style,
           motion,
           notes,
+          scene,
+          season,
           ...(kind === "image"
             ? { source_path: path }
             : { parent_id: render!.id }),
@@ -525,6 +534,7 @@ export default function Studio() {
             ["/projects", "Миний бүтээлүүд", "My projects"],
             ["/models", "AI загварууд", "AI models"],
             ["/pricing", "Үнэ & кредит", "Pricing"],
+            ["/guide", "Заавар", "Guide"],
           ].map(([href, mn, en]) => (
             <Link
               key={href}
@@ -745,6 +755,23 @@ export default function Studio() {
               </section>
               <Link href="/models" className="model-page-link">
                 {t("AI загваруудыг сонгох →", "Choose AI models →")}
+              </Link>
+              <MongoliaControls
+                lang={lang}
+                scene={scene}
+                season={season}
+                disabled={!!active || busy}
+                onChange={(s, w) => {
+                  setScene(s);
+                  setSeason(w);
+                  pendingId.current = null;
+                }}
+              />
+              <Link href="/guide" className="model-page-link">
+                {t(
+                  "Анх удаа ашиглаж байна уу? Заавар →",
+                  "First time? Read the guide →",
+                )}
               </Link>
               <label className="notes-label">
                 {t("Нэмэлт тайлбар", "Additional direction")}
@@ -1430,8 +1457,8 @@ export default function Studio() {
                 </p>
                 <p>
                   {t(
-                    "Шалгалт: 100 схемийн нийцэл; 37 үнийн дүрэм. Бүх загварыг төлбөртэй ижил оролтоор харьцуулж туршаагүй.",
-                    "Audit: 100 schema adapters; 37 reviewed price rules. Not every model has been benchmarked with paid reference generations.",
+                    "Шалгалт: 100 схем, 100 тариф; 51 урьдчилсан үнийн тооцоо. Бүх загварыг төлбөртэй ижил оролтоор харьцуулж туршаагүй.",
+                    "Audit: 100 schemas, 100 published tariffs; 51 prepaid quote adapters. Not every model has been benchmarked with paid reference generations.",
                   )}
                 </p>
                 <Link className="quote-link" href="/">
@@ -1452,6 +1479,18 @@ export default function Studio() {
                 }
                 pendingId.current = null;
                 router.push(kind === "video" ? "/video" : "/");
+              }}
+            />
+          )}
+          {view === "guide" && (
+            <StudioGuide
+              lang={lang}
+              onExample={(text) => {
+                setNotes(text);
+                setScene("ulaanbaatar");
+                setSeason("summer");
+                pendingId.current = null;
+                router.push("/");
               }}
             />
           )}

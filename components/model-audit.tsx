@@ -7,6 +7,7 @@ type Entry = {
   kind: "image" | "video";
   docs: string;
   priced: boolean;
+  tariff?: { source: string; rates: string[] };
   verification?: string;
 };
 export function ModelAudit({
@@ -122,7 +123,34 @@ export function ModelAudit({
                   <td>
                     {m.priced
                       ? t("Баталгаажсан", "Reviewed")
-                      : t("Өртөг баталгаажуулах", "Cost review pending")}
+                      : m.tariff?.rates.length
+                        ? t("Хувьсах нэгжийн тариф", "Metered tariff")
+                        : t("Өртөг баталгаажуулах", "Cost review pending")}
+                    {!!m.tariff?.rates.length && (
+                      <details className="tariff-detail">
+                        <summary>
+                          {t("Албан ёсны тариф харах", "View provider tariff")}
+                        </summary>
+                        {m.tariff.rates.map((r, i) => (
+                          <p key={i}>{r.replaceAll("**", "")}</p>
+                        ))}
+                        {!m.priced && (
+                          <p className="tariff-note">
+                            {t(
+                              "Тариф олдсон. Токен, нийт пиксел, боловсруулалтын хугацаа эсвэл оролтын хэмжээг тооцох адаптер шаардлагатай тул урьдчилсан суутгал хараахан нээгдээгүй.",
+                              "Tariff found. Prepaid selection requires an adapter that meters tokens, pixels, runtime or input size reliably.",
+                            )}
+                          </p>
+                        )}
+                        <a
+                          href={m.tariff.source}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {t("Эх сурвалж ↗", "Source ↗")}
+                        </a>
+                      </details>
+                    )}
                   </td>
                   <td>
                     <button

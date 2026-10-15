@@ -58,6 +58,23 @@ export function PricingPanel({
           </div>
         ))}
       </div>
+      <div className="managed-billing">
+        <Coins size={20} />
+        <div>
+          <strong>
+            {t(
+              "Нэг бүртгэл. Нэг кредитийн үлдэгдэл.",
+              "One account. One credit balance.",
+            )}
+          </strong>
+          <p>
+            {t(
+              "Та сайтын кредитээрээ зураг, видео үүсгэнэ. AI үйлчилгээний холболтыг платформ хариуцна — хувийн API түлхүүр шаардахгүй.",
+              "Generate images and videos with site credits. The platform manages the AI provider connection; no personal API key is needed.",
+            )}
+          </p>
+        </div>
+      </div>
       <div className="credit-packs">
         {creditPacks.map((pack, i) => (
           <article className={i === 1 ? "featured" : ""} key={pack.name}>

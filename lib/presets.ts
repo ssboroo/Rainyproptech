@@ -1,3 +1,4 @@
+import { mongoliaContext, type Scene, type Season } from "./mongolia-context";
 export const projects = {
   exterior_facade: {
     group: "residential",
@@ -555,17 +556,30 @@ export function isInteriorStyle(s: Style) {
 }
 export const projectKeys = Object.keys(projects) as Project[];
 export const styleKeys = Object.keys(styles) as Style[];
-export function promptFor(p: Project, s: Style, notes = "") {
+export function promptFor(
+  p: Project,
+  s: Style,
+  notes = "",
+  scene: Scene = "ulaanbaatar",
+  season: Season = "summer",
+) {
   return [
     projects[p].prompt,
     styles[s].prompt,
+    mongoliaContext(scene, season),
     "PRIORITY: preserve original building massing, floor count, window grid, balconies, roof silhouette, site boundaries and camera perspective. Straight verticals, consistent geometry, realistic materials. Do not add or remove buildings. Treat the uploaded image as the authoritative structural reference. Preserve its framing and proportions. Change only surface finishes, plausible lighting and surroundings. Do not redesign the architecture to satisfy a style preset. Where the source is unclear, retain that uncertainty instead of inventing visible structural details.",
     "Create a finished professional architectural photograph from the supplied source, not a stylized illustration. Physically plausible global illumination, natural exposure, accurate material roughness, realistic glass reflections, subtle surface texture, contact shadows, restrained landscaping, straight verticals. No text, watermarks, collage, plastic surfaces or exaggerated HDR. The source drawing governs geometry; user styling instructions must not override its structure.",
     notes,
   ].join("\n");
 }
 
-export function videoPromptFor(project: Project, motion: Motion, notes = "") {
+export function videoPromptFor(
+  project: Project,
+  motion: Motion,
+  notes = "",
+  scene: Scene = "ulaanbaatar",
+  season: Season = "source",
+) {
   const context =
     category(project) === "interior"
       ? "Stay inside the source room. Slow stabilized interior walkthrough, a subtle forward dolly or lateral slide, respecting walls and the source layout. No aerial view."
@@ -574,6 +588,7 @@ export function videoPromptFor(project: Project, motion: Motion, notes = "") {
         : motions[motion].prompt;
   return [
     context,
+    mongoliaContext(scene, season),
     "One continuous short shot with gentle constant-speed camera movement. Maintain the source building identity, floor count, window grid, balconies, materials, time of day and lighting throughout. Physically plausible parallax, natural exposure, stable reflections and crisp architectural detail. No cuts, geometry morphing, added buildings or sudden weather changes. Do not reveal large unseen surfaces.",
     notes,
   ].join("\n");
