@@ -3027,3 +3027,494 @@ h1 {
 .atelier .page-heading h1 {
   letter-spacing: -1.8px;
 }
+
+/* Photographic edition: original AI architectural studies throughout the studio. */
+.photographic-welcome {
+  isolation: isolate;
+  background: #193b40;
+}
+.welcome-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 64% 54%;
+}
+.welcome-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #09232de6 0%,
+    #102d35a8 32%,
+    #102d3533 65%,
+    #102d3510 100%
+  );
+}
+.photographic-welcome .canvas-intro {
+  top: 50%;
+  transform: translateY(-50%);
+  left: 36px;
+  max-width: 47%;
+}
+.photographic-welcome .outline-pill {
+  color: #e2ebe6;
+  border-color: #d5e2da6b;
+  background: #ffffff08;
+  letter-spacing: 1.7px;
+}
+.photographic-welcome .canvas-intro h2 {
+  color: #fff;
+  font-size: clamp(29px, 3.1vw, 48px);
+  text-shadow: 0 2px 16px #0b242440;
+  margin-top: 22px;
+}
+.photographic-welcome .canvas-intro h2 em {
+  color: #dfd7b9;
+}
+.photographic-welcome .canvas-intro p {
+  color: #e0e7de;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.photographic-welcome .canvas-upload {
+  color: #193b39;
+  background: #f7f6ec;
+  border-color: #f7f6ec;
+  box-shadow: 0 3px 12px #102b2920;
+  font-weight: 600;
+  padding: 12px 16px;
+}
+.photographic-welcome .drawing-caption {
+  color: #fff;
+  background: #1430368a;
+  backdrop-filter: blur(10px);
+  border: 1px solid #ffffff30;
+  padding: 6px 9px;
+  border-radius: 4px;
+  font-size: 8px;
+  letter-spacing: 1.3px;
+}
+.atelier .output-canvas {
+  height: 510px;
+}
+.atelier .typology-quick button {
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  min-height: 132px;
+  background: #fff;
+  border-radius: 7px;
+}
+.quick-photo {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.quick-photo img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+.typology-quick .quick-photo {
+  height: 85px;
+  width: 100%;
+}
+.typology-quick .quick-photo > svg {
+  position: absolute;
+  bottom: 7px;
+  left: 7px;
+  color: #fff;
+  filter: drop-shadow(0 1px 2px #0008);
+}
+.atelier .typology-quick button > span:not(.quick-photo) {
+  font-size: 10px;
+  padding: 9px 9px 11px;
+  min-height: 43px;
+  line-height: 1.4;
+}
+.atelier .typology-quick button.selected {
+  border-color: #437b6e;
+  background: #e7f0e9;
+}
+.typology-quick .preset-check {
+  background: #fff;
+  border-radius: 50%;
+  padding: 2px;
+  width: 18px;
+  height: 18px;
+  right: 6px;
+  top: 6px;
+}
+.style-quick button {
+  padding: 5px;
+  min-height: 55px;
+  gap: 9px;
+}
+.style-quick .quick-photo {
+  height: 43px;
+  width: 57px;
+  border-radius: 4px;
+}
+.style-quick .quick-photo > svg {
+  display: none;
+}
+.style-quick button > span:not(.quick-photo) {
+  font-size: 10px;
+  line-height: 1.45;
+  padding-right: 12px;
+}
+.style-quick .preset-check {
+  top: 20px;
+}
+.library-photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.48;
+  background: #dce6de;
+  overflow: hidden;
+}
+.library-photo > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+.library-grid button:hover .library-photo > img {
+  transform: scale(1.045);
+}
+.photo-ai-label {
+  position: absolute;
+  left: 9px;
+  top: 9px;
+  color: #fff;
+  background: #1731349c;
+  border: 1px solid #ffffff36;
+  backdrop-filter: blur(8px);
+  padding: 4px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.9px;
+  font-size: 6px;
+  font-weight: 500;
+}
+.photo-type-icon {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  background: #1731348c;
+  border: 1px solid #ffffff30;
+  border-radius: 4px;
+  backdrop-filter: blur(6px);
+}
+.library-grid > button {
+  border-color: #d4ddd7;
+}
+.library-item-meta {
+  padding-top: 12px;
+}
+.inspiration-section {
+  padding: 36px 0;
+  margin-top: 12px;
+}
+.inspiration-section > header {
+  display: flex;
+  gap: 24px;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.inspiration-section h2 {
+  font-size: 28px;
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: -1px;
+  margin: 10px 0 0;
+  color: #263e43;
+}
+.inspiration-section header p {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #677c75;
+  max-width: 280px;
+  margin: 0;
+}
+.inspiration-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.inspiration-grid > button {
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 0;
+  min-width: 0;
+}
+.journal-image {
+  position: relative;
+  display: block;
+  aspect-ratio: 1.2;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #d9e1d8;
+}
+.journal-image img {
+  height: 100%;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.inspiration-grid button:hover img {
+  transform: scale(1.045);
+}
+.journal-image > span {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 7px;
+  color: #fff;
+  background: #112e348c;
+  backdrop-filter: blur(6px);
+  letter-spacing: 1px;
+  padding: 5px 7px;
+  border-radius: 3px;
+}
+.journal-image > i {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #ffffff55;
+  background: #ffffffdb;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #254c46;
+}
+.journal-caption {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0 0;
+  gap: 7px;
+}
+.journal-caption > small {
+  font-size: 7px;
+  letter-spacing: 1.3px;
+  color: #7d8c7f;
+}
+.journal-caption > strong {
+  font-size: 18px;
+  letter-spacing: -0.4px;
+  font-weight: 500;
+  color: #24443f;
+  line-height: 1.4;
+}
+.journal-caption > span {
+  font-size: 10px;
+  color: #4d7467;
+  margin-top: 2px;
+}
+.photographic-drone {
+  overflow: hidden;
+  position: relative;
+}
+.drone-photo {
+  position: relative;
+  margin: -26px -26px 25px;
+  height: 210px;
+  overflow: hidden;
+  background: #243f40;
+}
+.drone-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #0b2933bd, transparent 90%);
+}
+.drone-photo > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 52%;
+  display: block;
+}
+.drone-photo figcaption {
+  position: absolute;
+  left: 28px;
+  bottom: 25px;
+  z-index: 1;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.drone-photo figcaption > span {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #e6e8d4;
+}
+.drone-photo figcaption > strong {
+  font-size: 27px;
+  letter-spacing: -0.7px;
+  font-weight: 400;
+}
+.drone-photo figcaption > small {
+  font-size: 9px;
+  color: #e2e9dd;
+}
+.atelier .drone-section {
+  padding: 26px;
+}
+@media (max-width: 1150px) {
+  .atelier .output-canvas {
+    height: 450px;
+  }
+  .photographic-welcome .canvas-intro {
+    left: 26px;
+    max-width: 52%;
+  }
+  .photographic-welcome .canvas-intro h2 {
+    font-size: 36px;
+  }
+  .journal-caption > strong {
+    font-size: 16px;
+  }
+  .inspiration-grid {
+    gap: 12px;
+  }
+  .drone-photo {
+    height: 185px;
+  }
+}
+@media (max-width: 760px) {
+  .atelier .output-canvas {
+    height: 420px;
+  }
+  .photographic-welcome .canvas-intro {
+    left: 24px;
+    right: 24px;
+    max-width: 90%;
+    top: auto;
+    bottom: 42px;
+    transform: none;
+  }
+  .photographic-welcome .canvas-intro h2 {
+    font-size: 34px;
+    margin: 18px 0 12px;
+  }
+  .welcome-photo {
+    object-position: 65% center;
+  }
+  .welcome-shade {
+    background: linear-gradient(
+      0deg,
+      #0a2831f0 0%,
+      #102d3594 46%,
+      #102d3510 100%
+    );
+  }
+  .photographic-welcome .canvas-intro p {
+    max-width: 220px;
+    font-size: 11px;
+    margin-bottom: 18px;
+  }
+  .photographic-welcome .drawing-caption {
+    right: 14px;
+    bottom: 12px;
+    font-size: 6px;
+  }
+  .photographic-welcome .outline-pill {
+    font-size: 6px;
+  }
+  .inspiration-section {
+    padding: 28px 0;
+  }
+  .inspiration-section > header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .inspiration-section h2 {
+    font-size: 26px;
+  }
+  .inspiration-section header p {
+    max-width: 100%;
+    font-size: 10px;
+  }
+  .inspiration-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .journal-image {
+    aspect-ratio: 1.65;
+  }
+  .journal-caption {
+    padding-top: 12px;
+    gap: 6px;
+  }
+  .journal-caption > strong {
+    font-size: 21px;
+  }
+  .journal-caption > small {
+    font-size: 7px;
+  }
+  .atelier .drone-section {
+    padding: 18px;
+  }
+  .drone-photo {
+    margin: -18px -18px 20px;
+    height: 190px;
+  }
+  .drone-photo figcaption {
+    left: 20px;
+    bottom: 20px;
+  }
+  .drone-photo figcaption > strong {
+    font-size: 24px;
+  }
+  .library-photo {
+    aspect-ratio: 1.25;
+  }
+  .photo-ai-label {
+    font-size: 5px;
+    top: 6px;
+    left: 6px;
+    padding: 3px 4px;
+  }
+  .photo-type-icon {
+    width: 23px;
+    height: 23px;
+    bottom: 6px;
+    right: 6px;
+  }
+  .photo-type-icon svg {
+    width: 13px;
+    height: 13px;
+  }
+}
+.canvas-expanded .output-canvas {
+  height: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .library-photo > img,
+  .journal-image img {
+    transition: none;
+  }
+  .library-grid button:hover .library-photo > img,
+  .inspiration-grid button:hover img {
+    transform: none;
+  }
+}

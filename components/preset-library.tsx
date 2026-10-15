@@ -17,7 +17,8 @@ import {
   type Project,
   type Style,
 } from "@/lib/presets";
-import { ArchitectureIcon, StyleDrawing } from "./architecture-icon";
+import { visualFor } from "@/lib/visual-catalog";
+import { ArchitectureIcon } from "./architecture-icon";
 const groups: Record<string, [string, string]> = {
   residential: ["Орон сууц", "Residential"],
   commercial: ["Бизнес", "Commercial"],
@@ -91,16 +92,10 @@ export function PresetLibrary({
             aria-pressed={value === k}
             onClick={() => onChange(k)}
           >
-            {kind === "style" ? (
-              <span
-                className="material-dot"
-                style={{ background: data[k].color }}
-              >
-                <ArchitectureIcon name={data[k].icon} size={17} />
-              </span>
-            ) : (
-              <ArchitectureIcon name={data[k].icon} size={23} />
-            )}
+            <span className="quick-photo">
+              <img src={visualFor(kind, k)} alt="" loading="lazy" />
+              <ArchitectureIcon name={data[k].icon} size={15} />
+            </span>
             <span>{data[k][lang]}</span>
             {value === k && <Check className="preset-check" size={13} />}
           </button>
@@ -203,13 +198,22 @@ export function PresetLibrary({
                     setOpen(false);
                   }}
                 >
-                  {kind === "style" ? (
-                    <StyleDrawing color={d.color!} motif={d.icon} />
-                  ) : (
-                    <span className="typology-icon">
-                      <ArchitectureIcon name={d.icon} size={33} />
+                  <span className="library-photo">
+                    <img
+                      src={visualFor(kind, k)}
+                      alt={
+                        lang === "mn"
+                          ? `${d.mn} — AI жишээ дүрслэл`
+                          : `${d.en} — AI concept reference`
+                      }
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span className="photo-ai-label">AI CONCEPT</span>
+                    <span className="photo-type-icon">
+                      <ArchitectureIcon name={d.icon} size={17} />
                     </span>
-                  )}
+                  </span>
                   <span className="library-item-meta">
                     <small>{groups[d.group]?.[lang === "mn" ? 0 : 1]}</small>
                     <strong>{d[lang]}</strong>
@@ -241,8 +245,8 @@ export function PresetLibrary({
             <span>
               {kind === "style"
                 ? t(
-                    "Вектор дүрслэл · Жишээ рендер биш",
-                    "Vector motifs · Not sample renders",
+                    "AI жишээ дүрслэл · Материал, уур амьсгалын лавлагаа",
+                    "AI concepts · Material and mood references",
                   )
                 : t(
                     "Төсөлдөө таарсан төрлийг сонгоно уу",

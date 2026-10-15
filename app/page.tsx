@@ -1,4 +1,6 @@
 "use client";
+import { heroVisual, visualFor } from "@/lib/visual-catalog";
+import { InspirationGallery } from "@/components/inspiration-gallery";
 import dynamic from "next/dynamic";
 import { PresetLibrary } from "@/components/preset-library";
 import { ArchitectureIcon } from "@/components/architecture-icon";
@@ -888,8 +890,21 @@ export default function Studio() {
                   alt="Original architectural drawing"
                 />
               ) : (
-                <div className="welcome-canvas">
-                  <Architecture />
+                <div className="welcome-canvas photographic-welcome">
+                  <img
+                    className="welcome-photo"
+                    src={
+                      project === "exterior_facade"
+                        ? heroVisual
+                        : visualFor("project", project, true)
+                    }
+                    alt={t(
+                      "Архитектурын AI жишээ дүрслэл",
+                      "AI architectural concept reference",
+                    )}
+                    fetchPriority="high"
+                  />
+                  <div className="welcome-shade" />
                   <div className="canvas-intro">
                     <span className="outline-pill">YOUR NEXT LANDMARK</span>
                     <h2>
@@ -915,7 +930,7 @@ export default function Studio() {
                     </Button>
                   </div>
                   <span className="drawing-caption">
-                    CONCEPT MASSING / ILLUSTRATION
+                    AI CONCEPT / RAINY VISTA
                   </span>
                 </div>
               )}
@@ -1000,7 +1015,52 @@ export default function Studio() {
               </Button>
             </div>
           )}
-          <section className="drone-section">
+          <InspirationGallery
+            lang={lang}
+            mode={mode}
+            onChoose={(p, s) => {
+              setProject(p);
+              setStyle(s);
+              setRender(null);
+              setVideo(null);
+              pendingId.current = null;
+              document
+                .getElementById("studio")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+            disabled={busy || !!active}
+          />
+          <section className="drone-section photographic-drone">
+            <figure className="drone-photo">
+              <img
+                src={
+                  mode === "interior"
+                    ? visualFor("project", project, true)
+                    : "/visuals/master_plan.webp"
+                }
+                alt={t(
+                  "Дроны өнцгийн AI жишээ дүрслэл",
+                  "AI aerial concept reference",
+                )}
+                loading="lazy"
+              />
+              <figcaption>
+                <span>
+                  {mode === "interior"
+                    ? "THE INTERIOR PERSPECTIVE"
+                    : "THE AERIAL PERSPECTIVE"}
+                </span>
+                <strong>
+                  {t("Өөр өнцгөөс хар.", "See the bigger picture.")}
+                </strong>
+                <small>
+                  {t(
+                    "AI жишээ зураг · Видео биш",
+                    "AI concept still · Not a video",
+                  )}
+                </small>
+              </figcaption>
+            </figure>
             <div className="drone-heading">
               <div className="drone-icon">
                 <Video size={21} />
@@ -1200,81 +1260,5 @@ export default function Studio() {
         </div>
       )}
     </div>
-  );
-}
-function Architecture() {
-  return (
-    <svg
-      className="architecture"
-      viewBox="0 0 1000 600"
-      fill="none"
-      aria-hidden="true"
-    >
-      <defs>
-        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-          <path d="M40 0H0V40" stroke="#ccd6ce" strokeWidth=".5" />
-        </pattern>
-        <linearGradient id="face" x1="0" y1="0" x2="1" y2="1">
-          <stop stopColor="#d4ded4" />
-          <stop offset="1" stopColor="#a0b6aa" />
-        </linearGradient>
-      </defs>
-      <rect width="1000" height="600" fill="url(#grid)" />
-      <g transform="translate(390 65)">
-        <path
-          d="M-140 410L270 540L580 340L170 220Z"
-          fill="#d9e2d6"
-          stroke="#94aa9e"
-        />
-        <path
-          d="M50 55L250 0L385 70V380L185 445L50 375Z"
-          fill="url(#face)"
-          stroke="#78988c"
-        />
-        <path d="M50 55L185 125L385 70M185 125V445" stroke="#78988c" />
-        <path
-          d="M-80 220L50 180L150 230V425L20 470L-80 420Z"
-          fill="#c3d3c5"
-          stroke="#78988c"
-        />
-        <path d="M-80 220L20 270L150 230M20 270V470" stroke="#78988c" />
-        {Array.from({ length: 9 }, (_, i) => (
-          <g key={i} stroke="#78988c" opacity=".7">
-            <path
-              d={`M50 ${85 + i * 32}L185 ${155 + i * 32}L385 ${100 + i * 32}`}
-            />
-            <path d={`M185 ${145 + i * 32}L385 ${90 + i * 32}`} />
-          </g>
-        ))}
-        {Array.from({ length: 8 }, (_, i) => (
-          <path
-            key={i}
-            d={`M${205 + i * 23} ${120 - i * 6.5}V${438 - i * 7.5}`}
-            stroke="#78988c"
-            opacity=".65"
-          />
-        ))}
-        {Array.from({ length: 5 }, (_, i) => (
-          <path
-            key={i}
-            d={`M-80 ${250 + i * 34}L20 ${300 + i * 34}L150 ${260 + i * 34}`}
-            stroke="#78988c"
-            opacity=".65"
-          />
-        ))}
-        <path
-          d="M450 235L510 215L550 238V355L490 380L450 360Z"
-          fill="#c3d3c5"
-          stroke="#78988c"
-        />
-        <path d="M450 235L490 258L550 238M490 258V380" stroke="#78988c" />
-        {[-90, 200, 420].map((x, i) => (
-          <g key={x} transform={`translate(${x} ${450 - i * 32})`}>
-            <path d="M0 0V-30" stroke="#819c83" />
-            <ellipse cy="-37" rx="18" ry="24" fill="#a2b99b" opacity=".8" />
-          </g>
-        ))}
-      </g>
-    </svg>
   );
 }

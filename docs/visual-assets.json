@@ -1,0 +1,157 @@
+{
+  "generated_with": "Built-in imagegen tool",
+  "classification": "Original AI concept imagery; not client projects or user generation results",
+  "common_direction": "Photorealistic architectural magazine photography; natural exposure, credible geometry, detailed tactile materials, landscape 3:2, no text, logos, watermarks, collage or illustration.",
+  "assets": [
+    {
+      "key": "hero",
+      "file": "public/visuals/hero.webp",
+      "brief": "Contemporary pale limestone and bronze residential facade in a Ulaanbaatar-inspired cool-climate district, landscaped setting, warm late afternoon architectural photography."
+    },
+    {
+      "key": "modern_glass",
+      "file": "public/visuals/modern_glass.webp",
+      "brief": "Contemporary high-rise residential building exterior facade, floor-to-ceiling glass windows, dark metal frames, white concrete panels, lush landscaping around the building, blue sky with soft clouds, high-end architectural photography, physically plausible natural materials and lighting."
+    },
+    {
+      "key": "eco_residential",
+      "file": "public/visuals/eco_residential.webp",
+      "brief": "Eco-friendly residential complex exterior, wooden facade elements, vertical gardens, large balconies with plants, sunny bright day, professional architectural visualization, photorealistic architectural photography."
+    },
+    {
+      "key": "interior_modern",
+      "file": "public/visuals/interior_modern.webp",
+      "brief": "Warm minimalist interior, natural oak, soft neutral textiles, realistic daylight, high-end architectural photography."
+    },
+    {
+      "key": "neo_classic_building",
+      "file": "public/visuals/neo_classic_building.webp",
+      "brief": "Luxury neo-classical apartment building exterior, symmetrical facade, stone cladding, decorative columns, arched windows, elegant entrance, warm architectural lighting at dusk, photorealistic architectural photography."
+    },
+    {
+      "key": "minimalist",
+      "file": "public/visuals/minimalist.webp",
+      "brief": "Minimalist architectural finishes, quiet off-white plaster, precise reveals and muted natural materials"
+    },
+    {
+      "key": "commercial_tower",
+      "file": "public/visuals/commercial_tower.webp",
+      "brief": "Futuristic commercial skyscraper exterior, sleek steel and reflective tinted glass, dynamic architectural geometry, urban street level view, cinematic lighting, photorealistic architectural photography."
+    },
+    {
+      "key": "brutalist",
+      "file": "public/visuals/brutalist.webp",
+      "brief": "Brutalist material palette, board-formed concrete, deep natural shadows, preserve original structural form"
+    },
+    {
+      "key": "mongolian_contemporary",
+      "file": "public/visuals/mongolian_contemporary.webp",
+      "brief": "Contemporary Mongolian architectural material language, subtle Mongolian geometric motifs in facade panels, natural stone and bronze accents, preserve structure"
+    },
+    {
+      "key": "parametric",
+      "file": "public/visuals/parametric.webp",
+      "brief": "Parametric-inspired facade surface detailing applied only within existing facade planes, maintain original silhouette and window positions"
+    },
+    {
+      "key": "art_deco",
+      "file": "public/visuals/art_deco.webp",
+      "brief": "Art deco facade finish, restrained geometric ornament, warm stone and bronze accents within original geometry"
+    },
+    {
+      "key": "exposed_brick",
+      "file": "public/visuals/exposed_brick.webp",
+      "brief": "Carefully laid exposed brick facade, realistic mortar joints, dark metal window details, restrained architectural lighting"
+    },
+    {
+      "key": "timber",
+      "file": "public/visuals/timber.webp",
+      "brief": "Natural timber cladding, realistic grain and weathering, calm palette and clear glazing, retain original massing"
+    },
+    {
+      "key": "master_plan",
+      "file": "public/visuals/master_plan.webp",
+      "brief": "A high drone aerial oblique photograph of a completed modern residential neighborhood, six mid-rise apartment buildings around landscaped courtyards, clear walking paths, green parks, playground and roads with parking, believable urban master plan, late afternoon, mountains faintly in distance"
+    },
+    {
+      "key": "warehouse",
+      "file": "public/visuals/warehouse.webp",
+      "brief": "A premium modern logistics warehouse and light industrial campus, precise charcoal metal cladding, tall glazed office entrance, loading bays, clean concrete yard, realistic overcast daylight, no signage"
+    },
+    {
+      "key": "school",
+      "file": "public/visuals/school.webp",
+      "brief": "A beautifully designed contemporary three-storey school building with pale brick, timber canopies and a landscaped entrance courtyard, safe cheerful yet sophisticated architecture, clear bright day"
+    },
+    {
+      "key": "kitchen",
+      "file": "public/visuals/kitchen.webp",
+      "brief": "An elegant real residential kitchen, pale oak cabinets, honed travertine island, stainless fittings, restrained stone backsplash, full-height window and soft morning daylight, contemporary interior design magazine photography"
+    },
+    {
+      "key": "bedroom",
+      "file": "public/visuals/bedroom.webp",
+      "brief": "A serene luxurious bedroom with oak wall panels, warm neutral linen bedding, sculptural bedside lamps, large window with sheer curtains, natural daylight, detailed believable fabric texture and lived-in calm"
+    },
+    {
+      "key": "townhouse",
+      "file": "public/visuals/townhouse.webp",
+      "brief": "A row of three luxurious modern two-storey townhouses, limestone and timber facades, private front gardens, contemporary glass balustrades and low fences, quiet neighborhood street, warm sunset"
+    },
+    {
+      "key": "corten",
+      "file": "public/visuals/corten.webp",
+      "brief": "Weathered corten steel facade panels with realistic oxidation variation and precise joints"
+    },
+    {
+      "key": "tropical",
+      "file": "public/visuals/tropical.webp",
+      "brief": "Tropical architectural finishes, natural timber and stone with climate-appropriate planting, retain source structure"
+    },
+    {
+      "key": "interior_classic",
+      "file": "public/visuals/interior_classic.webp",
+      "brief": "Classic interior finish, restrained mouldings on existing walls, warm stone and elegant textiles"
+    },
+    {
+      "key": "interior_industrial",
+      "file": "public/visuals/interior_industrial.webp",
+      "brief": "Industrial loft interior finish, exposed brick, concrete and dark metal, preserve walls and opening positions"
+    },
+    {
+      "key": "interior_japandi",
+      "file": "public/visuals/interior_japandi.webp",
+      "brief": "Japandi interior, warm minimal oak, mineral plaster and woven textiles, retain original room geometry"
+    },
+    {
+      "key": "mediterranean",
+      "file": "public/visuals/mediterranean.webp",
+      "brief": "Mediterranean material palette, warm ivory stucco, terracotta accents and restrained planting, retain original roof form"
+    },
+    {
+      "key": "interior_dark",
+      "file": "public/visuals/interior_dark.webp",
+      "brief": "Dark contemporary interior, charcoal wood and muted stone, balanced warm light and realistic exposure"
+    },
+    {
+      "key": "bathroom",
+      "file": "public/visuals/bathroom.webp",
+      "brief": "An exquisite contemporary bathroom interior with honed limestone, walk-in glass shower, floating oak vanity, brushed nickel fixtures, believable proportions and beautiful soft natural window light"
+    },
+    {
+      "key": "ger_resort",
+      "file": "public/visuals/ger_resort.webp",
+      "brief": "A luxury Mongolian ger resort in a serene rolling steppe valley, real round white felt gers with traditional wooden doors, low timber decks, subtle paths and a contemporary timber reception pavilion, elegant unobtrusive architecture respecting Mongolian ger proportions, clear golden morning, high oblique aerial photograph"
+    },
+    {
+      "key": "hospital",
+      "file": "public/visuals/hospital.webp",
+      "brief": "A sophisticated new mid-rise healthcare clinic building, welcoming glazed accessible entrance, white ceramic and pale stone facade, ordered window rhythm, carefully landscaped public arrival plaza, calm clean daylight, no lettering or signage"
+    },
+    {
+      "key": "retail",
+      "file": "public/visuals/retail.webp",
+      "brief": "A beautifully designed contemporary urban street of small shops and a corner cafe, generous glass storefronts, refined brick and natural stone, black metal canopies, two storeys with planted balconies, realistic city sidewalk, soft late afternoon light, absolutely no readable signs or lettering"
+    }
+  ]
+}

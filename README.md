@@ -120,3 +120,7 @@ The importer is a visualization tool, not an authoritative CAD/BIM editor. ASCII
 The catalog now includes **31 project typologies** and **30 styles**, including interiors, residential, commercial, civic, industrial and site planning. API validation and database subtype constraints share the catalog's exact supported identifiers. Apply `20261015060828_expand_architecture_typologies.sql` after the initial migration for existing installations.
 
 `npm run dev` and `npm run build` prepare the locally served DWG JS/WASM and example files from pinned packages. Generated assets are excluded from git and included in the Docker runtime's public directory. See `public/cad/NOTICE.txt` and `public/cad/COPYING` for the separate DWG worker's open-source notices and corresponding source.
+
+## Photographic design library
+
+Thirty original AI architectural concept photographs now illustrate the welcome canvas, project and style libraries, visual journal and cinematic section. These are clearly labelled inspiration assets, never inserted into the private results gallery or used as proof of a customer generation. Controls and CAD source previews remain accurate to the selected file. Each concept has a full-size optimized WebP and a 640px thumbnail under `public/visuals/`; library images load lazily. The prompt briefs and generation provenance are in `docs/visual-assets.json`. Repeated material families share relevant concept references.
