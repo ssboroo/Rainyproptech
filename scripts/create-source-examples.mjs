@@ -70,7 +70,7 @@ export function buildingSkp() {
       [A, C, E, F],
       [a, f, e, c],
     ])
-      b.addFace(v, { material });
+      b.addFace(v, { material, backMaterial: material });
   }
   box(0, 0, 0, 360, 220, 540, wall);
   box(390, 0, 0, 240, 220, 270, wall);

@@ -45,8 +45,9 @@ export function ModelView({
     if (gpu) renderer.outputColorSpace = THREE.SRGBColorSpace;
     el.appendChild(renderer.domElement);
     const scene = new THREE.Scene();
-    scene.add(new THREE.HemisphereLight(0xffffff, 0x64777b, 2.6));
-    const sun = new THREE.DirectionalLight(0xffffff, 3);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x64777b, gpu ? 2.6 : 0));
+    if (!gpu) scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+    const sun = new THREE.DirectionalLight(0xffffff, gpu ? 3 : 0.7);
     sun.position.set(4, 8, 5);
     scene.add(sun);
     const camera = new THREE.PerspectiveCamera(
