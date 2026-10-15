@@ -12,6 +12,8 @@ const schema = z.object({
   mode: z.enum(["auto", "quality", "speed", "structure"]).default("auto"),
   image: z.string().max(180).optional(),
   video: z.string().max(180).optional(),
+  video_duration: z.coerce.number().int().min(1).max(30).optional(),
+  video_resolution: z.string().max(20).optional(),
 });
 export function GET(req: Request) {
   const parsed = schema.safeParse(
@@ -32,6 +34,7 @@ export function GET(req: Request) {
           v.motion,
           v.mode,
           v[kind] || undefined,
+          v.video_resolution,
         );
         return [
           kind,
@@ -43,6 +46,12 @@ export function GET(req: Request) {
                 "https://example.com/reference.png",
                 "Architectural visualization",
                 v.mode,
+                kind === "video"
+                  ? {
+                      duration: v.video_duration,
+                      resolution: v.video_resolution,
+                    }
+                  : {},
               ),
             ),
           },

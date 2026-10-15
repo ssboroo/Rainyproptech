@@ -1,4 +1,5 @@
 import Ajv from "ajv";
+import { videoOptions, type VideoSettings } from "./video-options";
 import snapshot from "./model-catalog.json";
 import { category, type Project, type Motion } from "./presets";
 export type RoutingMode = "auto" | "quality" | "speed" | "structure";
@@ -21,12 +22,19 @@ export function selectModel(
   motion: Motion,
   mode: RoutingMode = "auto",
   manual?: string,
+  videoResolution?: string,
 ) {
   if (manual) {
     const found = catalog.find((m) => m.id === manual && m.kind === kind);
     if (!found)
       throw new Error("Selected model is not in the compatible catalog");
     return { model: found, reason: "manual" };
+  }
+  if (kind === "video" && !manual && videoResolution?.toLowerCase() === "4k") {
+    const model = catalog.find(
+      (m) => m.id === "fal-ai/kling-video/v3/4k/image-to-video",
+    )!;
+    return { model, reason: "native-4k-quality" };
   }
   let preferences: string[];
   if (kind === "image") {
@@ -86,6 +94,7 @@ export function buildModelInput(
   source: string,
   prompt: string,
   mode: RoutingMode = "auto",
+  settings: VideoSettings = {},
 ) {
   const schema = model.schema as {
     properties?: Record<string, Property>;
@@ -124,6 +133,31 @@ export function buildModelInput(
         : ["5", "5s", "4", "4s", "6", "6s"];
     const v = p.enum ? choices.find((c) => p.enum!.includes(c)) : choices[0];
     if (v !== undefined) body.duration = v;
+  }
+  if (model.kind === "video") {
+    const options = videoOptions(model);
+    if (settings.duration !== undefined) {
+      if (!options.durations.includes(settings.duration))
+        throw new Error(
+          "Энэ загвар сонгосон хугацааг дэмжихгүй. Unsupported video duration.",
+        );
+      const p = props.duration;
+      body.duration = p.enum
+        ? p.enum.find(
+            (v) => Number(String(v).replace(/s$/, "")) === settings.duration,
+          )
+        : settings.duration;
+    }
+    if (settings.resolution && settings.resolution !== "native") {
+      const match = options.resolutions.find(
+        (r) => r.toLowerCase() === settings.resolution!.toLowerCase(),
+      );
+      if (!match)
+        throw new Error(
+          "Энэ загвар сонгосон нягтаршлыг дэмжихгүй. Unsupported video resolution.",
+        );
+      if (props.resolution) body.resolution = match;
+    }
   }
   // Explicit output settings keep quoted billing units deterministic.
   if (model.id === "bytedance/seedream/v5/pro/edit")

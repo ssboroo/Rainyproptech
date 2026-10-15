@@ -17,14 +17,14 @@ const quote = (id: string, mode: "auto" | "speed" = "auto") => {
     now,
   );
 };
-test("70% markup survives rounding and the planned 3% payment fee", () => {
+test("200% markup survives rounding and the planned 3% payment fee", () => {
   for (const api of [
     0.001, 0.039, 0.08, 0.12, 0.135, 0.3, 0.56, 0.7, 2.1, 5.82,
   ]) {
     const sales = retailCredits(api) * 100,
-      basis = api * 3600 + 50;
-    assert.ok(sales * 0.97 >= basis * 1.7 - 1e-8);
-    assert.ok((sales - 100) * 0.97 < basis * 1.7);
+      basis = api * 3700 * 1.05 + 50;
+    assert.ok(sales * 0.97 >= basis * 3 - 1e-8);
+    assert.ok((sales - 100) * 0.97 < basis * 3);
   }
   assert.throws(() => retailCredits(NaN));
   assert.throws(() => retailCredits(0));
@@ -32,12 +32,12 @@ test("70% markup survives rounding and the planned 3% payment fee", () => {
 });
 test("actual image resolution and video duration determine price", () => {
   assert.equal(quote("fal-ai/nano-banana-pro/edit").apiUsd, 0.3);
-  assert.equal(quote("fal-ai/nano-banana-pro/edit").credits, 20);
+  assert.equal(quote("fal-ai/nano-banana-pro/edit").credits, 38);
   assert.equal(quote("fal-ai/nano-banana-2/edit", "speed").apiUsd, 0.12);
   assert.equal(quote("bytedance/seedream/v5/pro/edit").apiUsd, 0.135);
   const v = quote("fal-ai/kling-video/v3/pro/image-to-video");
   assert.equal(v.apiUsd, 0.56);
-  assert.equal(v.credits, 37);
+  assert.equal(v.credits, 69);
   assert.equal(v.duration, 5);
   assert.equal(quote("fal-ai/kling-video/v3/4k/image-to-video").apiUsd, 2.1);
 });
@@ -91,4 +91,58 @@ test("unknown variable costs, expired prices and unpriced add-ons fail before ch
     () => quoteFor(m, { ...input, resolution: "8K" }, now),
     /resolution/,
   );
+});
+
+test("selected duration and native 4K are the exact submitted and charged configuration", () => {
+  const selection = selectModel(
+    "video",
+    "exterior_facade",
+    "drone_pull_back",
+    "quality",
+    undefined,
+    "4K",
+  );
+  assert.equal(selection.model.id, "fal-ai/kling-video/v3/4k/image-to-video");
+  const input = buildModelInput(
+    selection.model,
+    "https://example.com/reference.png",
+    "Drone",
+    "quality",
+    { duration: 10, resolution: "4K" },
+  );
+  assert.equal(input.duration, "10");
+  assert.equal(input.generate_audio, false);
+  const q = quoteFor(selection.model, input, now);
+  assert.equal(q.apiUsd, 4.2);
+  assert.equal(q.resolution, "4K");
+  assert.equal(q.credits, 507);
+  const pro = catalog.find(
+    (m) => m.id === "fal-ai/kling-video/v3/pro/image-to-video",
+  )!;
+  assert.throws(
+    () =>
+      buildModelInput(pro, "https://example.com/r.png", "Drone", "quality", {
+        duration: 30,
+        resolution: "1080p",
+      }),
+    /duration/,
+  );
+  assert.throws(
+    () =>
+      buildModelInput(pro, "https://example.com/r.png", "Drone", "quality", {
+        duration: 10,
+        resolution: "4K",
+      }),
+    /resolution/,
+  );
+  const p = quoteFor(
+    pro,
+    buildModelInput(pro, "https://example.com/r.png", "Drone", "quality", {
+      duration: 10,
+      resolution: "1080p",
+    }),
+    now,
+  );
+  assert.equal(p.apiUsd, 1.12);
+  assert.equal(p.credits, 137);
 });

@@ -1,15 +1,17 @@
+import { nativeResolution } from "./video-options";
 import type { ModelDescriptor } from "./model-router";
 
 // Reviewed list prices, not historical averages. See docs/pricing.md and source URLs.
 export const pricingPolicy = {
-  version: "2026-10-15.1",
+  version: "2026-10-15.2",
   reviewedAt: "2026-10-15",
   validUntil: "2026-11-15",
   creditMnt: 100,
-  usdMnt: 3600,
-  markup: 0.7,
+  usdMnt: 3700,
+  markup: 2.0,
   paymentFee: 0.03,
   overheadMnt: 50,
+  providerReserve: 0.05,
 } as const;
 export const creditPacks = [
   { name: "Starter", credits: 100, priceMnt: 10000 },
@@ -114,7 +116,9 @@ export function hasReviewedPrice(id: string) {
 export function retailCredits(apiUsd: number) {
   if (!Number.isFinite(apiUsd) || apiUsd <= 0)
     throw new Error("Invalid provider price");
-  const basis = apiUsd * pricingPolicy.usdMnt + pricingPolicy.overheadMnt;
+  const basis =
+    apiUsd * pricingPolicy.usdMnt * (1 + pricingPolicy.providerReserve) +
+    pricingPolicy.overheadMnt;
   return Math.ceil(
     (basis * (1 + pricingPolicy.markup)) /
       ((1 - pricingPolicy.paymentFee) * pricingPolicy.creditMnt),
@@ -179,7 +183,7 @@ export function quoteFor(
     resolution:
       resolution ||
       (model.kind === "video"
-        ? "model native"
+        ? nativeResolution(model.id)
         : model.id.includes("seedream")
           ? "2048×2048"
           : "model native"),

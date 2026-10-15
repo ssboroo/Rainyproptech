@@ -12,6 +12,8 @@ export const generationSchema = z
     id: z.string().uuid(),
     expected_credits: z.number().int().positive(),
     pricing_version: z.string().max(40),
+    video_duration: z.number().int().min(1).max(30).optional(),
+    video_resolution: z.string().max(20).optional(),
     routing_mode: z
       .enum(["auto", "quality", "speed", "structure"])
       .default("auto"),

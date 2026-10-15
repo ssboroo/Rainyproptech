@@ -3,6 +3,7 @@ import { generationSchema } from "@/lib/validation";
 import { category, promptFor, videoPromptFor } from "@/lib/presets";
 import { provider } from "@/lib/fal";
 import { selectModel, buildModelInput } from "@/lib/model-router";
+import { reservationMatches } from "@/lib/reservation-match";
 import { quoteFor } from "@/lib/pricing";
 export async function POST(req: Request) {
   try {
@@ -55,6 +56,7 @@ export async function POST(req: Request) {
         v.motion,
         v.routing_mode,
         v.model_id,
+        v.video_resolution,
       );
     } catch (e) {
       throw new ApiError((e as Error).message);
@@ -63,7 +65,15 @@ export async function POST(req: Request) {
     // Schema validation runs before reserving any credits.
     let input;
     try {
-      input = buildModelInput(selected.model, inputUrl, prompt, v.routing_mode);
+      input = buildModelInput(
+        selected.model,
+        inputUrl,
+        prompt,
+        v.routing_mode,
+        v.kind === "video"
+          ? { duration: v.video_duration, resolution: v.video_resolution }
+          : {},
+      );
     } catch (e) {
       throw new ApiError((e as Error).message);
     }
@@ -106,7 +116,17 @@ export async function POST(req: Request) {
       );
     const g = Array.isArray(reserved) ? reserved[0] : reserved;
     if (!g) throw new ApiError("Unable to reserve generation", 409);
-    if (g.kind !== v.kind || g.model !== model || g.prompt !== prompt)
+    if (
+      !reservationMatches(g, {
+        kind: v.kind,
+        model,
+        prompt,
+        source_path: source,
+        parent_id: v.parent_id || null,
+        credits_cost: quote.credits,
+        price_quote: quote,
+      })
+    )
       throw new ApiError(
         "Request ID already belongs to another generation",
         409,

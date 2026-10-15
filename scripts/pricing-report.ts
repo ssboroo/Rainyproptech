@@ -14,7 +14,9 @@ const rows = catalog.map((m) => {
       ),
       Date.parse(pricingPolicy.reviewedAt),
     );
-    const cost = q.apiUsd * pricingPolicy.usdMnt + pricingPolicy.overheadMnt;
+    const cost =
+      q.apiUsd * pricingPolicy.usdMnt * (1 + pricingPolicy.providerReserve) +
+      pricingPolicy.overheadMnt;
     return [
       m.id,
       m.kind,
