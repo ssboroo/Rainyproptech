@@ -1231,3 +1231,73 @@ h1 + p {
     font-size: 9px;
   }
 }
+.model-count {
+  margin-left: auto;
+  font-size: 8px !important;
+  padding: 4px 6px;
+  background: #edf3e6;
+  border-radius: 12px;
+  letter-spacing: 0;
+}
+.routing-modes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+.routing-modes button {
+  border: 1px solid #dde6d5;
+  background: #fff;
+  border-radius: 5px;
+  padding: 9px 3px;
+  font-size: 9px;
+  color: #718365;
+}
+.routing-modes button.selected {
+  background: #244c3e;
+  color: #edf4e5;
+  border-color: #244c3e;
+}
+.model-picker details {
+  margin-top: 11px;
+  border-top: 1px solid #e8eddf;
+  padding-top: 10px;
+}
+.model-picker summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: #839475;
+  cursor: pointer;
+}
+.model-picker details input,
+.model-picker select {
+  width: 100%;
+  padding: 9px 7px;
+  border: 1px solid #dde5d5;
+  border-radius: 5px;
+  background: #fafcf7;
+  font-size: 10px;
+  min-width: 0;
+  margin-top: 8px;
+}
+.model-picker details label {
+  display: block;
+  font-size: 9px;
+  margin-top: 12px;
+  color: #80916f;
+}
+.used-model {
+  margin-top: 14px;
+  font-size: 10px;
+  color: #819273;
+}
+.used-model strong {
+  font-weight: 500;
+  color: #345538;
+}
+@media (max-width: 760px) {
+  .model-picker {
+    grid-column: 1/-1;
+  }
+}

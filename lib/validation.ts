@@ -2,6 +2,10 @@ import { z } from "zod";
 export const generationSchema = z
   .object({
     id: z.string().uuid(),
+    routing_mode: z
+      .enum(["auto", "quality", "speed", "structure"])
+      .default("auto"),
+    model_id: z.string().min(1).max(180).optional(),
     kind: z.enum(["image", "video"]),
     project: z.enum([
       "interior",

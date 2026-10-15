@@ -119,7 +119,7 @@ export function videoPromptFor(project: Project, motion: Motion, notes = "") {
         : motions[motion].prompt;
   return [
     context,
-    "One continuous five-second shot with gentle constant-speed camera movement. Maintain the source building identity, floor count, window grid, balconies, materials, time of day and lighting throughout. Physically plausible parallax, natural exposure, stable reflections and crisp architectural detail. No cuts, geometry morphing, added buildings or sudden weather changes. Do not reveal large unseen surfaces.",
+    "One continuous short shot with gentle constant-speed camera movement. Maintain the source building identity, floor count, window grid, balconies, materials, time of day and lighting throughout. Physically plausible parallax, natural exposure, stable reflections and crisp architectural detail. No cuts, geometry morphing, added buildings or sudden weather changes. Do not reveal large unseen surfaces.",
     notes,
   ].join("\n");
 }

@@ -9,7 +9,7 @@ import {
   videoPromptFor,
 } from "../lib/presets";
 import { generationSchema } from "../lib/validation";
-import { imageInput, videoInput } from "../lib/fal";
+import { catalog, buildModelInput } from "../lib/model-router";
 const input = {
   id: "12345678-1234-4234-8234-123456789012",
   kind: "image",
@@ -66,7 +66,11 @@ test("video requires a valid parent render and ignores no ownership checks", () 
   );
 });
 test("premium render requests one 4K image without cropping or unsupported CFG controls", () => {
-  const v = imageInput("https://example.com/source.png", "render");
+  const v = buildModelInput(
+    catalog.find((m) => m.id === "fal-ai/nano-banana-pro/edit")!,
+    "https://example.com/source.png",
+    "render",
+  );
   assert.equal(v.resolution, "4K");
   assert.equal(v.aspect_ratio, "auto");
   assert.deepEqual(v.image_urls, ["https://example.com/source.png"]);
@@ -82,7 +86,11 @@ test("camera prompts respect interior and master plan geometry", () => {
 });
 
 test("Kling request uses documented start image, five seconds and no audio", () => {
-  const v = videoInput("https://example.com/render.png", "pan");
+  const v = buildModelInput(
+    catalog.find((m) => m.id === "fal-ai/kling-video/v3/pro/image-to-video")!,
+    "https://example.com/render.png",
+    "pan",
+  );
   assert.equal(v.duration, "5");
   assert.equal(v.start_image_url, "https://example.com/render.png");
   assert.equal(v.generate_audio, false);

@@ -1,13 +1,8 @@
 import { authorized, ApiError, failure } from "@/lib/supabase";
 import { generationSchema } from "@/lib/validation";
 import { category, promptFor, videoPromptFor } from "@/lib/presets";
-import {
-  provider,
-  IMAGE_MODEL,
-  VIDEO_MODEL,
-  imageInput,
-  videoInput,
-} from "@/lib/fal";
+import { provider } from "@/lib/fal";
+import { selectModel, buildModelInput } from "@/lib/model-router";
 export async function POST(req: Request) {
   try {
     const { db, user } = await authorized(req);
@@ -51,7 +46,27 @@ export async function POST(req: Request) {
       v.kind === "image"
         ? promptFor(project, style, v.notes)
         : videoPromptFor(project, v.motion, v.notes);
-    const model = v.kind === "image" ? IMAGE_MODEL : VIDEO_MODEL;
+    let selected;
+    try {
+      selected = selectModel(
+        v.kind,
+        project,
+        v.motion,
+        v.routing_mode,
+        v.model_id,
+      );
+    } catch (e) {
+      throw new ApiError((e as Error).message);
+    }
+    const model = selected.model.id;
+    // Schema validation runs before reserving any credits.
+    let input;
+    try {
+      input = buildModelInput(selected.model, inputUrl, prompt, v.routing_mode);
+    } catch (e) {
+      throw new ApiError((e as Error).message);
+    }
+
     const { data: reserved, error } = await db.rpc("reserve_generation", {
       p_id: v.id,
       p_user: user.id,
@@ -92,10 +107,7 @@ export async function POST(req: Request) {
       let requestId: string;
       try {
         const r = await fal.queue.submit(model, {
-          input:
-            v.kind === "image"
-              ? imageInput(inputUrl, prompt)
-              : videoInput(inputUrl, prompt),
+          input,
         });
         requestId = r.request_id;
       } catch (e) {
@@ -108,6 +120,26 @@ export async function POST(req: Request) {
           });
           if (r.error) throw r.error;
         }
+        if (status === 402)
+          throw new ApiError(
+            "Fal.ai balance is insufficient. Credits refunded.",
+            402,
+          );
+        if (status === 401 || status === 403)
+          throw new ApiError(
+            "Fal.ai key or model access is not permitted. Credits refunded.",
+            403,
+          );
+        if (status === 429)
+          throw new ApiError(
+            "This model is busy. Credits refunded; retry later.",
+            429,
+          );
+        if (status === 400 || status === 422)
+          throw new ApiError(
+            "Provider rejected this model input. Credits refunded.",
+            422,
+          );
         throw e;
       }
       const saved = await db
@@ -117,7 +149,13 @@ export async function POST(req: Request) {
       if (saved.error) throw saved.error;
     }
     return Response.json(
-      { id: g.id, status: claim ? "queued" : g.status },
+      {
+        id: g.id,
+        status: claim ? "queued" : g.status,
+        model,
+        model_name: selected.model.name,
+        selection_reason: selected.reason,
+      },
       { status: 202 },
     );
   } catch (e) {

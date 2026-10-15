@@ -28,6 +28,7 @@ import {
   ReactCompareSlider,
   ReactCompareSliderImage,
 } from "react-compare-slider";
+import { ModelPicker } from "@/components/model-picker";
 import { Button } from "@/components/ui/button";
 import { browserDb } from "@/lib/browser";
 import {
@@ -47,6 +48,8 @@ type Generation = {
   project_subtype?: Project;
   style_preset?: Style;
   created_at?: string;
+  model?: string;
+  model_name?: string;
 };
 export default function Studio() {
   const db = useMemo(() => browserDb(), []);
@@ -74,6 +77,11 @@ export default function Studio() {
     [active, setActive] = useState<string | null>(null),
     [message, setMessage] = useState(""),
     [drag, setDrag] = useState(false);
+  const [routingMode, setRoutingMode] = useState<
+    "auto" | "quality" | "speed" | "structure"
+  >("auto");
+  const [imageModel, setImageModel] = useState(""),
+    [videoModel, setVideoModel] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
   const pendingId = useRef<string | null>(null);
   const api = useCallback(
@@ -240,6 +248,10 @@ export default function Studio() {
         body: JSON.stringify({
           id,
           kind,
+          routing_mode: routingMode,
+          ...((kind === "image" ? imageModel : videoModel)
+            ? { model_id: kind === "image" ? imageModel : videoModel }
+            : {}),
           project,
           style,
           motion,
@@ -518,6 +530,19 @@ export default function Studio() {
               })}
             </div>
           </section>
+          <ModelPicker
+            lang={lang}
+            mode={routingMode}
+            image={imageModel}
+            video={videoModel}
+            disabled={busy || !!active}
+            onChange={(m, i, v) => {
+              setRoutingMode(m);
+              setImageModel(i);
+              setVideoModel(v);
+              pendingId.current = null;
+            }}
+          />
           <label className="notes-label">
             {t("Нэмэлт тайлбар", "Additional direction")}
             <textarea
@@ -575,7 +600,7 @@ export default function Studio() {
             <div className="edition-badge">
               <ScanLine size={17} />
               <span>
-                AI POWERED<small>4K RENDER / CINEMATIC VIDEO</small>
+                AI POWERED<small>MULTI-MODEL AI STUDIO</small>
               </span>
             </div>
           </div>
@@ -610,8 +635,8 @@ export default function Studio() {
                   {i === 0
                     ? t("Өөрийн зурагт тулгуурлана", "Based on your drawing")
                     : i === 1
-                      ? t("2 кредит · 4K хүсэлт", "2 credits · 4K requested")
-                      : t("6 кредит · 5 секунд", "6 credits · 5 seconds")}
+                      ? t("2 кредит · AI рендер", "2 credits · AI render")
+                      : t("6 кредит · AI видео", "6 credits · AI video")}
                 </small>
               </li>
             ))}
@@ -878,7 +903,7 @@ export default function Studio() {
                 </h2>
               </div>
               <span className="duration">
-                5 SEC / 6 {t("КРЕДИТ", "CREDITS")}
+                AI VIDEO / 6 {t("КРЕДИТ", "CREDITS")}
               </span>
             </div>
             <div className="motion-grid">
@@ -938,6 +963,12 @@ export default function Studio() {
               </Button>
             </div>
           </section>
+          {(tab === "video" ? video?.model_name : render?.model_name) && (
+            <p className="used-model">
+              {t("Ашигласан загвар", "Model used")}:{" "}
+              <strong>{(tab === "video" ? video : render)?.model_name}</strong>
+            </p>
+          )}
           <section className="history-section">
             <div className="history-heading">
               <h3>

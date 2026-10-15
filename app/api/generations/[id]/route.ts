@@ -1,5 +1,6 @@
 import { authorized, ApiError, failure } from "@/lib/supabase";
 import { provider } from "@/lib/fal";
+import { extractOutput, catalog } from "@/lib/model-router";
 import { persistOutput } from "@/lib/media";
 export async function GET(
   req: Request,
@@ -32,8 +33,7 @@ export async function GET(
           };
           if (data.has_nsfw_concepts?.some(Boolean))
             throw new ApiError("Provider rejected output", 422);
-          const url =
-            g.kind === "image" ? data.images?.[0]?.url : data.video?.url;
+          const url = extractOutput(data, g.kind);
           if (!url || new URL(url).protocol !== "https:")
             throw new ApiError("Invalid provider output", 422);
           const path = await persistOutput(db, user.id, id, g.kind, url);
@@ -73,6 +73,8 @@ export async function GET(
       .createSignedUrl(g.source_path, 3600);
     return Response.json({
       id: g.id,
+      model: g.model,
+      model_name: catalog.find((m) => m.id === g.model)?.name || g.model,
       kind: g.kind,
       status: g.status,
       output_url: g.output_url,

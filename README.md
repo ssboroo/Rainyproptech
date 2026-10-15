@@ -84,3 +84,23 @@ GitHub Actions runs tests and production build. Docker uses Next standalone outp
 Both render and video use one provider and the same server-only `FAL_KEY`; no Google API key, separate Kling key, GPU, ControlNet installation or custom LoRA is required. Default render is Nano Banana Pro at 4K, default video is Kling 3.0 Pro at 5 seconds with audio off. The app requests documented resolution settings, but does not certify measured quality or structural accuracy without live reference tests. The image model does not expose FLUX guidance / ControlNet fields, so those parameters are deliberately not sent. This is a photo-quality editing workflow; exact CAD geometry remains a review responsibility.
 
 Existing jobs retain their stored model ID, so status checks continue using the model that originally created the job. Credit prices remain 2 / 6 app units; validate your provider costs before enabling paid sales.
+
+## 100-model workspace and routing
+
+`lib/model-catalog.json` contains 100 unique active Fal endpoints (50 image-to-image and 50 image-to-video), with their official OpenAPI input schemas and retrieval time. The sync script filters out models requiring unrelated audio, masks, segmentation or avatar tasks. These are **100 schema-compatible adapters**, not a claim that 100 paid outputs have been tested. Native 3D, audio-only, training and text-only models are outside this source-image architectural workflow.
+
+The default **Auto** policy selects by generation type, project type and camera motion. Quality / Speed / Structure change the preference policy. These are transparent rules, not an AI vision analysis or measured benchmark. A manual catalog picker exposes every included adapter. Some image adapters enhance or upscale an existing image; they are available manually, but automatic rendering prefers generative architecture-capable image editors. The selected model ID is stored on the generation and displayed beside the result.
+
+Each adapter constructs the correct image field, supported resolution/duration and safe single-output controls. AJV validates against the provider schema **before any credits are reserved**. There is no automatic paid retry with another provider after submission, since a timeout may already represent a billable job. Existing jobs keep their original model ID. Media extraction supports both singular and plural file responses; downloaded content still passes host, MIME and size checks.
+
+Refresh the compatible model snapshot from Fal's public catalog with Python 3:
+
+```sh
+python scripts/sync-model-catalog.py
+npm test
+npm run build
+```
+
+The refresh script preserves the prior snapshot unless exactly 100 compatible entries are collected; it retries bounded catalog rate limits. Commit and deploy a refreshed snapshot after validation. The runtime validates against this versioned snapshot; catalog additions are not silently enabled without that validation. All image models still use 2 app credits, videos 6 app credits. Provider prices differ: these units are not a USD price quote or a profitability guarantee. Review provider billing before public sales.
+
+Manual video adapters use five seconds where the schema supports it; some providers require another documented duration. The UI does not promise a universal duration or resolution across all 100 models.
