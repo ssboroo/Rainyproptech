@@ -298,6 +298,7 @@ export default function Studio() {
     setSourceUrl("");
     pendingId.current = null;
     setTab("render");
+    router.push("/");
     setMessage("");
   }
   async function loadExample(extension: "dxf" | "skp") {
@@ -1354,6 +1355,8 @@ export default function Studio() {
                 disabled={busy || !!active}
                 onChange={(key) => {
                   setProject(key as Project);
+                  setRender(null);
+                  setVideo(null);
                   pendingId.current = null;
                   router.push("/");
                 }}
@@ -1366,6 +1369,8 @@ export default function Studio() {
                 disabled={busy || !!active}
                 onChange={(key) => {
                   setStyle(key as Style);
+                  setRender(null);
+                  setVideo(null);
                   pendingId.current = null;
                   router.push("/");
                 }}
@@ -1460,13 +1465,16 @@ export default function Studio() {
           )}
           {view === "projects" && (
             <>
+              <div className="page-heading">
+                <h1>{t("Миний бүтээлүүд", "My projects")}</h1>
+              </div>
               <ResultsGallery
                 jobs={history}
                 lang={lang}
                 signedIn={!!user}
                 onOpen={(g) => {
                   void selectJob(g);
-                  router.push("/");
+                  router.push(g.kind === "video" ? "/video" : "/");
                   document
                     .getElementById("studio")
                     ?.scrollIntoView({ behavior: "smooth" });
