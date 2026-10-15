@@ -1,4 +1,4 @@
-# RAINY PropTech AI Studio
+# RAINY VISTA — Architectural AI Studio
 
 Mongolian / English architectural visualization workspace built with Next.js 15 App Router, TypeScript, Tailwind, Radix/shadcn-compatible UI, react-compare-slider, Supabase and Fal.ai. This repository was empty before this implementation; there was no existing interior application or database to migrate.
 
@@ -104,3 +104,9 @@ npm run build
 The refresh script preserves the prior snapshot unless exactly 100 compatible entries are collected; it retries bounded catalog rate limits. Commit and deploy a refreshed snapshot after validation. The runtime validates against this versioned snapshot; catalog additions are not silently enabled without that validation. All image models still use 2 app credits, videos 6 app credits. Provider prices differ: these units are not a USD price quote or a profitability guarantee. Review provider billing before public sales.
 
 Manual video adapters use five seconds where the schema supports it; some providers require another documented duration. The UI does not promise a universal duration or resolution across all 100 models.
+
+## Brand and workspace design
+
+RAINY VISTA uses a native SVG perspective mark, a cream / navy / teal workspace, responsive project controls, an expandable comparison canvas and a private completed-results gallery. Brand assets live in `public/brand/`. The gallery displays only completed authenticated outputs; it never substitutes stock imagery for generated results.
+
+Workflow references: [Chaos Veras](https://www.chaos.com/veras), [REimagineHome exterior](https://www.reimaginehome.ai/render-exterior-structures), and [Formas](https://www.formas.ai/). No competitor assets are included.

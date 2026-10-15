@@ -28,6 +28,7 @@ import {
   ReactCompareSlider,
   ReactCompareSliderImage,
 } from "react-compare-slider";
+import { ResultsGallery } from "@/components/results-gallery";
 import { ModelPicker } from "@/components/model-picker";
 import { Button } from "@/components/ui/button";
 import { browserDb } from "@/lib/browser";
@@ -60,7 +61,7 @@ export default function Studio() {
     [style, setStyle] = useState<Style>("modern_glass"),
     [motion, setMotion] = useState<Motion>("drone_pull_back");
   const [notes, setNotes] = useState(""),
-    [brand, setBrand] = useState("RAINY PROPERTIES"),
+    [brand, setBrand] = useState("RAINY VISTA"),
     [source, setSource] = useState<File | null>(null),
     [preview, setPreview] = useState(""),
     [sourceUrl, setSourceUrl] = useState(""),
@@ -82,6 +83,26 @@ export default function Studio() {
   >("auto");
   const [imageModel, setImageModel] = useState(""),
     [videoModel, setVideoModel] = useState("");
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  useEffect(() => {
+    function close(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setExpanded(false);
+        setSettingsOpen(false);
+      }
+    }
+    window.addEventListener("keydown", close);
+    const lock =
+      expanded ||
+      (settingsOpen && window.matchMedia("(max-width:760px)").matches);
+    const previous = document.body.style.overflow;
+    if (lock) document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", close);
+      document.body.style.overflow = previous;
+    };
+  }, [expanded, settingsOpen]);
   const fileRef = useRef<HTMLInputElement>(null);
   const pendingId = useRef<string | null>(null);
   const api = useCallback(
@@ -262,6 +283,7 @@ export default function Studio() {
         }),
       });
       setActive(result.id);
+      setSettingsOpen(false);
       setTab(kind === "video" ? "video" : "render");
       void refresh();
     } catch (e) {
@@ -325,22 +347,33 @@ export default function Studio() {
   const ready = render?.status === "completed";
   const before = preview || sourceUrl;
   return (
-    <div className="studio-shell">
+    <div className={"studio-shell " + (settingsOpen ? "settings-open" : "")}>
       <header className="topbar">
         <a className="logo" href="/">
-          <span className="logo-mark">
-            <Layers3 size={23} />
-          </span>
-          <span>
-            RAINY<span className="logo-light"> / PROPTECH</span>
-            <small>ARCHITECTURE STUDIO</small>
+          <img className="vista-logo" src="/brand/vista-mark.svg" alt="" />
+          <span className="vista-wordmark">
+            RAINY <b>VISTA</b>
+            <small>ARCHITECTURE IN PERSPECTIVE</small>
           </span>
         </a>
-        <div className="header-center">
-          <span className="live-dot" />
-          {t("Санаанаас бодит дүрслэл рүү", "From concept to reality")}
-        </div>
+        <nav
+          className="header-center studio-nav"
+          aria-label={t("Үндсэн цэс", "Main navigation")}
+        >
+          <a href="#studio">{t("Студио", "Studio")}</a>
+          <a href="#results">{t("Бодит үр дүн", "Real results")}</a>
+          <a href="#workflow">{t("Хэрхэн ажиллах вэ", "How it works")}</a>
+        </nav>
         <div className="header-actions">
+          <button
+            className="settings-toggle"
+            aria-expanded={settingsOpen}
+            aria-controls="project-settings"
+            onClick={() => setSettingsOpen(!settingsOpen)}
+          >
+            <PanelTop size={16} />
+            <span>{t("Тохиргоо", "Settings")}</span>
+          </button>
           <button
             className="language"
             onClick={() => setLang(lang === "mn" ? "en" : "mn")}
@@ -361,7 +394,18 @@ export default function Studio() {
         </div>
       </header>
       <div className="workspace">
-        <aside className="sidebar">
+        <button
+          className="settings-scrim"
+          aria-label={t("Тохиргоо хаах", "Close settings")}
+          onClick={() => setSettingsOpen(false)}
+        />
+        <aside id="project-settings" className="sidebar">
+          <button
+            className="settings-close"
+            onClick={() => setSettingsOpen(false)}
+          >
+            {t("Тохиргоог хаах", "Close settings")} ×
+          </button>
           <div className="sidebar-title">
             <span>CREATIVE WORKSPACE</span>
             <span>01 — 03</span>
@@ -583,12 +627,15 @@ export default function Studio() {
             </span>
           </div>
         </aside>
-        <main className="main">
+        <main className="main" id="studio">
           <div className="page-heading">
             <div>
-              <div className="eyebrow">EXTERIOR & MASTER PLAN EDITION</div>
+              <div className="eyebrow">YOUR VISION. IN PERSPECTIVE.</div>
               <h1>
-                {t("Төсөөллөө бодит болго.", "Bring your vision to life.")}
+                {t(
+                  "Зургаас эхэл. Орчинд нь оч.",
+                  "From a drawing. Into a place.",
+                )}
               </h1>
               <p>
                 {t(
@@ -605,6 +652,7 @@ export default function Studio() {
             </div>
           </div>
           <ol
+            id="workflow"
             className="workflow-steps"
             aria-label={t("Ажлын дараалал", "Workflow")}
           >
@@ -682,7 +730,9 @@ export default function Studio() {
               </Button>
             </div>
           )}
-          <div className="canvas-panel">
+          <div
+            className={"canvas-panel " + (expanded ? "canvas-expanded" : "")}
+          >
             <div className="canvas-toolbar">
               <div className="view-tabs">
                 <button
@@ -714,6 +764,15 @@ export default function Studio() {
                   Drone Tour
                 </button>
               </div>
+              <button
+                className="expand-canvas"
+                aria-pressed={expanded}
+                onClick={() => setExpanded(!expanded)}
+              >
+                {expanded
+                  ? t("Хаах ×", "Close ×")
+                  : t("Томоор үзэх ↗", "Expand ↗")}
+              </button>
               <div className="canvas-meta">
                 <span className="live-dot" />
                 {ready
@@ -969,51 +1028,44 @@ export default function Studio() {
               <strong>{(tab === "video" ? video : render)?.model_name}</strong>
             </p>
           )}
-          <section className="history-section">
-            <div className="history-heading">
-              <h3>
-                <Clock3 size={16} />
-                {t("Сүүлийн бүтээлүүд", "Recent creations")}
-              </h3>
-              {user && (
-                <button onClick={() => refresh()} aria-label="Refresh history">
-                  <RotateCcw size={14} />
-                </button>
-              )}
-            </div>
-            {history.length ? (
-              <div className="history-grid">
-                {history.map((g) => (
-                  <button key={g.id} onClick={() => selectJob(g)}>
-                    {g.kind === "image" && g.output_url ? (
-                      <img src={g.output_url} alt="Previous render" />
-                    ) : (
-                      <span className="history-placeholder">
-                        {g.kind === "video" ? <Video /> : <ImageIcon />}
-                      </span>
-                    )}
+          <ResultsGallery
+            jobs={history}
+            lang={lang}
+            signedIn={!!user}
+            onOpen={(g) => {
+              void selectJob(g);
+              document
+                .getElementById("studio")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+            onStart={() =>
+              user ? fileRef.current?.click() : setAuthOpen(true)
+            }
+            onRefresh={() => void refresh()}
+          />
+          {history.some((g) => g.status !== "completed") && (
+            <details className="job-activity">
+              <summary>
+                <Clock3 size={14} />
+                {t("Боловсруулалтын түүх", "Processing activity")}
+              </summary>
+              {history
+                .filter((g) => g.status !== "completed")
+                .map((g) => (
+                  <button key={g.id} onClick={() => void selectJob(g)}>
                     <span>
-                      {g.project_subtype
-                        ? projects[g.project_subtype]?.[lang]
-                        : g.kind}
-                      <small>
-                        {g.status} · {g.kind === "image" ? 2 : 6} cr
-                      </small>
+                      {g.kind === "image"
+                        ? t("Рендер", "Render")
+                        : t("Видео", "Video")}
                     </span>
+                    <small>{g.status}</small>
+                    <ArrowUpRight size={14} />
                   </button>
                 ))}
-              </div>
-            ) : (
-              <p className="history-empty">
-                {t(
-                  "Эхний бүтээлээ эндээс үргэлжлүүлэн хөгжүүлээрэй.",
-                  "Your creative journey starts with the first render.",
-                )}
-              </p>
-            )}
-          </section>
+            </details>
+          )}
           <footer className="main-footer">
-            <span>RAINY PROPTECH © 2026</span>
+            <span>RAINY VISTA © 2026</span>
             <span>
               {t(
                 "Архитектурын шинэ өнцөг.",
@@ -1040,7 +1092,12 @@ export default function Studio() {
             >
               ×
             </button>
-            <Layers3 size={32} />
+            <img
+              src="/brand/vista-mark.svg"
+              width={44}
+              height={44}
+              alt="RAINY VISTA"
+            />
             {message && <p role="status">{message}</p>}
             <h2>
               {t(
