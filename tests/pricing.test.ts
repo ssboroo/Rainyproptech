@@ -35,6 +35,10 @@ test("actual image resolution and video duration determine price", () => {
   assert.equal(quote("fal-ai/nano-banana-pro/edit").credits, 38);
   assert.equal(quote("fal-ai/nano-banana-2/edit", "speed").apiUsd, 0.12);
   assert.equal(quote("bytedance/seedream/v5/pro/edit").apiUsd, 0.135);
+  assert.equal(
+    quote("fal-ai/bytedance/seedream/v4.5/edit").resolution,
+    "model native",
+  );
   const v = quote("fal-ai/kling-video/v3/pro/image-to-video");
   assert.equal(v.apiUsd, 0.56);
   assert.equal(v.credits, 69);

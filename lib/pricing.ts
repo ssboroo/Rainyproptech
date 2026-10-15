@@ -242,7 +242,7 @@ export function quoteFor(
       resolution ||
       (model.kind === "video"
         ? nativeResolution(model.id)
-        : model.id.includes("seedream")
+        : model.id === "bytedance/seedream/v5/pro/edit"
           ? "2048×2048"
           : "model native"),
     duration: model.kind === "video" ? duration : null,

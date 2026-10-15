@@ -46,16 +46,13 @@
     "bytedance/seedream/v5/pro/edit": {
       "source": "https://fal.ai/models/bytedance/seedream/v5/pro/edit",
       "rates": [
-        "You will be charged for both input and output images. The first input image is not charged, and every additional input image will cost **$0.0045**.   Tentative pricing is **$0.0675+ $(0.0045 x number of additional input images)** per output image for images of total area less than or equal to **1536x1536** pixels. For output images with area in between **1536x1536** and **2048x2048** pixels, the price is **$0.135 + $(0.0045 x number of additional input images)** per image.",
-        "Your request will cost **$0.03375 per generated layer** for total pixel area under 1536x1536. For total pixel area over 1536x1536, each request will cost **$0.0675 per generated layer** .  Please note that total pixel area is determined from the size of the generated base layer.",
-        "Tentative pricing is **$0.0675** per image for images of total area less than or equal to **1536x1536** pixels. For images with area in between **1536x1536** and **2048x2048** pixels, the price is **$0.135** per image."
+        "You will be charged for both input and output images. The first input image is not charged, and every additional input image will cost **$0.0045**.   Tentative pricing is **$0.0675+ $(0.0045 x number of additional input images)** per output image for images of total area less than or equal to **1536x1536** pixels. For output images with area in between **1536x1536** and **2048x2048** pixels, the price is **$0.135 + $(0.0045 x number of additional input images)** per image."
       ]
     },
     "fal-ai/flux-pro/kontext": {
       "source": "https://fal.ai/models/fal-ai/flux-pro/kontext",
       "rates": [
-        "Your request will cost $0.04 per image.",
-        "Your request will cost $0.04 per image. Our transparent, per-image pricing makes it cost-effective for both experimentation and production use:"
+        "Your request will cost $0.04 per image."
       ]
     },
     "fal-ai/seedvr/upscale/image": {
@@ -67,8 +64,7 @@
     "fal-ai/bytedance/seedream/v4.5/edit": {
       "source": "https://fal.ai/models/fal-ai/bytedance/seedream/v4.5/edit",
       "rates": [
-        "Your request will cost $0.04 per image.",
-        "ByteDance's Seedream 4.5 transforms existing images through natural language instructions at $0.04 per edit, processing up to 10 reference images simultaneously for complex multi-source compositions. Trading simple single-image workflows for sophisticated context-aware editing, this unified architecture references multiple sources, copies specific elements between images, and maintains spatial relationships without manual masking. Built for e-commerce teams assembling product composites, designers prototyping layout variations, and marketing workflows requiring consistent brand element integration across visuals."
+        "Your request will cost $0.04 per image."
       ]
     },
     "fal-ai/flux-2-pro/edit": {
@@ -225,8 +221,7 @@
     "fal-ai/flux/dev/image-to-image": {
       "source": "https://fal.ai/models/fal-ai/flux/dev/image-to-image",
       "rates": [
-        "Your request will cost $0.03 per megapixel.",
-        "Your request will cost $0.03 per megapixel. Images are billed by rounding up to the nearest megapixel. Our transparent, usage-based pricing scales with your needs:"
+        "Your request will cost $0.03 per megapixel."
       ]
     },
     "fal-ai/flux-2/flash/edit": {
@@ -262,8 +257,7 @@
     "clarityai/crystal-upscaler": {
       "source": "https://fal.ai/models/clarityai/crystal-upscaler",
       "rates": [
-        "Your request will cost $0.016 per megapixel.",
-        "Clarity AI's Crystal Upscaler delivers specialized facial enhancement at $0.016 per megapixel with portrait-optimized upscaling up to 200x scale factor. Trading general-purpose upscaling for facial detail precision, it targets portrait photographers and content creators who need professional-grade facial enhancement without complex post-processing workflows."
+        "Your request will cost $0.016 per megapixel."
       ]
     },
     "bytedance/seedream/v5/lite/edit": {
@@ -311,23 +305,14 @@
     "fal-ai/kling-video/v3/pro/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/kling-video/v3/pro/image-to-video",
       "rates": [
-        "For every second of video you generated, you will be charged **$0.112** (audio off) or **$0.168** (audio on), if voice control is used while generating audio you will be charged **$0.196**. For example, a 5s video with audio on and voice control will cost **$0.98**",
-        "For every second of video you generated, you will be charged **$0.42** regardless of whether audio is on or off. For example, a **5s** video will cost **$2.10**.",
-        "For every second of video you generated, you will be charged **$0.084** (audio off) or **$0.126** (audio on), if voice control is used while generating audio you will be charged **$0.154**. For example, a 5s video with audio on and voice control will cost **$0.77**"
+        "For every second of video you generated, you will be charged **$0.112** (audio off) or **$0.168** (audio on), if voice control is used while generating audio you will be charged **$0.196**. For example, a 5s video with audio on and voice control will cost **$0.98**"
       ]
     },
     "minimax/h3-max/image-to-video": {
       "source": "https://fal.ai/models/minimax/h3-max/image-to-video",
       "rates": [
         "Video costs **$0.03** per second at **480p**, **$0.048** per second at **768p**, and **$0.096** per second at **1080p**.\\\\n\\\\nNote: these are promotional rates, **40%** off for a limited time. The discount ends **October 15**, after which **480p** is **$0.05**/second, **768p** is **$0.08**/second, and **1080p** is **$0.16**/second.",
-        "For every second of video you generate you will be charged $0.05 at 480p, $0.08 at 768p or $0.16 at 1080p (minimum 5 seconds), plus reference token usage for your input video and images, the same as H3 Max Reference to Video. If you don't provide reference images, up to max_generated_reference_images (default 2) are generated automatically at about $0.02–$0.04 each. For example, a 5 second 16:9 video at 768p with your own reference images costs about $0.96.\",\"billingMessage\":\"For every second of video you generate you will be charged $0.05 at 480p, $0.08 at 768p or $0.16 at 1080p (minimum 5 seconds), plus reference token usage for your input video and images, the same as H3 Max Reference to Video. If you don't provide reference images, up to max_generated_reference_images (default 2) are generated automatically at about $0.02–$0.04 each. For example, a 5 second 16:9 video at 768p with your own reference images costs about $0.96.",
         "Sessions cost **$0.048** per second of video generated.\\\\n\\\\nNote: this is a promotional rate, **40%** off for a limited time. The discount ends **October 15**, after which the price is **$0.08** per second of video. 1080p costs **2×** the standard rate. Each session is billed at a minimum of **60 seconds** of runtime.\",\"billingMessage\":\"The promotional price expires on Sep 14th, with list price being $0.08 per second of video. 1080p costs 2× the standard rate. Default session length is up to 15 minutes. ",
-        "Billing is calculated per second of generated video, plus reference input charges beyond the included allowance. Video costs **$0.05** per second at **480p**, **$0.08** per second at **768p**, **$0.16** per second at **1080p**, and **$0.32** per second at **2K**. Each request includes **4,096 reference tokens** at no additional charge. Reference usage above this allowance costs **$0.02 per 1,000 tokens**, prorated to the actual token count.",
-        "Your request will cost **$0.05 per second** of generated scene at **480p** or **$0.06 per second** at **768p**. Only the newly generated scene duration is billed, not the full output video. The first **4,096 reference tokens** are included; additional reference tokens cost **$0.02 per 1,000 tokens**, prorated.",
-        "Billing is calculated per second of generated video. Video costs **$0.05** per second at **480p**, **$0.08** per second at **768p**, **$0.16** per second at **1080p**, and **$0.32** per second at **2K**.  A 1.2x multiplier is added to videos over 15 seconds. A **5-second** video at **768p** costs **$0.40**. A **30-second** video at **768p** costs **$2.88**.",
-        "Your request will cost **$0.30 per second** of output video at **768p** or **$0.45 per second** at **1080p**. Reference images are included at no additional charge.\",\"billingMessage\":\"Billed by output video duration: $0.30 per second at 768p and $0.45 per second at 1080p. Reference images are included.",
-        "Billing uses the requested output duration at **$0.05 per second for 480p**, **$0.08 for 768p**, and **$0.16 for 1080p**. Each request includes **4,096 reference tokens**, shared across all reference images, videos, and audio clips; additional usage costs **$0.02 per 1,000 tokens**, prorated. Square reference images, including **1024 × 1024** and **2048 × 2048** uploads, contribute **1,024 tokens each**. With no video or audio references, the first **four square images** add no reference charge, and each additional square image adds **$0.02048** (about $0.02). For example, a **5-second 768p** output costs **$0.40** with up to four square reference images, or **$0.42048** with five. See the pricing details below for other image shapes, video references, and audio references.",
-        "Billing is calculated per second of generated video, which matches the source video length. Video costs **$0.05** per second at **480p**, **$0.08** per second at **768p**, **$0.16** per second at **1080p**, and **$0.32** per second at **2K**. A **5-second** video at **768p** costs **$0.40**.",
         "Video costs **$0.03** per second at **480p**, **$0.048** per second at **768p**, and **$0.096** per second at **1080p**.\\\\n\\\\nNote: these are promotional rates, **40%** off for a limited time. The discount ends **October 15**, after which **480p** is **$0.05**/second, **768p** is **$0.08**/second, and **1080p** is **$0.16**/second.\",\"billingMessage\":\"Note: these are promotional launch rates — 50% off for a limited time. The discount ends September 1, after which 480p is $0.05/second and 768p is $0.08/second."
       ]
     },
@@ -335,52 +320,43 @@
       "source": "https://fal.ai/models/minimax/h3-max-turbo/image-to-video",
       "rates": [
         "Video costs **$0.015** per second at **480p**, **$0.024** per second at **768p**, and **$0.048** per second at **1080p**.\\\\n\\\\nNote: these are promotional rates, **40%** off for a limited time. The discount ends **October 15**, after which **480p** is **$0.025**/second, **768p** is **$0.04**/second, and **1080p** is **$0.08**/second.\",\"billingMessage\":\"Note: these are promotional launch rates — 50% off for a limited time. The discount ends September 1, after which 480p is $0.05/second and 768p is $0.08/second.",
-        "Billing is calculated per second of newly generated video. Your request will cost **$0.025** per second at **480p**, **$0.04** per second at **768p**, **$0.08** per second at **1080p**, and **$0.16** per second at **2K**. Billing applies to the requested continuation duration, not the original video.",
         "Video costs **$0.015** per second at **480p**, **$0.024** per second at **768p**, and **$0.048** per second at **1080p**.\\\\n\\\\nNote: these are promotional rates, **40%** off for a limited time. The discount ends **October 15**, after which **480p** is **$0.025**/second, **768p** is **$0.04**/second, and **1080p** is **$0.08**/second."
       ]
     },
     "minimax/h3-max/reference-to-video": {
       "source": "https://fal.ai/models/minimax/h3-max/reference-to-video",
       "rates": [
-        "Billing uses the requested output duration at $0.05 per second for 480p, $0.08 for 768p, and $0.16 for 1080p. Each request includes 4,096 reference tokens, shared across all reference images, videos, and audio clips; additional usage costs $0.02 per 1,000 tokens, prorated. Square reference images, including 1024 × 1024 and 2048 × 2048 uploads, contribute 1,024 tokens each. With no video or audio references, the first four square images add no reference charge, and each additional square image adds $0.02048 (about $0.02). For example, a 5-second 768p output costs $0.40 with up to four square reference images, or $0.42048 with five. See the pricing details below for other image shapes, video references, and audio references.",
-        "Every request includes 4,096 reference tokens at no additional charge, shared across all reference images, videos, and audio clips. Additional reference tokens cost $0.02 per 1,000 tokens, prorated to the actual token count. The allowance covers reference processing; output generation is billed separately."
+        "Billing uses the requested output duration at $0.05 per second for 480p, $0.08 for 768p, and $0.16 for 1080p. Each request includes 4,096 reference tokens, shared across all reference images, videos, and audio clips; additional usage costs $0.02 per 1,000 tokens, prorated. Square reference images, including 1024 × 1024 and 2048 × 2048 uploads, contribute 1,024 tokens each. With no video or audio references, the first four square images add no reference charge, and each additional square image adds $0.02048 (about $0.02). For example, a 5-second 768p output costs $0.40 with up to four square reference images, or $0.42048 with five. See the pricing details below for other image shapes, video references, and audio references."
       ]
     },
     "bytedance/seedance-2.5/reference-to-video": {
       "source": "https://fal.ai/models/bytedance/seedance-2.5/reference-to-video",
       "rates": [
-        "For 480p, your request will cost roughly $0.2205 per second of generated video, for 720p, you will be charged roughly $0.4730 per second of generated video, and for 1080p, roughly $1.164 per second of generated video. Your request will cost $0.0214 per 1000 tokens for 480p and 720p video and roughly $0.0234 per 1000 tokens for 1080p video. The number of tokens is roughly given by (height of output video * width of output video * (input video duration + output video duration) * 24) / 1024. If video inputs are provided the price is multiplied by 0.6. With video inputs and 720p resolution, the price is roughly $0.2838 per second of generated video. With video references, you will be charged for both input and output videos.",
-        "You are charged $0.0214 per 1000 tokens at both 480p and 720p. If any video references are provided, the price is multiplied by 0.6. Image and audio references are not billed."
+        "For 480p, your request will cost roughly $0.2205 per second of generated video, for 720p, you will be charged roughly $0.4730 per second of generated video, and for 1080p, roughly $1.164 per second of generated video. Your request will cost $0.0214 per 1000 tokens for 480p and 720p video and roughly $0.0234 per 1000 tokens for 1080p video. The number of tokens is roughly given by (height of output video * width of output video * (input video duration + output video duration) * 24) / 1024. If video inputs are provided the price is multiplied by 0.6. With video inputs and 720p resolution, the price is roughly $0.2838 per second of generated video. With video references, you will be charged for both input and output videos."
       ]
     },
     "fal-ai/kling-video/v2.5-turbo/pro/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/kling-video/v2.5-turbo/pro/image-to-video",
       "rates": [
-        "For **5s** video your request will cost **$0.35**. For every additional second you will be charged **$0.07.**",
-        "For **5s** video your request will cost **$0.35**. For every aditional second you will be charged **$0.07.**",
-        "For **5s** video your request will cost **$0.21**. For every additional second you will be charged **$0.042.**"
+        "For **5s** video your request will cost **$0.35**. For every additional second you will be charged **$0.07.**"
       ]
     },
     "bytedance/seedance-2.5/image-to-video": {
       "source": "https://fal.ai/models/bytedance/seedance-2.5/image-to-video",
       "rates": [
-        "For 480p, your request will cost roughly $0.2205 per second of generated video, for 720p, you will be charged roughly $0.4730 per second of generated video, and for 1080p, roughly $1.164 per second of generated video. Your request will cost $0.0214 per 1000 tokens for 480p and 720p video and roughly $0.0234 per 1000 tokens for 1080p. The number of tokens is roughly given by (height of output video * width of output video * (input video duration + output video duration) * 24) / 1024.",
-        "You are charged $0.0214 per 1000 tokens at both 480p and 720p. Input images are not billed — you pay only for generated output."
+        "For 480p, your request will cost roughly $0.2205 per second of generated video, for 720p, you will be charged roughly $0.4730 per second of generated video, and for 1080p, roughly $1.164 per second of generated video. Your request will cost $0.0214 per 1000 tokens for 480p and 720p video and roughly $0.0234 per 1000 tokens for 1080p. The number of tokens is roughly given by (height of output video * width of output video * (input video duration + output video duration) * 24) / 1024."
       ]
     },
     "fal-ai/kling-video/v3/standard/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/kling-video/v3/standard/image-to-video",
       "rates": [
-        "For every second of video you generated, you will be charged **$0.084** (audio off) or **$0.126** (audio on), if voice control is used while generating audio you will be charged **$0.154**. For example, a 5s video with audio on and voice control will cost **$0.77**",
-        "For every second of video you generated, you will be charged **$0.42** regardless of whether audio is on or off. For example, a **5s** video will cost **$2.10**.",
-        "For every second of video you generated, you will be charged **$0.112** (audio off) or **$0.168** (audio on), if voice control is used while generating audio you will be charged **$0.196**. For example, a 5s video with audio on and voice control will cost **$0.98**"
+        "For every second of video you generated, you will be charged **$0.084** (audio off) or **$0.126** (audio on), if voice control is used while generating audio you will be charged **$0.154**. For example, a 5s video with audio on and voice control will cost **$0.77**"
       ]
     },
     "fal-ai/kling-video/v2.6/pro/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/kling-video/v2.6/pro/image-to-video",
       "rates": [
-        "Videos generated without audio cost $0.07 per second. Videos with native audio cost $0.14 per second, and videos with native audio and voice control cost $0.168 per second. For example, a 5-second video with audio costs $0.70, while a 10-second video with audio and voice control costs $1.68",
-        "For every second of video you generated, you will be charged $0.07 (audio off) or $0.14 (audio on). For example, a 5s video with audio on will cost $0.70"
+        "Videos generated without audio cost $0.07 per second. Videos with native audio cost $0.14 per second, and videos with native audio and voice control cost $0.168 per second. For example, a 5-second video with audio costs $0.70, while a 10-second video with audio and voice control costs $1.68"
       ]
     },
     "bytedance/seedance-2.0/image-to-video": {
@@ -392,15 +368,13 @@
     "minimax/h3/image-to-video": {
       "source": "https://fal.ai/models/minimax/h3/image-to-video",
       "rates": [
-        "Video costs **$0.05** per second at **480p**, **$0.06** per second at **768p**, **$0.13** per second at **2K** and **$0.16** per second at **4K**.",
-        "Video costs **$0.05** per second at **480p**, **$0.06** per second at **768p**, **$0.13** per second at **2K** and **$0.16** per second at **4K**; the first **5** reference images are free and each additional image costs **$0.08**."
+        "Video costs **$0.05** per second at **480p**, **$0.06** per second at **768p**, **$0.13** per second at **2K** and **$0.16** per second at **4K**."
       ]
     },
     "minimax/h3/reference-to-video": {
       "source": "https://fal.ai/models/minimax/h3/reference-to-video",
       "rates": [
-        "Video costs **$0.05** per second at **480p**, **$0.06** per second at **768p**, **$0.13** per second at **2K** and **$0.16** per second at **4K**; the first **5** reference images are free and each additional image costs **$0.08**.",
-        "Video costs **$0.05** per second at **480p**, **$0.06** per second at **768p**, **$0.13** per second at **2K** and **$0.16** per second at **4K**."
+        "Video costs **$0.05** per second at **480p**, **$0.06** per second at **768p**, **$0.13** per second at **2K** and **$0.16** per second at **4K**; the first **5** reference images are free and each additional image costs **$0.08**."
       ]
     },
     "bytedance/seedance-2.0/reference-to-video": {
@@ -418,8 +392,7 @@
     "alibaba/wan-3.0/image-to-video": {
       "source": "https://fal.ai/models/alibaba/wan-3.0/image-to-video",
       "rates": [
-        "For every second of video you generate, you will be charged **$0.05** **480p**, **$0.10** **720p**, or **$0.20** **1080p**. For example, a **5s** video at **720p** will cost **$0.50**. **Pricing is subjected to change.**",
-        "For every second of video you generate, you will be charged **$0.05** **480p**, **$0.10** **720p**, or **$0.20** **1080p**. For example, a **5s** video at **720p** will cost **$0.50**. **Pricing is subjected to change.***"
+        "For every second of video you generate, you will be charged **$0.05** **480p**, **$0.10** **720p**, or **$0.20** **1080p**. For example, a **5s** video at **720p** will cost **$0.50**. **Pricing is subjected to change.**"
       ]
     },
     "fal-ai/bytedance/seedance/v1.5/pro/image-to-video": {
@@ -431,36 +404,19 @@
     "fal-ai/kling-video/o3/pro/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/kling-video/o3/pro/image-to-video",
       "rates": [
-        "For every second of video you generated, you will be charged **$0.112** (audio off) or **$0.14** (audio on). For example, a 5s video with audio on will cost **$0.70**",
-        "For every second of video you generated, you will be charged **$0.42** regardless of whether audio is on or off. For example, a **5s** video will cost **$2.10**.",
-        "For every second of video you generated you will be charged **$0.168**  For example, a 5s video will cost **$0.84**.",
-        "For every second of video you generated, you will be charged **$0.084** (audio off) or **$0.112** (audio on). For example, a 5s video with audio on will cost **$0.56**.",
-        "For every second of video you generated, you will be charged $0.084 (audio off) or $0.112 (audio on). For example, a 5s video with audio on will cost $0.56.",
-        "For every second of video you generated, you will be charged **$0.084** (audio off) or **$0.112** (audio on). For example, a 5s video with audio on will cost **$0.56** ",
-        "For every second of video you generated, you will be charged **$0.126**. For example, a 5s video with will cost **$0.63** ",
-        "For every second of video you generated, you will be charged **$0.126**. For example, a 5s video will cost **$0.63**."
+        "For every second of video you generated, you will be charged **$0.112** (audio off) or **$0.14** (audio on). For example, a 5s video with audio on will cost **$0.70**"
       ]
     },
     "xai/grok-imagine-video/image-to-video": {
       "source": "https://fal.ai/models/xai/grok-imagine-video/image-to-video",
       "rates": [
-        "A 6s 480p video will cost **$0.302** (**$0.05** per second of 480p video + **$0.002** for image input). At an output resolution of 480p, every second costs **$0.05**, and at 720p, every second costs **$0.07**.",
-        "For a 6s 480p video your request will cost **$0.36** (**$0.05** per second of video output + **$0.01** per second of video input). At an output resolution of 480p, every second costs **$0.06** (**$0.05** for output and **$0.01** for input), and at 720p, every second costs **$0.08** (**$0.07** for output and **$0.01** for input)",
-        "A **6s** **480p** video will cost **$0.302** (**$0.05** per second of **480p** video + **$0.002** for image input). At an output resolution of **480p**, every second costs **$0.05**, and at **720p**, every second costs **$0.07**.",
-        "For 6s 480p video your request will cost **$0.3**. At an output resolution of 480p, every second costs **$0.05**, and at 720p, every second costs **$0.07**."
+        "A 6s 480p video will cost **$0.302** (**$0.05** per second of 480p video + **$0.002** for image input). At an output resolution of 480p, every second costs **$0.05**, and at 720p, every second costs **$0.07**."
       ]
     },
     "fal-ai/kling-video/o3/pro/reference-to-video": {
       "source": "https://fal.ai/models/fal-ai/kling-video/o3/pro/reference-to-video",
       "rates": [
-        "For every second of video you generated, you will be charged **$0.112** (audio off) or **$0.14** (audio on). For example, a 5s video with audio on will cost **$0.70**",
-        "For every second of video you generated, you will be charged **$0.42** regardless of whether audio is on or off. For example, a **5s** video will cost **$2.10**.",
-        "For every second of video you generated you will be charged **$0.168**  For example, a 5s video will cost **$0.84**.",
-        "For every second of video you generated, you will be charged **$0.084** (audio off) or **$0.112** (audio on). For example, a 5s video with audio on will cost **$0.56**.",
-        "For every second of video you generated, you will be charged $0.084 (audio off) or $0.112 (audio on). For example, a 5s video with audio on will cost $0.56.",
-        "For every second of video you generated, you will be charged **$0.084** (audio off) or **$0.112** (audio on). For example, a 5s video with audio on will cost **$0.56** ",
-        "For every second of video you generated, you will be charged **$0.126**. For example, a 5s video with will cost **$0.63** ",
-        "For every second of video you generated, you will be charged **$0.126**. For example, a 5s video will cost **$0.63**."
+        "For every second of video you generated, you will be charged **$0.112** (audio off) or **$0.14** (audio on). For example, a 5s video with audio on will cost **$0.70**"
       ]
     },
     "google/gemini-omni-flash/v1.1/reference-to-video": {
@@ -472,9 +428,7 @@
     "xai/grok-imagine-video/v1.5/image-to-video": {
       "source": "https://fal.ai/models/xai/grok-imagine-video/v1.5/image-to-video",
       "rates": [
-        "Priced per second of output video, by resolution: 480p at $0.08/sec, 720p at $0.14/sec, 1080p at $0.25/sec. A 5-second clip costs $0.40 at 480p, $0.70 at 720p, and $1.25 at 1080p. Cost scales linearly with duration. Each reference image adds $0.01 (1–7 supported). A reference audio clip, if provided, is included at no extra cost.\\\\n\",\"billingMessage\":\"Pricing is subject to change",
-        "Priced per second of output video, by resolution: **480p** at **$0.08**/sec, **720p** at **$0.14**/sec. A 5-second 480p clip costs **$0.40**; 720p costs **$0.70**. Cost scales linearly with duration. Each reference image adds **$0.01** (1–7 supported). A reference audio clip, if provided, is included",
-        "Priced per second of output video, by resolution: **480p** at **$0.08**/sec, **720p** at **$0.14**/sec, **1080p** at **$0.25**/sec. A 5-second 480p clip costs **$0.40**; 720p costs **$0.70**. Cost scales linearly with duration. No input images or references, so no per-image charges apply."
+        "Priced per second of output video, by resolution: 480p at $0.08/sec, 720p at $0.14/sec, 1080p at $0.25/sec. A 5-second clip costs $0.40 at 480p, $0.70 at 720p, and $1.25 at 1080p. Cost scales linearly with duration. Each reference image adds $0.01 (1–7 supported). A reference audio clip, if provided, is included at no extra cost.\\\\n\",\"billingMessage\":\"Pricing is subject to change"
       ]
     },
     "bytedance/seedance-2.5/us/reference-to-video": {
@@ -486,29 +440,19 @@
     "fal-ai/kling-video/o3/standard/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/kling-video/o3/standard/image-to-video",
       "rates": [
-        "For every second of video you generated, you will be charged **$0.084** (audio off) or **$0.112** (audio on). For example, a 5s video with audio on will cost **$0.56**.",
-        "For every second of video you generated, you will be charged **$0.42** regardless of whether audio is on or off. For example, a **5s** video will cost **$2.10**.",
-        "For every second of video you generated, you will be charged **$0.112** (audio off) or **$0.14** (audio on). For example, a 5s video with audio on will cost **$0.70**",
-        "For every second of video you generated you will be charged **$0.168**  For example, a 5s video will cost **$0.84**.",
-        "For every second of video you generated, you will be charged $0.084 (audio off) or $0.112 (audio on). For example, a 5s video with audio on will cost $0.56.",
-        "For every second of video you generated, you will be charged **$0.084** (audio off) or **$0.112** (audio on). For example, a 5s video with audio on will cost **$0.56** ",
-        "For every second of video you generated, you will be charged **$0.126**. For example, a 5s video with will cost **$0.63** ",
-        "For every second of video you generated, you will be charged **$0.126**. For example, a 5s video will cost **$0.63**."
+        "For every second of video you generated, you will be charged **$0.084** (audio off) or **$0.112** (audio on). For example, a 5s video with audio on will cost **$0.56**."
       ]
     },
     "fal-ai/kling-video/v2.5-turbo/standard/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/kling-video/v2.5-turbo/standard/image-to-video",
       "rates": [
-        "For **5s** video your request will cost **$0.21**. For every additional second you will be charged **$0.042.**",
-        "For **5s** video your request will cost **$0.35**. For every additional second you will be charged **$0.07.**",
-        "For **5s** video your request will cost **$0.35**. For every aditional second you will be charged **$0.07.**"
+        "For **5s** video your request will cost **$0.21**. For every additional second you will be charged **$0.042.**"
       ]
     },
     "bytedance/seedance-2.0/fast/image-to-video": {
       "source": "https://fal.ai/models/bytedance/seedance-2.0/fast/image-to-video",
       "rates": [
-        "For every second of 720p video you generated, you will be charged $0.2419/second. Your request will cost $0.0112 per 1000 tokens. The number of tokens is given by (height of output video * width of output video * duration * 24) / 1024.",
-        "A 10-second fast clip costs approximately $2.42, versus ~$3.03 on standard."
+        "For every second of 720p video you generated, you will be charged $0.2419/second. Your request will cost $0.0112 per 1000 tokens. The number of tokens is given by (height of output video * width of output video * duration * 24) / 1024."
       ]
     },
     "fal-ai/bytedance/seedance/v1/pro/fast/image-to-video": {
@@ -520,17 +464,13 @@
     "fal-ai/kling-video/v3/turbo/pro/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/kling-video/v3/turbo/pro/image-to-video",
       "rates": [
-        "For every second of video you generate, you will be charged **$0.14**. For example, a **5s** video will cost **$0.70**.",
-        "For every second of video you generate, you will be charged **$0.14** . For example, a **5s** video will cost **$0.70**.",
-        "For every second of video you generate, you will be charged **$0.112**. For example, a **5s** video will cost **$0.56**",
-        "For every second of video you generate, you will be charged **$0.112** . For example, a **5s** video will cost **$0.56**."
+        "For every second of video you generate, you will be charged **$0.14**. For example, a **5s** video will cost **$0.70**."
       ]
     },
     "xai/grok-imagine-video/v1.5/lite/image-to-video": {
       "source": "https://fal.ai/models/xai/grok-imagine-video/v1.5/lite/image-to-video",
       "rates": [
-        "Priced per second of output video and per input image, by resolution: **480p** at **$0.02**/sec, **720p** at **$0.03**/sec, **1080p** at **$0.14**/sec. Each input image costs **$0.01**. A 5-second clip with one input image costs **$0.11** at 480p, **$0.16** at 720p, or **$0.71** at 1080p.",
-        "Priced per second of output video, by resolution: **480p** at **$0.02**/sec, **720p** at **$0.03**/sec, **1080p** at **$0.14**/sec. A 5-second 480p clip costs **$0.10**; 720p costs **$0.15**; 1080p costs **$0.70**."
+        "Priced per second of output video and per input image, by resolution: **480p** at **$0.02**/sec, **720p** at **$0.03**/sec, **1080p** at **$0.14**/sec. Each input image costs **$0.01**. A 5-second clip with one input image costs **$0.11** at 480p, **$0.16** at 720p, or **$0.71** at 1080p."
       ]
     },
     "blackforestlabs/flux-3/image-to-video": {
@@ -542,14 +482,7 @@
     "fal-ai/kling-video/o3/standard/reference-to-video": {
       "source": "https://fal.ai/models/fal-ai/kling-video/o3/standard/reference-to-video",
       "rates": [
-        "For every second of video you generated, you will be charged $0.084 (audio off) or $0.112 (audio on). For example, a 5s video with audio on will cost $0.56.",
-        "For every second of video you generated, you will be charged **$0.42** regardless of whether audio is on or off. For example, a **5s** video will cost **$2.10**.",
-        "For every second of video you generated, you will be charged **$0.112** (audio off) or **$0.14** (audio on). For example, a 5s video with audio on will cost **$0.70**",
-        "For every second of video you generated you will be charged **$0.168**  For example, a 5s video will cost **$0.84**.",
-        "For every second of video you generated, you will be charged **$0.084** (audio off) or **$0.112** (audio on). For example, a 5s video with audio on will cost **$0.56**.",
-        "For every second of video you generated, you will be charged **$0.084** (audio off) or **$0.112** (audio on). For example, a 5s video with audio on will cost **$0.56** ",
-        "For every second of video you generated, you will be charged **$0.126**. For example, a 5s video with will cost **$0.63** ",
-        "For every second of video you generated, you will be charged **$0.126**. For example, a 5s video will cost **$0.63**."
+        "For every second of video you generated, you will be charged $0.084 (audio off) or $0.112 (audio on). For example, a 5s video with audio on will cost $0.56."
       ]
     },
     "bytedance/seedance-2.0/fast/reference-to-video": {
@@ -561,8 +494,7 @@
     "fal-ai/bytedance/seedance/v1/pro/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/bytedance/seedance/v1/pro/image-to-video",
       "rates": [
-        "Each 1080p 5 second video costs roughly $0.62. For other resolutions, 1 million video tokens costs $2.5. tokens(video) = (height x width x FPS x duration) / 1024.",
-        "Each 1080p 5 second video costs roughly $0.74 (Pro version). For other resolutions, 1 million video tokens costs $3.0. The Lite version costs $0.18 per 720p 5 second video, with 1 million video tokens costing $1.8."
+        "Each 1080p 5 second video costs roughly $0.62. For other resolutions, 1 million video tokens costs $2.5. tokens(video) = (height x width x FPS x duration) / 1024."
       ]
     },
     "fal-ai/wan/v2.2-a14b/image-to-video/turbo": {
@@ -580,19 +512,13 @@
     "fal-ai/minimax/hailuo-02/standard/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/minimax/hailuo-02/standard/image-to-video",
       "rates": [
-        "For each second of video generated at 768P, it will cost **$0.045/sec**. For each second of video generated at 512P, it will cost roughly **$0.017/sec**. A single 6 second 768p video will cost **$0.27/video**. ",
-        "For each second of video generated at **512P**, it will cost roughly **$0.017/sec**",
-        "For each second of video generated, it will cost **$0.08/sec**. A single 6 second video will cost **$0.48/video**. ",
-        "For each second of video generated, it will cost **$0.045/sec**. A single 6 second video will cost **$0.27/video**."
+        "For each second of video generated at 768P, it will cost **$0.045/sec**. For each second of video generated at 512P, it will cost roughly **$0.017/sec**. A single 6 second 768p video will cost **$0.27/video**. "
       ]
     },
     "fal-ai/kling-video/v3/turbo/standard/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/kling-video/v3/turbo/standard/image-to-video",
       "rates": [
-        "For every second of video you generate, you will be charged **$0.112**. For example, a **5s** video will cost **$0.56**",
-        "For every second of video you generate, you will be charged **$0.14**. For example, a **5s** video will cost **$0.70**.",
-        "For every second of video you generate, you will be charged **$0.14** . For example, a **5s** video will cost **$0.70**.",
-        "For every second of video you generate, you will be charged **$0.112** . For example, a **5s** video will cost **$0.56**."
+        "For every second of video you generate, you will be charged **$0.112**. For example, a **5s** video will cost **$0.56**"
       ]
     },
     "fal-ai/pixverse/v6/image-to-video": {
@@ -623,9 +549,7 @@
     "fal-ai/wan/v2.7/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/wan/v2.7/image-to-video",
       "rates": [
-        "Your request will cost **$0.1** per second for 720p resolution. For 1080p your request will cost **$0.15** per second. ",
-        "Your request will cost **$0.1** for **720p** and **$0.15** for **1080p** per second of output video.",
-        "Your request will cost **$0.10** per second. When video inputs are provided, billing duration is calculated as input video duration + output video duration. For example, an **8s** input video with a **3s** output will be billed for **11** seconds (**$1.10**)."
+        "Your request will cost **$0.1** per second for 720p resolution. For 1080p your request will cost **$0.15** per second. "
       ]
     },
     "bytedance/seedance-2.0/mini/reference-to-video": {
@@ -649,17 +573,13 @@
     "fal-ai/kling-video/v3/4k/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/kling-video/v3/4k/image-to-video",
       "rates": [
-        "For every second of video you generated, you will be charged **$0.42** regardless of whether audio is on or off. For example, a **5s** video will cost **$2.10**.",
-        "For every second of video you generated, you will be charged **$0.112** (audio off) or **$0.168** (audio on), if voice control is used while generating audio you will be charged **$0.196**. For example, a 5s video with audio on and voice control will cost **$0.98**",
-        "For every second of video you generated, you will be charged **$0.084** (audio off) or **$0.126** (audio on), if voice control is used while generating audio you will be charged **$0.154**. For example, a 5s video with audio on and voice control will cost **$0.77**"
+        "For every second of video you generated, you will be charged **$0.42** regardless of whether audio is on or off. For example, a **5s** video will cost **$2.10**."
       ]
     },
     "fal-ai/wan-25-preview/image-to-video": {
       "source": "https://fal.ai/models/fal-ai/wan-25-preview/image-to-video",
       "rates": [
-        "Your request will cost **$0.05** per second for **480p**, **$0.10** per second for **720p**, **$0.15** per second for **1080p**.",
-        "Your request will cost **$0.05** per image.",
-        "Your request will cost **$0.05** per image.\\\\n\\\\n"
+        "Your request will cost **$0.05** per second for **480p**, **$0.10** per second for **720p**, **$0.15** per second for **1080p**."
       ]
     },
     "fal-ai/vidu/q4/reference-to-video": {
@@ -673,34 +593,20 @@
       "source": "https://fal.ai/models/minimax/h3-max/camera-controls",
       "rates": [
         "Video costs **$0.03** per second at **480p**, **$0.048** per second at **768p**, and **$0.096** per second at **1080p**.\\\\n\\\\nNote: these are promotional rates, **40%** off for a limited time. The discount ends **October 15**, after which **480p** is **$0.05**/second, **768p** is **$0.08**/second, and **1080p** is **$0.16**/second.",
-        "For every second of video you generate you will be charged $0.05 at 480p, $0.08 at 768p or $0.16 at 1080p (minimum 5 seconds), plus reference token usage for your input video and images, the same as H3 Max Reference to Video. If you don't provide reference images, up to max_generated_reference_images (default 2) are generated automatically at about $0.02–$0.04 each. For example, a 5 second 16:9 video at 768p with your own reference images costs about $0.96.\",\"billingMessage\":\"For every second of video you generate you will be charged $0.05 at 480p, $0.08 at 768p or $0.16 at 1080p (minimum 5 seconds), plus reference token usage for your input video and images, the same as H3 Max Reference to Video. If you don't provide reference images, up to max_generated_reference_images (default 2) are generated automatically at about $0.02–$0.04 each. For example, a 5 second 16:9 video at 768p with your own reference images costs about $0.96.",
         "Sessions cost **$0.048** per second of video generated.\\\\n\\\\nNote: this is a promotional rate, **40%** off for a limited time. The discount ends **October 15**, after which the price is **$0.08** per second of video. 1080p costs **2×** the standard rate. Each session is billed at a minimum of **60 seconds** of runtime.\",\"billingMessage\":\"The promotional price expires on Sep 14th, with list price being $0.08 per second of video. 1080p costs 2× the standard rate. Default session length is up to 15 minutes. ",
-        "Billing is calculated per second of generated video, plus reference input charges beyond the included allowance. Video costs **$0.05** per second at **480p**, **$0.08** per second at **768p**, **$0.16** per second at **1080p**, and **$0.32** per second at **2K**. Each request includes **4,096 reference tokens** at no additional charge. Reference usage above this allowance costs **$0.02 per 1,000 tokens**, prorated to the actual token count.",
-        "Your request will cost **$0.05 per second** of generated scene at **480p** or **$0.06 per second** at **768p**. Only the newly generated scene duration is billed, not the full output video. The first **4,096 reference tokens** are included; additional reference tokens cost **$0.02 per 1,000 tokens**, prorated.",
-        "Billing is calculated per second of generated video. Video costs **$0.05** per second at **480p**, **$0.08** per second at **768p**, **$0.16** per second at **1080p**, and **$0.32** per second at **2K**.  A 1.2x multiplier is added to videos over 15 seconds. A **5-second** video at **768p** costs **$0.40**. A **30-second** video at **768p** costs **$2.88**.",
-        "Your request will cost **$0.30 per second** of output video at **768p** or **$0.45 per second** at **1080p**. Reference images are included at no additional charge.\",\"billingMessage\":\"Billed by output video duration: $0.30 per second at 768p and $0.45 per second at 1080p. Reference images are included.",
-        "Billing uses the requested output duration at **$0.05 per second for 480p**, **$0.08 for 768p**, and **$0.16 for 1080p**. Each request includes **4,096 reference tokens**, shared across all reference images, videos, and audio clips; additional usage costs **$0.02 per 1,000 tokens**, prorated. Square reference images, including **1024 × 1024** and **2048 × 2048** uploads, contribute **1,024 tokens each**. With no video or audio references, the first **four square images** add no reference charge, and each additional square image adds **$0.02048** (about $0.02). For example, a **5-second 768p** output costs **$0.40** with up to four square reference images, or **$0.42048** with five. See the pricing details below for other image shapes, video references, and audio references.",
-        "Billing is calculated per second of generated video, which matches the source video length. Video costs **$0.05** per second at **480p**, **$0.08** per second at **768p**, **$0.16** per second at **1080p**, and **$0.32** per second at **2K**. A **5-second** video at **768p** costs **$0.40**.",
         "Video costs **$0.03** per second at **480p**, **$0.048** per second at **768p**, and **$0.096** per second at **1080p**.\\\\n\\\\nNote: these are promotional rates, **40%** off for a limited time. The discount ends **October 15**, after which **480p** is **$0.05**/second, **768p** is **$0.08**/second, and **1080p** is **$0.16**/second.\",\"billingMessage\":\"Note: these are promotional launch rates — 50% off for a limited time. The discount ends September 1, after which 480p is $0.05/second and 768p is $0.08/second."
       ]
     },
     "fal-ai/ltx-2.3/image-to-video/fast": {
       "source": "https://fal.ai/models/fal-ai/ltx-2.3/image-to-video/fast",
       "rates": [
-        "Your request will cost **$0.06** per second for 1080p, **$0.12** per second for 1440p or **$0.24** per second for 2160p.",
-        "Your request will cost **$0.10 per second.**",
-        "Your request will cost $0.08 per second for 1080p, $0.16 per second for 1440p or $0.32 per second for 2160p.",
-        "Your request will cost $0.10 per second for 720p output or $0.20 per second for 1080p output, billed on the duration of your input video. For example, reframing a 10-second video costs $1.00 at 720p or $2.00 at 1080p.",
-        "Your request will cost **$0.08** per second for 1080p, **$0.16** per second for 1440p or **$0.32** per second for 2160p.",
-        "Your request will cost $0.06 per second for 1080p, $0.12 per second for 1440p or $0.24 per second for 2160p."
+        "Your request will cost **$0.06** per second for 1080p, **$0.12** per second for 1440p or **$0.24** per second for 2160p."
       ]
     },
     "xai/grok-imagine-video/v1.5/reference-to-video": {
       "source": "https://fal.ai/models/xai/grok-imagine-video/v1.5/reference-to-video",
       "rates": [
-        "Priced per second of output video, by resolution: **480p** at **$0.08**/sec, **720p** at **$0.14**/sec. A 5-second 480p clip costs **$0.40**; 720p costs **$0.70**. Cost scales linearly with duration. Each reference image adds **$0.01** (1–7 supported). A reference audio clip, if provided, is included",
-        "Priced per second of output video, by resolution: 480p at $0.08/sec, 720p at $0.14/sec, 1080p at $0.25/sec. A 5-second clip costs $0.40 at 480p, $0.70 at 720p, and $1.25 at 1080p. Cost scales linearly with duration. Each reference image adds $0.01 (1–7 supported). A reference audio clip, if provided, is included at no extra cost.\\\\n\",\"billingMessage\":\"Pricing is subject to change",
-        "Priced per second of output video, by resolution: **480p** at **$0.08**/sec, **720p** at **$0.14**/sec, **1080p** at **$0.25**/sec. A 5-second 480p clip costs **$0.40**; 720p costs **$0.70**. Cost scales linearly with duration. No input images or references, so no per-image charges apply."
+        "Priced per second of output video, by resolution: **480p** at **$0.08**/sec, **720p** at **$0.14**/sec. A 5-second 480p clip costs **$0.40**; 720p costs **$0.70**. Cost scales linearly with duration. Each reference image adds **$0.01** (1–7 supported). A reference audio clip, if provided, is included"
       ]
     }
   }
