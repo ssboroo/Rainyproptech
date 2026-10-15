@@ -170,6 +170,8 @@ export function buildModelInput(
     body.thinking_level = "minimal";
   if (props.enable_google_search) body.enable_google_search = false;
   if (props.enable_audio) body.enable_audio = false;
+  if (props.generate_audio_switch) body.generate_audio_switch = false;
+  if (props.audio?.type === "boolean") body.audio = false;
   if (props.num_images) body.num_images = 1;
   if (props.num_outputs) body.num_outputs = 1;
   if (props.limit_generations) body.limit_generations = true;

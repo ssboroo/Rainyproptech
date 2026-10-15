@@ -146,3 +146,14 @@ test("selected duration and native 4K are the exact submitted and charged config
   assert.equal(p.apiUsd, 1.12);
   assert.equal(p.credits, 137);
 });
+
+test("metered audio switches cannot escape the silent video tariff", () => {
+  const m = catalog.find((m) => m.id === "fal-ai/pixverse/v6/image-to-video")!;
+  const input = buildModelInput(m, "https://example.com/source.png", "Drone");
+  assert.equal(input.generate_audio_switch, false);
+  assert.equal(quoteFor(m, input, now).apiUsd, 0.45);
+  assert.throws(
+    () => quoteFor(m, { ...input, generate_audio_switch: true }, now),
+    /add-on/,
+  );
+});

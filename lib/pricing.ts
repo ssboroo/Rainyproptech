@@ -201,6 +201,8 @@ export function quoteFor(
     throw new Error("Unpriced duration");
   if (
     input.generate_audio === true ||
+    input.generate_audio_switch === true ||
+    input.audio === true ||
     input.enable_audio === true ||
     input.enable_web_search === true ||
     input.enable_google_search === true ||
