@@ -1114,7 +1114,7 @@ export default function Studio() {
                 src={
                   mode === "interior"
                     ? visualFor("project", project, true)
-                    : "/visuals/master_plan.webp"
+                    : "/visuals/urban_plan.webp"
                 }
                 alt={t(
                   "Дроны өнцгийн AI жишээ дүрслэл",
@@ -1153,7 +1153,10 @@ export default function Studio() {
                 </h2>
               </div>
               <span className="duration">
-                AI VIDEO / 6 {t("КРЕДИТ", "CREDITS")}
+                AI VIDEO /{" "}
+                {videoQuote
+                  ? `${videoQuote.credits} ${t("КРЕДИТ", "CREDITS")}`
+                  : t("ҮНЭ ШАЛГАХ", "PRICE CHECK")}
               </span>
             </div>
             <div className="motion-grid">
