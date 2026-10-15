@@ -1,6 +1,6 @@
 import { fal } from "@fal-ai/client";
-export const IMAGE_MODEL = "fal-ai/flux-general/image-to-image";
-export const VIDEO_MODEL = "fal-ai/kling-video/v2.6/pro/image-to-video";
+export const IMAGE_MODEL = "fal-ai/nano-banana-pro/edit";
+export const VIDEO_MODEL = "fal-ai/kling-video/v3/pro/image-to-video";
 export function provider() {
   if (!process.env.FAL_KEY) throw new Error("FAL_KEY is not configured");
   fal.config({ credentials: process.env.FAL_KEY });
@@ -8,34 +8,25 @@ export function provider() {
 }
 export function imageInput(image_url: string, prompt: string) {
   return {
-    image_url,
+    image_urls: [image_url],
     prompt,
-    guidance_scale: 4,
-    easycontrols: [
-      {
-        control_method_url: "canny",
-        image_url,
-        image_control_type: "spatial" as const,
-        scale: 1,
-      },
-    ],
-    strength: 0.65,
-    num_inference_steps: 28,
+    resolution: "4K" as const,
+    aspect_ratio: "auto" as const,
     num_images: 1,
-    image_size: "landscape_16_9" as const,
+    limit_generations: true,
     output_format: "png" as const,
-    enable_safety_checker: true,
+    enable_web_search: false,
   };
 }
-
 export function videoInput(start_image_url: string, prompt: string) {
   return {
     start_image_url,
     prompt,
     duration: "5" as const,
     generate_audio: false,
+    cfg_scale: 0.6,
     negative_prompt:
-      "warped architecture, bending walls, changing window count, flicker, distortion",
+      "warped architecture, bending walls, changing window count, flicker, distortion, camera shake, jump cuts, abrupt acceleration, plastic materials, cartoon, timelapse",
     enable_safety_checker: true,
   };
 }

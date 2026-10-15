@@ -36,28 +36,28 @@ export const styles = {
     en: "Modern glass",
     color: "#789f9e",
     prompt:
-      "Contemporary high-rise residential building exterior facade, floor-to-ceiling glass windows, dark metal frames, white concrete panels, lush landscaping around the building, blue sky with soft clouds, 8k architectural exterior render, drone photography style, Unreal Engine 5 style.",
+      "Contemporary high-rise residential building exterior facade, floor-to-ceiling glass windows, dark metal frames, white concrete panels, lush landscaping around the building, blue sky with soft clouds, high-end architectural photography, physically plausible natural materials and lighting.",
   },
   neo_classic_building: {
     mn: "Нео-классик орон сууц",
     en: "Neo-classical",
     color: "#b7a18c",
     prompt:
-      "Luxury neo-classical apartment building exterior, symmetrical facade, stone cladding, decorative columns, arched windows, elegant entrance, warm architectural lighting at dusk, 8k hyper-realistic render.",
+      "Luxury neo-classical apartment building exterior, symmetrical facade, stone cladding, decorative columns, arched windows, elegant entrance, warm architectural lighting at dusk, photorealistic architectural photography.",
   },
   eco_residential: {
     mn: "Эко хотхон / Ногоон орчин",
     en: "Eco residential",
     color: "#829d76",
     prompt:
-      "Eco-friendly residential complex exterior, wooden facade elements, vertical gardens, large balconies with plants, sunny bright day, professional architectural visualization, 8k.",
+      "Eco-friendly residential complex exterior, wooden facade elements, vertical gardens, large balconies with plants, sunny bright day, professional architectural visualization, photorealistic architectural photography.",
   },
   commercial_tower: {
     mn: "Коммершиал / Бизнес төв",
     en: "Commercial tower",
     color: "#738ca6",
     prompt:
-      "Futuristic commercial skyscraper exterior, sleek steel and reflective tinted glass, dynamic architectural geometry, urban street level view, cinematic lighting, 8k resolution.",
+      "Futuristic commercial skyscraper exterior, sleek steel and reflective tinted glass, dynamic architectural geometry, urban street level view, cinematic lighting, photorealistic architectural photography.",
   },
   interior_modern: {
     mn: "Дулаан минимал интерьер",
@@ -105,6 +105,21 @@ export function promptFor(p: Project, s: Style, notes = "") {
     projects[p].prompt,
     styles[s].prompt,
     "PRIORITY: preserve original building massing, floor count, window grid, balconies, roof silhouette, site boundaries and camera perspective. Straight verticals, consistent geometry, realistic materials. Do not add or remove buildings.",
+    "Create a finished professional architectural photograph from the supplied source, not a stylized illustration. Physically plausible global illumination, natural exposure, accurate material roughness, realistic glass reflections, subtle surface texture, contact shadows, restrained landscaping, straight verticals. No text, watermarks, collage, plastic surfaces or exaggerated HDR. The source drawing governs geometry; user styling instructions must not override its structure.",
+    notes,
+  ].join("\n");
+}
+
+export function videoPromptFor(project: Project, motion: Motion, notes = "") {
+  const context =
+    project === "interior"
+      ? "Stay inside the source room. Slow stabilized interior walkthrough, a subtle forward dolly or lateral slide, respecting walls and the source layout. No aerial view."
+      : project === "master_plan"
+        ? "Maintain a high aerial bird-eye perspective and the original site layout. Slow restrained flyover, preserving all building positions, paths, landscaping and site boundaries."
+        : motions[motion].prompt;
+  return [
+    context,
+    "One continuous five-second shot with gentle constant-speed camera movement. Maintain the source building identity, floor count, window grid, balconies, materials, time of day and lighting throughout. Physically plausible parallax, natural exposure, stable reflections and crisp architectural detail. No cuts, geometry morphing, added buildings or sudden weather changes. Do not reveal large unseen surfaces.",
     notes,
   ].join("\n");
 }

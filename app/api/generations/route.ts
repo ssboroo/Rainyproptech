@@ -1,6 +1,6 @@
 import { authorized, ApiError, failure } from "@/lib/supabase";
 import { generationSchema } from "@/lib/validation";
-import { category, promptFor, motions } from "@/lib/presets";
+import { category, promptFor, videoPromptFor } from "@/lib/presets";
 import {
   provider,
   IMAGE_MODEL,
@@ -50,9 +50,7 @@ export async function POST(req: Request) {
     const prompt =
       v.kind === "image"
         ? promptFor(project, style, v.notes)
-        : motions[v.motion].prompt +
-          " Preserve building geometry and facade details. " +
-          v.notes;
+        : videoPromptFor(project, v.motion, v.notes);
     const model = v.kind === "image" ? IMAGE_MODEL : VIDEO_MODEL;
     const { data: reserved, error } = await db.rpc("reserve_generation", {
       p_id: v.id,

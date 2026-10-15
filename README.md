@@ -7,8 +7,8 @@ Mongolian / English architectural visualization workspace built with Next.js 15 
 - Interior and Exterior / Master Plan workspaces, facade / master plan / townhouse / commercial project cards.
 - Four bilingual exterior styles plus a warm minimal interior style.
 - PNG, JPEG, WebP source upload (15 MB), local preview and Before / After slider. Export CAD, vector, SVG or SketchUp drawings to raster first; native DWG, DXF, PDF and 3D model files are not accepted.
-- FLUX General image-to-image with guidance 4.0 and spatial Canny EasyControl. Server-composed prompts prioritize massing, floor count, windows, balconies and site boundaries.
-- Kling 2.6 Pro image-to-video, 5 seconds, with pull back / elevate, orbit and facade pan direction.
+- Nano Banana Pro reference-image editing with native 4K output requested, original aspect ratio and one output. No separate ControlNet setup. Server-composed photorealistic prompts prioritize massing, floor count, windows, balconies, site boundaries and physically plausible materials.
+- Kling 3.0 Pro image-to-video, 5 seconds, with pull back / elevate, orbit and facade pan direction.
 - Company text overlay in the video player, generation history, private inputs and outputs, email/password Supabase Auth.
 - Images cost 2 credits, video costs 6 credits. Transactions lock the balance, reserve once per request UUID and refund definitive failed jobs once. Clients cannot change balances or write generation rows.
 
@@ -35,7 +35,7 @@ update public.profiles set credits = credits + 20
 where id = 'USER_UUID_FROM_SUPABASE_AUTH';
 ```
 
-No payment gateway / automatic credit purchases are implemented. Set bucket file limits and account quotas for your deployment; generated media can be up to 25 MB per image or 100 MB per video. Inputs remain private and short-lived signed URLs are sent to Fal for processing. Generated provider media is copied into private Supabase Storage and returned as signed URLs.
+No payment gateway / automatic credit purchases are implemented. Set bucket file limits and account quotas for your deployment; generated media can be up to 50 MB per image or 100 MB per video. Inputs remain private and short-lived signed URLs are sent to Fal for processing. Generated provider media is copied into private Supabase Storage and returned as signed URLs.
 
 ## API flow
 
@@ -50,7 +50,7 @@ A request UUID is an idempotency key. A conditional database claim prevents dupl
 
 ## Output scope and limits
 
-These outputs are images and videos, **not downloadable geometric 3D meshes or BIM models**. “8K” in a preset describes the desired aesthetic, not a guaranteed output size. No 8K upscaler is included. Timing varies by provider queue and model; 15 seconds is not guaranteed. Image-to-video may infer unseen surfaces; a single source image cannot establish a geometrically accurate 360-degree building reconstruction. The orbit preset uses a short restrained arc. Check each render against architectural drawings before commercial use.
+These outputs are images and videos, **not downloadable geometric 3D meshes or BIM models**. Renders request native 4K output. No 8K generation or upscaler is included. Timing varies by provider queue and model; 15 seconds is not guaranteed. Image-to-video may infer unseen surfaces; a single source image cannot establish a geometrically accurate 360-degree building reconstruction. The orbit preset uses a short restrained arc. Check each render against architectural drawings before commercial use.
 
 Branding is a **player overlay**, not burned into downloaded MP4 files. Generated links expire after an hour; reload from history for fresh links. Account data and media are persistent in Supabase; backups, retention, billing and paid credit provisioning remain deployment responsibilities.
 
@@ -58,8 +58,8 @@ Branding is a **player overlay**, not burned into downloaded MP4 files. Generate
 
 Checked 2026-10-15. The requested FLUX Pro v1 Depth, Kling v1.6 Pro and Veo 2 endpoints are marked deprecated in Fal's docs, so this implementation uses the alternatives below. Validate availability, pricing, safety behavior and example renders with your own Fal account before selling access.
 
-- [FLUX General image-to-image schema](https://fal.ai/models/fal-ai/flux-general/image-to-image/api)
-- [Kling 2.6 Pro image-to-video schema](https://fal.ai/models/fal-ai/veo2/image-to-video/api)
+- [Nano Banana Pro edit schema](https://fal.ai/models/fal-ai/nano-banana-pro/edit/api)
+- [Kling 3.0 Pro image-to-video schema](https://fal.ai/models/fal-ai/veo2/image-to-video/api)
 - [Deprecated FLUX Depth](https://fal.ai/models/fal-ai/flux-pro/v1/depth/api)
 - [Deprecated Kling 1.6](https://fal.ai/models/fal-ai/kling-video/v1.6/pro/image-to-video/api)
 - [Supabase Next.js Auth](https://supabase.com/docs/guides/auth/server-side/nextjs)
@@ -75,6 +75,12 @@ npm run build
 npm start
 ```
 
-Tests execute the migration against PGlite/PostgreSQL with Auth/Storage schemas stubbed, exercising charges, idempotent retries, insufficient balance, refund-once, completed-job protection and function access. Other tests cover project mapping, validation, pricing and provider request control. They do not replace hosted Supabase RLS / Storage integration tests or paid Fal generation tests.
+Tests execute the migration against PGlite/PostgreSQL with Auth/Storage schemas stubbed, exercising charges, idempotent retries, insufficient balance, refund-once, completed-job protection and function access. Other tests cover project mapping, validation, pricing and 4K reference input, project-aware camera direction and video controls. They do not replace hosted Supabase RLS / Storage integration tests or paid Fal generation tests.
 
 GitHub Actions runs tests and production build. Docker uses Next standalone output; `railway.json` supports Railway deployment. Supply public Supabase values as build args/environment and server secrets at runtime. No production project, database, provider credentials or domain were provisioned by this code change.
+
+## Simple premium connection
+
+Both render and video use one provider and the same server-only `FAL_KEY`; no Google API key, separate Kling key, GPU, ControlNet installation or custom LoRA is required. Default render is Nano Banana Pro at 4K, default video is Kling 3.0 Pro at 5 seconds with audio off. The app requests documented resolution settings, but does not certify measured quality or structural accuracy without live reference tests. The image model does not expose FLUX guidance / ControlNet fields, so those parameters are deliberately not sent. This is a photo-quality editing workflow; exact CAD geometry remains a review responsibility.
+
+Existing jobs retain their stored model ID, so status checks continue using the model that originally created the job. Credit prices remain 2 / 6 app units; validate your provider costs before enabling paid sales.

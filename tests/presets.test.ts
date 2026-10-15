@@ -1,6 +1,13 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { category, cost, projects, styles, promptFor } from "../lib/presets";
+import {
+  category,
+  cost,
+  projects,
+  styles,
+  promptFor,
+  videoPromptFor,
+} from "../lib/presets";
 import { generationSchema } from "../lib/validation";
 import { imageInput, videoInput } from "../lib/fal";
 const input = {
@@ -58,12 +65,20 @@ test("video requires a valid parent render and ignores no ownership checks", () 
     false,
   );
 });
-test("image request sends guidance and spatial edge control", () => {
-  const v = imageInput("https://example.com/drawing.png", "test");
-  assert.equal(v.guidance_scale, 4);
-  assert.equal(v.easycontrols[0].image_control_type, "spatial");
-  assert.equal(v.easycontrols[0].control_method_url, "canny");
+test("premium render requests one 4K image without cropping or unsupported CFG controls", () => {
+  const v = imageInput("https://example.com/source.png", "render");
+  assert.equal(v.resolution, "4K");
+  assert.equal(v.aspect_ratio, "auto");
+  assert.deepEqual(v.image_urls, ["https://example.com/source.png"]);
+  assert.equal(v.limit_generations, true);
   assert.equal(v.num_images, 1);
+  assert.equal("guidance_scale" in v, false);
+});
+test("camera prompts respect interior and master plan geometry", () => {
+  assert.match(videoPromptFor("interior", "drone_orbit"), /No aerial view/);
+  assert.match(videoPromptFor("master_plan", "facade_pan"), /bird-eye/);
+  assert.match(videoPromptFor("townhouse", "drone_orbit"), /restrained arc/);
+  assert.match(promptFor("townhouse", "modern_glass"), /material roughness/);
 });
 
 test("Kling request uses documented start image, five seconds and no audio", () => {

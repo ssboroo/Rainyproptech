@@ -24,7 +24,7 @@ export async function persistOutput(
     signal: AbortSignal.timeout(45000),
   });
   if (!res.ok || !res.body) throw new Error("Unable to save provider media");
-  const max = kind === "video" ? 100 * 1024 * 1024 : 25 * 1024 * 1024;
+  const max = kind === "video" ? 100 * 1024 * 1024 : 50 * 1024 * 1024;
   const reader = res.body.getReader();
   const chunks: Uint8Array[] = [];
   let length = 0;

@@ -571,7 +571,7 @@ export default function Studio() {
             <div className="edition-badge">
               <ScanLine size={17} />
               <span>
-                AI POWERED<small>ARCHITECTURAL VISUALIZATION</small>
+                AI POWERED<small>4K RENDER / CINEMATIC VIDEO</small>
               </span>
             </div>
           </div>
@@ -619,7 +619,7 @@ export default function Studio() {
               </div>
               <div className="canvas-meta">
                 <span className="live-dot" />
-                {ready ? "RENDER READY" : "DESIGN WORKSPACE"}
+                {ready ? "RENDER READY" : "4K QUALITY WORKSPACE"}
               </div>
             </div>
             <div className="output-canvas">
