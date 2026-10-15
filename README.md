@@ -8,7 +8,7 @@ Mongolian / English architectural visualization workspace built with Next.js 15 
 - Four bilingual exterior styles plus a warm minimal interior style.
 - PNG, JPEG, WebP source upload (15 MB), local preview and Before / After slider. Export CAD, vector, SVG or SketchUp drawings to raster first; native DWG, DXF, PDF and 3D model files are not accepted.
 - FLUX General image-to-image with guidance 4.0 and spatial Canny EasyControl. Server-composed prompts prioritize massing, floor count, windows, balconies and site boundaries.
-- Veo 2 image-to-video, 5 seconds, with pull back / elevate, orbit and facade pan direction.
+- Kling 2.6 Pro image-to-video, 5 seconds, with pull back / elevate, orbit and facade pan direction.
 - Company text overlay in the video player, generation history, private inputs and outputs, email/password Supabase Auth.
 - Images cost 2 credits, video costs 6 credits. Transactions lock the balance, reserve once per request UUID and refund definitive failed jobs once. Clients cannot change balances or write generation rows.
 
@@ -56,10 +56,10 @@ Branding is a **player overlay**, not burned into downloaded MP4 files. Generate
 
 ## Models and official references
 
-Checked 2026-10-15. The requested FLUX Pro v1 Depth and Kling v1.6 Pro endpoints are marked deprecated in Fal's docs, so this implementation uses the alternatives below. Validate availability, pricing, safety behavior and example renders with your own Fal account before selling access.
+Checked 2026-10-15. The requested FLUX Pro v1 Depth, Kling v1.6 Pro and Veo 2 endpoints are marked deprecated in Fal's docs, so this implementation uses the alternatives below. Validate availability, pricing, safety behavior and example renders with your own Fal account before selling access.
 
 - [FLUX General image-to-image schema](https://fal.ai/models/fal-ai/flux-general/image-to-image/api)
-- [Veo 2 image-to-video schema](https://fal.ai/models/fal-ai/veo2/image-to-video/api)
+- [Kling 2.6 Pro image-to-video schema](https://fal.ai/models/fal-ai/veo2/image-to-video/api)
 - [Deprecated FLUX Depth](https://fal.ai/models/fal-ai/flux-pro/v1/depth/api)
 - [Deprecated Kling 1.6](https://fal.ai/models/fal-ai/kling-video/v1.6/pro/image-to-video/api)
 - [Supabase Next.js Auth](https://supabase.com/docs/guides/auth/server-side/nextjs)
