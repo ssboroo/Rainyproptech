@@ -1,0 +1,2 @@
+alter table public.generations drop constraint generations_project_subtype_check;
+alter table public.generations add constraint generations_project_subtype_check check (project_subtype in ('exterior_facade','master_plan','townhouse','commercial','interior','villa','apartment_tower','low_rise','cabin','ger_resort','mixed_use','retail','hotel','restaurant','shopping_mall','school','hospital','cultural','sports','public_building','industrial','warehouse','urban_plan','campus_plan','landscape','living_room','bedroom','kitchen','office_interior','lobby','bathroom'));

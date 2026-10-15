@@ -35,7 +35,8 @@ test("all requested projects and styles have bilingual labels and structure dire
       /floor count, window grid, balconies/,
     );
   }
-  assert.equal(Object.keys(styles).length, 5);
+  assert.ok(Object.keys(styles).length >= 30);
+  assert.ok(Object.keys(projects).length >= 30);
 });
 test("API rejects missing sources, invalid presets, mismatched interior styles and arbitrary credit overrides", () => {
   assert.ok(generationSchema.safeParse(input).success);
@@ -94,4 +95,18 @@ test("Kling request uses documented start image, five seconds and no audio", () 
   assert.equal(v.duration, "5");
   assert.equal(v.start_image_url, "https://example.com/render.png");
   assert.equal(v.generate_audio, false);
+});
+
+test("expanded typologies and interior styles validate and map correctly", () => {
+  for (const project of Object.keys(projects) as (keyof typeof projects)[]) {
+    const style =
+      category(project) === "interior" ? "interior_japandi" : "natural_stone";
+    assert.ok(
+      generationSchema.safeParse({ ...input, project, style }).success,
+      project,
+    );
+  }
+  assert.equal(category("landscape"), "master_plan");
+  assert.match(videoPromptFor("bedroom", "drone_orbit"), /No aerial view/);
+  assert.match(videoPromptFor("campus_plan", "drone_orbit"), /bird-eye/);
 });

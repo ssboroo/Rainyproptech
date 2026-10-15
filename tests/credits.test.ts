@@ -1,18 +1,17 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { PGlite } from "@electric-sql/pglite";
 test("Postgres migration: atomic charge, retry, insufficient balance, refund exactly once and access grants", async () => {
   const db = new PGlite();
   await db.exec(
     `create role anon; create role authenticated; create role service_role;create schema auth;create table auth.users(id uuid primary key);create function auth.uid() returns uuid language sql as 'select null::uuid';create schema storage;create table storage.buckets(id text primary key,name text,public boolean,file_size_limit bigint,allowed_mime_types text[]);create table storage.objects(bucket_id text,name text);create function storage.foldername(text) returns text[] language sql as 'select string_to_array($1,''/'')';`,
   );
-  await db.exec(
-    readFileSync(
-      "supabase/migrations/20261015034911_initial_proptech.sql",
-      "utf8",
-    ),
-  );
+  for (const file of readdirSync("supabase/migrations")
+    .filter((f) => f.endsWith(".sql"))
+    .sort()) {
+    await db.exec(readFileSync("supabase/migrations/" + file, "utf8"));
+  }
   const user = "11111111-1111-4111-8111-111111111111",
     id = "22222222-2222-4222-8222-222222222222",
     second = "33333333-3333-4333-8333-333333333333";
@@ -20,7 +19,7 @@ test("Postgres migration: atomic charge, retry, insufficient balance, refund exa
   await db.query("insert into public.profiles values($1,8)", [user]);
   const reserve = (i: string, kind = "image") =>
     db.query(
-      `select * from public.reserve_generation($1,$2,$3,'exterior','townhouse','modern_glass','facade_pan','prompt','source',null,'model')`,
+      `select * from public.reserve_generation($1,$2,$3,'exterior','villa','modern_glass','facade_pan','prompt','source',null,'model')`,
       [i, user, kind],
     );
   const balance = async () =>

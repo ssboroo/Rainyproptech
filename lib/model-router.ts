@@ -1,6 +1,6 @@
 import Ajv from "ajv";
 import snapshot from "./model-catalog.json";
-import type { Project, Motion } from "./presets";
+import { category, type Project, type Motion } from "./presets";
 export type RoutingMode = "auto" | "quality" | "speed" | "structure";
 export type ModelDescriptor = {
   id: string;
@@ -35,7 +35,7 @@ export function selectModel(
         ? ["fal-ai/nano-banana-2/edit", "fal-ai/flux-2/flash/edit"]
         : mode === "structure"
           ? ["fal-ai/flux-pro/kontext/max", "fal-ai/flux-pro/kontext"]
-          : project === "interior"
+          : category(project) === "interior"
             ? ["bytedance/seedream/v5/pro/edit", "fal-ai/nano-banana-pro/edit"]
             : [
                 "fal-ai/nano-banana-pro/edit",

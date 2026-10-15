@@ -1,4 +1,12 @@
 "use client";
+import dynamic from "next/dynamic";
+import { PresetLibrary } from "@/components/preset-library";
+import { ArchitectureIcon } from "@/components/architecture-icon";
+import {
+  IMPORT_ACCEPT,
+  MODEL_LIMIT,
+  sourceFormat,
+} from "@/lib/importer/formats";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Building2,
@@ -33,6 +41,7 @@ import { ModelPicker } from "@/components/model-picker";
 import { Button } from "@/components/ui/button";
 import { browserDb } from "@/lib/browser";
 import {
+  category,
   projects,
   styles,
   motions,
@@ -52,6 +61,11 @@ type Generation = {
   model?: string;
   model_name?: string;
 };
+const ImportDialog = dynamic(
+  () =>
+    import("@/components/importer/import-dialog").then((m) => m.ImportDialog),
+  { ssr: false },
+);
 export default function Studio() {
   const db = useMemo(() => browserDb(), []);
   const [lang, setLang] = useState<"mn" | "en">("mn");
@@ -83,6 +97,8 @@ export default function Studio() {
   >("auto");
   const [imageModel, setImageModel] = useState(""),
     [videoModel, setVideoModel] = useState("");
+  const [importFile, setImportFile] = useState<File | null>(null);
+  const [originalName, setOriginalName] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
   useEffect(() => {
@@ -221,6 +237,21 @@ export default function Studio() {
   }, [active, api, refresh]); // eslint-disable-line react-hooks/exhaustive-deps
   function choose(file?: File) {
     if (!file) return;
+    if (sourceFormat(file.name)) {
+      if (!file.size || file.size > MODEL_LIMIT) {
+        setMessage(
+          t(
+            "CAD / SketchUp файл 25 MB хүртэл байна.",
+            "CAD / SketchUp files must be under 25 MB.",
+          ),
+        );
+        return;
+      }
+      setImportFile(file);
+      setMessage("");
+      return;
+    }
+    setOriginalName("");
     if (
       !["image/png", "image/jpeg", "image/webp"].includes(file.type) ||
       file.size > 15 * 1024 * 1024
@@ -240,6 +271,18 @@ export default function Studio() {
     pendingId.current = null;
     setTab("render");
     setMessage("");
+  }
+  async function loadExample(extension: "dxf" | "skp") {
+    try {
+      const name = extension === "dxf" ? "facade.dxf" : "building.skp";
+      const r = await fetch("/samples/" + name);
+      if (!r.ok) throw new Error("Example unavailable");
+      choose(new File([await r.blob()], name));
+    } catch {
+      setMessage(
+        t("Жишээ файлыг ачаалж чадсангүй.", "Could not load the example."),
+      );
+    }
   }
   async function generate(kind: "image" | "video") {
     if (!user) {
@@ -333,7 +376,11 @@ export default function Studio() {
         setVideo(null);
         setProject(full.project_subtype);
         setStyle(full.style_preset);
-        setMode(full.project_subtype === "interior" ? "interior" : "exterior");
+        setMode(
+          category(full.project_subtype as Project) === "interior"
+            ? "interior"
+            : "exterior",
+        );
         setTab("render");
       } else {
         setVideo(full);
@@ -347,7 +394,24 @@ export default function Studio() {
   const ready = render?.status === "completed";
   const before = preview || sourceUrl;
   return (
-    <div className={"studio-shell " + (settingsOpen ? "settings-open" : "")}>
+    <div
+      className={
+        "studio-shell atelier " + (settingsOpen ? "settings-open" : "")
+      }
+    >
+      {importFile && (
+        <ImportDialog
+          file={importFile}
+          lang={lang}
+          onClose={() => setImportFile(null)}
+          onConfirm={(file, name) => {
+            choose(file);
+            setOriginalName(name);
+            setImportFile(null);
+            setSettingsOpen(false);
+          }}
+        />
+      )}
       <header className="topbar">
         <a className="logo" href="/">
           <img className="vista-logo" src="/brand/vista-mark.svg" alt="" />
@@ -439,47 +503,20 @@ export default function Studio() {
               </button>
             ))}
           </div>
-          <section>
-            <label className="section-label">
-              <span>01</span>
-              {t("Төслийн төрөл", "Project type")}
-            </label>
-            <div className="project-grid">
-              {(mode === "interior"
-                ? ["interior"]
-                : ["exterior_facade", "master_plan", "townhouse", "commercial"]
-              ).map((p) => {
-                const key = p as Project;
-                const Icon =
-                  key === "master_plan"
-                    ? Map
-                    : key === "townhouse" || key === "interior"
-                      ? House
-                      : key === "commercial"
-                        ? PanelTop
-                        : Building2;
-                return (
-                  <button
-                    key={key}
-                    disabled={!!active || busy}
-                    aria-pressed={project === key}
-                    className={
-                      "project-card " + (project === key ? "selected" : "")
-                    }
-                    onClick={() => {
-                      setProject(key);
-                      setRender(null);
-                      setVideo(null);
-                      pendingId.current = null;
-                    }}
-                  >
-                    <Icon size={22} />
-                    <span>{projects[key][lang]}</span>
-                    {project === key && <Check size={12} className="tick" />}
-                  </button>
-                );
-              })}
-            </div>
+          <section className="preset-control">
+            <PresetLibrary
+              kind="project"
+              mode={mode}
+              value={project}
+              lang={lang}
+              disabled={!!active || busy}
+              onChange={(key) => {
+                setProject(key as Project);
+                setRender(null);
+                setVideo(null);
+                pendingId.current = null;
+              }}
+            />
           </section>
           <section>
             <label className="section-label">
@@ -490,9 +527,12 @@ export default function Studio() {
               ref={fileRef}
               type="file"
               className="sr-only"
-              accept="image/png,image/jpeg,image/webp"
+              accept={IMPORT_ACCEPT}
               disabled={busy || !!active}
-              onChange={(e) => choose(e.target.files?.[0])}
+              onChange={(e) => {
+                choose(e.target.files?.[0]);
+                e.target.value = "";
+              }}
             />
             <button
               className={"upload-zone " + (drag ? "drag" : "")}
@@ -515,9 +555,7 @@ export default function Studio() {
                 <Upload size={22} />
               )}
               <strong>
-                {source
-                  ? source.name
-                  : t("Зураг оруулах", "Upload source image")}
+                {source ? source.name : t("Файл оруулах", "Import source file")}
               </strong>
               <small>
                 {t(
@@ -525,54 +563,69 @@ export default function Studio() {
                   "Elevation · SketchUp · Site photo",
                 )}
               </small>
-              <small>PNG, JPG, WebP · max 15 MB</small>
+              <span className="file-format-row">
+                <b>DWG</b>
+                <b>DXF</b>
+                <b>SKP</b>
+                <b>IMAGE</b>
+              </span>
             </button>
             <p className="hint">
               {t(
-                "CAD / вектор зургаа эхлээд PNG эсвэл JPG болгон экспортлоно уу.",
-                "Export CAD / vector drawings to PNG or JPG first.",
+                "CAD / SKP: 25 MB · Зураг: 15 MB. Файлаа нээгээд харагдацаа баталгаажуулна.",
+                "CAD / SKP: 25 MB · Images: 15 MB. Open your file and confirm the source view.",
               )}
             </p>
-          </section>
-          <section>
-            <label className="section-label">
-              <span>03</span>
-              {t("Архитектурын хэв маяг", "Architectural style")}
-            </label>
-            <div className="styles">
-              {(mode === "interior"
-                ? ["interior_modern"]
-                : [
-                    "modern_glass",
-                    "neo_classic_building",
-                    "eco_residential",
-                    "commercial_tower",
-                  ]
-              ).map((s) => {
-                const key = s as Style;
-                return (
-                  <button
-                    key={key}
-                    disabled={!!active || busy}
-                    className={style === key ? "selected" : ""}
-                    aria-pressed={style === key}
-                    onClick={() => {
-                      setStyle(key);
-                      setRender(null);
-                      setVideo(null);
-                      pendingId.current = null;
-                    }}
-                  >
-                    <span
-                      className="swatch"
-                      style={{ background: styles[key].color }}
-                    />
-                    <span>{styles[key][lang]}</span>
-                    <span className="radio">{style === key && <span />}</span>
-                  </button>
-                );
-              })}
+            <div className="source-examples">
+              <span>{t("Файлгүй бол турших:", "Try a source:")}</span>
+              <button
+                disabled={busy || !!active}
+                onClick={() => loadExample("dxf")}
+              >
+                DXF ↗
+              </button>
+              <button
+                disabled={busy || !!active}
+                onClick={() => loadExample("skp")}
+              >
+                SketchUp ↗
+              </button>
             </div>
+            {originalName && (
+              <div className="imported-source">
+                <ArchitectureIcon name="blocks" size={17} />
+                <span>
+                  <strong>{originalName}</strong>
+                  <small>
+                    {t("Баталгаажуулсан PNG харагдац", "Confirmed PNG view")}
+                  </small>
+                </span>
+                <button
+                  onClick={() => setOriginalName("")}
+                  aria-label={t(
+                    "Файлын тэмдэглэгээ арилгах",
+                    "Clear file label",
+                  )}
+                >
+                  ×
+                </button>
+              </div>
+            )}
+          </section>
+          <section className="preset-control">
+            <PresetLibrary
+              kind="style"
+              mode={mode}
+              value={style}
+              lang={lang}
+              disabled={!!active || busy}
+              onChange={(key) => {
+                setStyle(key as Style);
+                setRender(null);
+                setVideo(null);
+                pendingId.current = null;
+              }}
+            />
           </section>
           <ModelPicker
             lang={lang}
@@ -630,11 +683,11 @@ export default function Studio() {
         <main className="main" id="studio">
           <div className="page-heading">
             <div>
-              <div className="eyebrow">YOUR VISION. IN PERSPECTIVE.</div>
+              <div className="eyebrow">ARCHITECTURAL WORKSPACE / 01</div>
               <h1>
                 {t(
-                  "Зургаас эхэл. Орчинд нь оч.",
-                  "From a drawing. Into a place.",
+                  "Таны зураг. Шинэ бодит орчин.",
+                  "Your drawing. A new reality.",
                 )}
               </h1>
               <p>

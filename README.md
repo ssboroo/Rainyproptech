@@ -4,9 +4,9 @@ Mongolian / English architectural visualization workspace built with Next.js 15 
 
 ## Features
 
-- Interior and Exterior / Master Plan workspaces, facade / master plan / townhouse / commercial project cards.
-- Four bilingual exterior styles plus a warm minimal interior style.
-- PNG, JPEG, WebP source upload (15 MB), local preview and Before / After slider. Export CAD, vector, SVG or SketchUp drawings to raster first; native DWG, DXF, PDF and 3D model files are not accepted.
+- Interior and Exterior / Master Plan workspaces with 31 bilingual building and room typologies.
+- Searchable architectural library with 30 bilingual styles, grouped material languages and original vector motifs.
+- Native DWG, ASCII DXF and SketchUp import (25 MB), local geometry preview, confirmed view capture, plus PNG/JPEG/WebP upload (15 MB) and Before / After slider. PDF, RVT, IFC and other native formats are not accepted.
 - Nano Banana Pro reference-image editing with native 4K output requested, original aspect ratio and one output. No separate ControlNet setup. Server-composed photorealistic prompts prioritize massing, floor count, windows, balconies, site boundaries and physically plausible materials.
 - Kling 3.0 Pro image-to-video, 5 seconds, with pull back / elevate, orbit and facade pan direction.
 - Company text overlay in the video player, generation history, private inputs and outputs, email/password Supabase Auth.
@@ -110,3 +110,13 @@ Manual video adapters use five seconds where the schema supports it; some provid
 RAINY VISTA uses a native SVG perspective mark, a cream / navy / teal workspace, responsive project controls, an expandable comparison canvas and a private completed-results gallery. Brand assets live in `public/brand/`. The gallery displays only completed authenticated outputs; it never substitutes stock imagery for generated results.
 
 Workflow references: [Chaos Veras](https://www.chaos.com/veras), [REimagineHome exterior](https://www.reimaginehome.ai/render-exterior-structures), and [Formas](https://www.formas.ai/). No competitor assets are included.
+
+## Native CAD and SketchUp import
+
+Upload `.dxf`, `.dwg`, or `.skp` up to **25 MB**. A cancellable browser worker reads the geometry locally; the original design is never uploaded. Review the model-space CAD preview or orbit the SketchUp model (3D/front/top), then confirm the view. The app captures a PNG reference and sends that image through the existing private upload and generation flow. Import itself does not consume AI credits. Originals and editable geometry are not retained across sessions.
+
+The importer is a visualization tool, not an authoritative CAD/BIM editor. ASCII DXF geometry is supported; binary DXF must be exported as ASCII. Xrefs, some solid/proxy entities, annotation, textures and older SKP variants may not reproduce fully. Every import requires visual review; unreadable/empty files fail without consuming credits. A 60-second timeout terminates parsing. Large models may require simplification, especially on mobile. DXF and SKP source examples can be opened directly from the uploader; they are original synthetic source geometry, not AI output examples.
+
+The catalog now includes **31 project typologies** and **30 styles**, including interiors, residential, commercial, civic, industrial and site planning. API validation and database subtype constraints share the catalog's exact supported identifiers. Apply `20261015060828_expand_architecture_typologies.sql` after the initial migration for existing installations.
+
+`npm run dev` and `npm run build` prepare the locally served DWG JS/WASM and example files from pinned packages. Generated assets are excluded from git and included in the Docker runtime's public directory. See `public/cad/NOTICE.txt` and `public/cad/COPYING` for the separate DWG worker's open-source notices and corresponding source.
