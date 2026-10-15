@@ -13,12 +13,19 @@ export const pricingPolicy = {
   overheadMnt: 50,
   providerReserve: 0.05,
 } as const;
-export const creditPacks = [
-  { name: "Starter", credits: 500, priceMnt: 50000 },
-  { name: "Studio", credits: 1500, priceMnt: 150000 },
-  { name: "Business", credits: 5000, priceMnt: 500000 },
-];
-type Rule = {
+export { creditPacks } from "./public-pricing";
+export type PricingPolicy = {
+  version: string;
+  reviewedAt: string;
+  validUntil: string;
+  creditMnt: number;
+  usdMnt: number;
+  markup: number;
+  paymentFee: number;
+  overheadMnt: number;
+  providerReserve: number;
+};
+export type Rule = {
   flat?: number;
   resolutions?: Record<string, number>;
   perSecond?: number;
@@ -26,7 +33,7 @@ type Rule = {
   qualities?: Record<string, number>;
   qualityResolutions?: Record<string, Record<string, number>>;
 };
-const rules: Record<string, Rule> = {
+export const rules: Record<string, Rule> = {
   "fal-ai/flux-pro/kontext": { flat: 0.04 },
   "fal-ai/flux-pro/kontext/max/multi": { flat: 0.08 },
   "fal-ai/bytedance/seedream/v4.5/edit": { flat: 0.04 },
@@ -159,30 +166,37 @@ const rules: Record<string, Rule> = {
     resolutions: { "1080p": 0.06, "1440p": 0.12, "2160p": 0.24 },
   },
 };
-export function hasReviewedPrice(id: string) {
-  return !!rules[id];
+export function hasReviewedPrice(
+  id: string,
+  overrides: Record<string, Rule> = {},
+) {
+  return !!(overrides[id] || rules[id]);
 }
-export function retailCredits(apiUsd: number) {
+export function retailCredits(
+  apiUsd: number,
+  policy: PricingPolicy = pricingPolicy,
+) {
   if (!Number.isFinite(apiUsd) || apiUsd <= 0)
     throw new Error("Invalid provider price");
   const basis =
-    apiUsd * pricingPolicy.usdMnt * (1 + pricingPolicy.providerReserve) +
-    pricingPolicy.overheadMnt;
+    apiUsd * policy.usdMnt * (1 + policy.providerReserve) + policy.overheadMnt;
   return Math.ceil(
-    (basis * (1 + pricingPolicy.markup)) /
-      ((1 - pricingPolicy.paymentFee) * pricingPolicy.creditMnt),
+    (basis * (1 + policy.markup)) /
+      ((1 - policy.paymentFee) * policy.creditMnt),
   );
 }
 export function quoteFor(
   model: ModelDescriptor,
   input: Record<string, unknown>,
   now = Date.now(),
+  policy: PricingPolicy = pricingPolicy,
+  overrides: Record<string, Rule> = {},
 ) {
-  if (now >= Date.parse(pricingPolicy.validUntil))
+  if (now >= Date.parse(policy.validUntil))
     throw new Error(
       "Үнийн мэдээллийг шинэчлэх шаардлагатай. Pricing review required.",
     );
-  const rule = rules[model.id];
+  const rule = overrides[model.id] || rules[model.id];
   if (!rule)
     throw new Error(
       "Энэ загварын хувьсах өртгийг баталгаажуулж байна. Өөр загвар сонгоно уу. Price review pending; choose a priced model.",
@@ -228,15 +242,17 @@ export function quoteFor(
         ? rule.resolutions[resolution]
         : (rule.perSecond ?? rule.flat);
   if (!unit) throw new Error("Unpriced resolution");
-  const apiUsd = Number((unit * duration + (rule.input || 0)).toFixed(6));
-  const credits = retailCredits(apiUsd);
+  const apiUsd = Number(
+    ((rule.flat ?? unit * duration) + (rule.input || 0)).toFixed(6),
+  );
+  const credits = retailCredits(apiUsd, policy);
   return {
-    version: pricingPolicy.version,
+    version: policy.version,
     model: model.id,
     modelName: model.name,
     kind: model.kind,
     credits,
-    totalMnt: credits * pricingPolicy.creditMnt,
+    totalMnt: credits * policy.creditMnt,
     apiUsd,
     resolution:
       resolution ||
@@ -246,8 +262,8 @@ export function quoteFor(
           ? "2048×2048"
           : "model native"),
     duration: model.kind === "video" ? duration : null,
-    reviewedAt: pricingPolicy.reviewedAt,
-    validUntil: pricingPolicy.validUntil,
+    reviewedAt: policy.reviewedAt,
+    validUntil: policy.validUntil,
   };
 }
 export type PriceQuote = ReturnType<typeof quoteFor>;

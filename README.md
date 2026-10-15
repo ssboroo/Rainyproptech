@@ -35,7 +35,7 @@ update public.profiles set credits = credits + 20
 where id = 'USER_UUID_FROM_SUPABASE_AUTH';
 ```
 
-No payment gateway / automatic credit purchases are implemented. Set bucket file limits and account quotas for your deployment; generated media can be up to 50 MB per image or 100 MB per video. Inputs remain private and short-lived signed URLs are sent to Fal for processing. Generated provider media is copied into private Supabase Storage and returned as signed URLs.
+Wire.mn hosted checkout and verified credit purchases are implemented. The owner must enter the existing live key once in /admin → Wire.mn; keys withheld by Railway OAuth cannot be copied automatically. Top-up buttons stay disabled until a live key is configured. Set bucket file limits and account quotas for your deployment; generated media can be up to 50 MB per image or 100 MB per video. Inputs remain private and short-lived signed URLs are sent to Fal for processing. Generated provider media is copied into private Supabase Storage and returned as signed URLs.
 
 ## API flow
 
@@ -128,4 +128,15 @@ Thirty original AI architectural concept photographs now illustrate the welcome 
 
 ### Mongolia workflow and credit packs
 
-`/guide` explains uploading, Mongolia/season context, reference checks, video length, credits and failure handling. `/pricing` starts at Starter ₮50,000 / 500 credits, then Studio ₮150,000 / 1,500 and Business ₮500,000 / 5,000. There is no connected online checkout. All inference uses the server-owned FAL_KEY: internal site credits and the owner’s Fal provider balance are separate ledgers. See docs/pricing.md for the full charge/refund flow.
+`/guide` explains uploading, Mongolia/season context, reference checks, video length, credits and failure handling. `/pricing` starts at Starter ₮50,000 / 500 credits, then Studio ₮150,000 / 1,500 and Business ₮500,000 / 5,000. Wire.mn checkout is enabled after the owner saves a live key in /admin. All inference uses the server-owned FAL_KEY: internal site credits and the owner’s Fal provider balance are separate ledgers. See docs/pricing.md for the full charge/refund flow.
+
+
+### Architectural atelier, private pricing and administration
+
+The limestone/charcoal/bronze theme keeps Studio, Drone, Library, Models, Pricing and Guide separate. Customer APIs expose retail totals only (200% markup on the planned basis). Detailed provider tariffs, FX, fees, reserves, model rules/defaults and connection settings are at `/admin`.
+
+Set `ADMIN_EMAILS` to verified owner emails. The deployed allowlist is `ssboroostore@gmail.com`; register and confirm that address first. Authorization uses `auth.getUser` + confirmed email + server allowlist / trusted app_metadata role. `user_metadata` never grants access. Wire keys are write-only, AES-256-GCM encrypted with `SETTINGS_ENCRYPTION_KEY` (32 random bytes, base64). Preserve this encryption key when redeploying.
+
+Wire integration reuses the `socialtool-store` protocol: whole MNT amounts, stable idempotency keys, hosted HTTPS pay.wire.mn checkout, server-side retrieval and optional signed webhook. The old project's webhook is left intact. Verified polling works without a new webhook. New endpoint: `/api/payments/webhook` for `payment_intent.succeeded`; use its own signing secret if provisioned. No browser redirect or client-declared paid status grants credits. Payment amount/currency/intent must match, and a locked, unique ledger settles each order exactly once. No live money transfer was performed during deployment.
+
+Migration `studio_admin_wire_payments` adds private settings/audit/order/ledger tables and revokes browser SELECT on generations.price_quote. Service-only tables deliberately have RLS enabled with no browser policies; security advisor's INFO for that default-deny setup is expected.

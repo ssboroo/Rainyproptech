@@ -1,8 +1,10 @@
+import { loadSettings, effectivePolicy } from "@/lib/settings";
+import { configuredModel } from "@/lib/configured-model";
 import { authorized, ApiError, failure } from "@/lib/supabase";
 import { generationSchema } from "@/lib/validation";
 import { category, promptFor, videoPromptFor } from "@/lib/presets";
 import { provider } from "@/lib/fal";
-import { selectModel, buildModelInput } from "@/lib/model-router";
+import { buildModelInput } from "@/lib/model-router";
 import { reservationMatches } from "@/lib/reservation-match";
 import { quoteFor } from "@/lib/pricing";
 export async function POST(req: Request) {
@@ -11,6 +13,9 @@ export async function POST(req: Request) {
     const parsed = generationSchema.safeParse(await req.json());
     if (!parsed.success) throw new ApiError(parsed.error.issues[0].message);
     const v = parsed.data;
+    const { settings, revision } = await loadSettings();
+    if (!settings.generationEnabled)
+      throw new ApiError("Студи түр завсарлаж байна.", 503);
     const fal = provider();
     let source = v.source_path || "",
       inputUrl = "",
@@ -54,7 +59,8 @@ export async function POST(req: Request) {
         : videoPromptFor(project, v.motion, v.notes, scene, season);
     let selected;
     try {
-      selected = selectModel(
+      selected = configuredModel(
+        settings,
         v.kind,
         project,
         v.motion,
@@ -84,7 +90,13 @@ export async function POST(req: Request) {
 
     let quote;
     try {
-      quote = quoteFor(selected.model, input);
+      quote = quoteFor(
+        selected.model,
+        input,
+        Date.now(),
+        effectivePolicy(settings, revision),
+        settings.ruleOverrides,
+      );
     } catch (e) {
       throw new ApiError((e as Error).message, 409);
     }

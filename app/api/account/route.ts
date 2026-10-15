@@ -1,3 +1,4 @@
+import { isPlatformAdmin } from "@/lib/settings";
 import { authorized, failure } from "@/lib/supabase";
 export async function GET(req: Request) {
   try {
@@ -28,7 +29,11 @@ export async function GET(req: Request) {
         return { ...row, output_url: signed?.data?.signedUrl || null };
       }),
     );
-    return Response.json({ credits: a.data.credits, generations });
+    return Response.json({
+      credits: a.data.credits,
+      generations,
+      is_admin: isPlatformAdmin(user),
+    });
   } catch (e) {
     return failure(e);
   }

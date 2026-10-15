@@ -9,8 +9,9 @@ import { MongoliaControls } from "@/components/mongolia-controls";
 import { StudioGuide } from "@/components/studio-guide";
 import type { Scene, Season } from "@/lib/mongolia-context";
 import { VideoControls } from "@/components/video-controls";
+import { AdminConsole } from "@/components/admin-console";
 import { PricingPanel } from "@/components/pricing-panel";
-import type { PriceQuote } from "@/lib/pricing";
+import type { RetailQuote as PriceQuote } from "@/lib/public-pricing";
 import { PresetLibrary } from "@/components/preset-library";
 import { ArchitectureIcon } from "@/components/architecture-icon";
 import {
@@ -81,19 +82,22 @@ export default function Studio() {
   const pathname = usePathname(),
     router = useRouter();
   const view =
-    pathname === "/guide"
-      ? "guide"
-      : pathname === "/video"
-        ? "video"
-        : pathname === "/pricing"
-          ? "pricing"
-          : pathname === "/library"
-            ? "library"
-            : pathname === "/projects"
-              ? "projects"
-              : pathname === "/models"
-                ? "models"
-                : "studio";
+    pathname === "/admin"
+      ? "admin"
+      : pathname === "/guide"
+        ? "guide"
+        : pathname === "/video"
+          ? "video"
+          : pathname === "/pricing"
+            ? "pricing"
+            : pathname === "/library"
+              ? "library"
+              : pathname === "/projects"
+                ? "projects"
+                : pathname === "/models"
+                  ? "models"
+                  : "studio";
+  const [isAdmin, setIsAdmin] = useState(false);
   const [scene, setScene] = useState<Scene>("ulaanbaatar"),
     [season, setSeason] = useState<Season>("summer");
   const [videoDuration, setVideoDuration] = useState(5),
@@ -178,6 +182,7 @@ export default function Studio() {
     try {
       const a = await api("/api/account");
       setCredits(a.credits);
+      setIsAdmin(!!a.is_admin);
       setHistory(a.generations);
       const pending = a.generations.find(
         (g: Generation) => !["completed", "failed"].includes(g.status),
@@ -201,6 +206,7 @@ export default function Studio() {
     if (user) void refresh();
     else {
       setCredits(0);
+      setIsAdmin(false);
       setHistory([]);
       setRender(null);
       setVideo(null);
@@ -353,7 +359,7 @@ export default function Studio() {
           });
       });
     return () => controller.abort();
-  }, [pricingSelection]);
+  }, [pricingSelection, pathname]);
   const imageQuote =
     pricing.selection === pricingSelection ? pricing.image?.quote : undefined;
   const videoQuote =
@@ -448,7 +454,11 @@ export default function Studio() {
     setBusy(true);
     try {
       const { error } = signup
-        ? await db.auth.signUp({ email, password })
+        ? await db.auth.signUp({
+            email,
+            password,
+            options: { emailRedirectTo: window.location.origin },
+          })
         : await db.auth.signInWithPassword({ email, password });
       if (error) throw error;
       setAuthOpen(false);
@@ -546,6 +556,11 @@ export default function Studio() {
           ))}
         </nav>
         <div className="header-actions">
+          {isAdmin && (
+            <Link className="admin-entry" href="/admin">
+              Удирдлага
+            </Link>
+          )}
           <button
             className="settings-toggle"
             aria-expanded={settingsOpen}
@@ -1410,8 +1425,8 @@ export default function Studio() {
                 <h1>{t("AI загварын удирдлага", "AI model selection")}</h1>
                 <p>
                   {t(
-                    "Чанарт чиглэсэн автомат сонголт. 100 загварын каталог, шалгалтын статус.",
-                    "Quality-focused automatic routing. A 100-model catalog with verification status.",
+                    "Төслийн зорилгод тохирох AI загвар, урьдчилан тодорхой нийт үнэ.",
+                    "Project-aware creative models, with a clear total before you generate.",
                   )}
                 </p>
               </div>{" "}
@@ -1457,8 +1472,8 @@ export default function Studio() {
                 </p>
                 <p>
                   {t(
-                    "Шалгалт: 100 схем, 100 тариф; 51 урьдчилсан үнийн тооцоо. Бүх загварыг төлбөртэй ижил оролтоор харьцуулж туршаагүй.",
-                    "Audit: 100 schemas, 100 published tariffs; 51 prepaid quote adapters. Not every model has been benchmarked with paid reference generations.",
+                    "Автомат горим нь эх зураг, төслийн төрөлд тохирсон загварыг сонгоно. Үр дүнгийн цонх, давхар, бүтцийг эх зурагтайгаа харьцуулж баталгаажуулаарай.",
+                    "Automatic routing matches your project. Review floors, windows and geometry against your reference before using the result.",
                   )}
                 </p>
                 <Link className="quote-link" href="/">
@@ -1482,6 +1497,13 @@ export default function Studio() {
               }}
             />
           )}
+          {view === "admin" && (
+            <AdminConsole
+              api={api}
+              signedIn={!!user}
+              onSignIn={() => setAuthOpen(true)}
+            />
+          )}
           {view === "guide" && (
             <StudioGuide
               lang={lang}
@@ -1499,7 +1521,15 @@ export default function Studio() {
               <div className="page-heading">
                 <h1>{t("Үнэ & кредит", "Pricing & credits")}</h1>
               </div>
-              <PricingPanel lang={lang} image={imageQuote} video={videoQuote} />
+              <PricingPanel
+                lang={lang}
+                image={imageQuote}
+                video={videoQuote}
+                api={api}
+                signedIn={!!user}
+                onSignIn={() => setAuthOpen(true)}
+                onPaid={() => void refresh()}
+              />
             </>
           )}
           {view === "projects" && (

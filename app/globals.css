@@ -4188,3 +4188,553 @@ h1 {
     gap: 12px;
   }
 }
+/* RAINY VISTA — architectural atelier: charcoal, limestone and brushed bronze. */
+.atelier {
+  --ink: #292825;
+  --muted: #77746d;
+  --line: #ddd9d0;
+  --green: #38342f;
+  --lime: #e5cbb0;
+  --bronze: #a67950;
+  --paper: #f3f1eb;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(#ddd9d033 1px, transparent 1px),
+    linear-gradient(90deg, #ddd9d033 1px, transparent 1px);
+  background-size: 40px 40px;
+  min-height: 100vh;
+}
+.atelier .topbar {
+  background: #242826;
+  border-bottom: 1px solid #77715d;
+  color: #f2eee5;
+  box-shadow: none;
+}
+.atelier .vista-wordmark {
+  color: #f2eee5;
+  letter-spacing: 0.16em;
+}
+.atelier .vista-wordmark b {
+  color: #e0bf98;
+}
+.atelier .vista-wordmark small {
+  color: #c2c0b4;
+}
+.atelier .vista-logo {
+  border: 1px solid #6b6c61;
+  border-radius: 4px;
+}
+.atelier .studio-nav a {
+  color: #d5d5ca;
+}
+.atelier .studio-nav a:hover,
+.atelier .studio-nav a[aria-current="page"] {
+  color: #f1d4b0;
+  border-color: #e3bc8a;
+}
+.atelier .header-actions .language,
+.atelier .header-actions .small,
+.atelier .header-actions .settings-toggle {
+  color: #eeeade;
+  background: transparent;
+  border-color: #686c62;
+}
+.atelier .header-actions .credit-pill {
+  background: #3e443e;
+  color: #f2e3ce;
+  border: 1px solid #77715d;
+}
+.atelier .header-actions .credit-pill svg {
+  color: #e1c29d;
+}
+.atelier .sidebar {
+  background: #faf8f2;
+  border-right: 1px solid #d2cbbb;
+  box-shadow: 8px 0 28px #30382d05;
+}
+.atelier .sidebar-title {
+  color: #8d6847;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+}
+.atelier .mode-switch {
+  border-radius: 5px;
+  background: #e9e5db;
+}
+.atelier .mode-switch button {
+  border-radius: 4px;
+}
+.atelier .mode-switch button.active {
+  background: #383d36;
+  color: #fff7e9;
+}
+.atelier .section-label {
+  letter-spacing: 0.04em;
+  color: #5a554c;
+}
+.atelier .upload-zone {
+  background: #f0eee5;
+  border-color: #c3b8a7;
+  border-radius: 6px;
+}
+.atelier .preset-tile,
+.atelier .typology-tile,
+.atelier .style-tile {
+  border-radius: 6px;
+}
+.atelier .primary,
+.atelier .generate-btn {
+  background: #333c35;
+  color: #fff7e7;
+  border-radius: 5px;
+}
+.atelier .primary:hover {
+  background: #485346;
+}
+.atelier .page-heading h1,
+.atelier .pricing-heading h2,
+.atelier .model-audit h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: -0.035em;
+  font-weight: 400;
+  line-height: 1.16;
+}
+.atelier .page-heading h1 {
+  font-size: clamp(28px, 3.1vw, 48px);
+}
+.atelier .eyebrow {
+  color: #87613f;
+  letter-spacing: 0.19em;
+  font-size: 9px;
+}
+.atelier .edition-badge {
+  color: #87613f;
+  border-color: #c6b196;
+  background: #f2eadb;
+}
+.atelier .workflow-steps {
+  background: #f9f7f1;
+  border-color: #d9d2c3;
+  border-radius: 6px;
+}
+.atelier .workflow-steps > div {
+  border-color: #d9d2c3;
+}
+.atelier .workflow-steps strong {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  font-size: 17px;
+}
+.atelier .canvas-panel {
+  border: 1px solid #cbc4b4;
+  border-radius: 7px;
+  box-shadow: 0 16px 42px #2a302012;
+  position: relative;
+}
+.atelier .canvas-toolbar {
+  background: #faf8f2;
+  border-bottom-color: #d8cfbd;
+}
+.atelier .view-tabs button {
+  border-radius: 3px;
+}
+.atelier .view-tabs button.active {
+  background: #e9e1d2;
+  color: #443e32;
+}
+.atelier .canvas-stage {
+  background: #e7e3d8;
+}
+.atelier .empty-canvas h2,
+.atelier .canvas-placeholder h2 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+.atelier .canvas-caption {
+  background: #f8f5ed;
+  border-top: 1px solid #d8cfbd;
+}
+.atelier .secure-caption {
+  color: #77705f;
+}
+.atelier .mongolia-controls {
+  background: #eee9de;
+  border-color: #d8cbb7;
+  border-radius: 6px;
+}
+.atelier .mongolia-controls p {
+  color: #675f50;
+}
+.atelier .mongolia-controls select {
+  border-color: #ccc0aa;
+}
+.atelier .local-badge {
+  background: #8c6d48;
+}
+.atelier .model-page-link,
+.atelier .quote-link {
+  color: #765431;
+}
+.atelier .pricing-section {
+  border: 1px solid #d9d1c1;
+  background: #faf8f2;
+  border-radius: 8px;
+}
+.atelier .pricing-heading h2 {
+  font-size: clamp(25px, 3vw, 38px);
+}
+.atelier .pricing-examples > div {
+  border-radius: 5px;
+  border-color: #dbd4c7;
+}
+.atelier .credit-packs article {
+  border-radius: 6px;
+  border-color: #d7cdbc;
+  background: #fffdf8;
+}
+.atelier .credit-packs article.featured {
+  background: #363f36;
+  color: #fff5e4;
+  border-color: #363f36;
+}
+.atelier .credit-packs article.featured p,
+.atelier .credit-packs article.featured small,
+.atelier .credit-packs article.featured > span {
+  color: #e0d6bd;
+}
+.atelier .credit-packs article.featured .pack-badge {
+  background: #69745f;
+  color: #fff7e9;
+}
+.atelier .credit-packs article.featured strong {
+  color: #f2d5ad;
+}
+.atelier .managed-billing {
+  background: #eeeadd;
+  border-color: #d7cbb5;
+  border-radius: 5px;
+}
+.atelier .managed-billing p {
+  color: #665f50;
+}
+.pack-buy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px 0;
+  border: 0;
+  border-top: 1px solid #c9bca2;
+  background: transparent;
+  font-weight: 600;
+  color: inherit;
+  text-align: left;
+}
+.pack-buy:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.checkout-status {
+  margin: 12px 0;
+}
+.checkout-status p {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  line-height: 1.7;
+  padding: 12px 16px;
+  border: 1px solid #d8cbb7;
+  background: #eee9de;
+  border-radius: 5px;
+}
+.atelier .guide-steps article,
+.atelier .guide-faq {
+  background: #faf8f2;
+  border-color: #d9d1c1;
+  border-radius: 6px;
+}
+.atelier .guide-steps h2 {
+  font-family: Georgia, serif;
+  font-size: 21px;
+  font-weight: 400;
+}
+.atelier .guide-example {
+  background: #363f36;
+  border-radius: 6px;
+}
+.atelier .guide-example p {
+  color: #e6e0d1;
+}
+.atelier .model-guidance {
+  background: #eeeadd;
+  border-color: #d7cbb5;
+}
+.atelier .model-audit {
+  padding: 28px;
+  background: #faf8f2;
+  border: 1px solid #d9d1c1;
+  border-radius: 6px;
+}
+.atelier .model-audit table th {
+  background: #eae5d9;
+  color: #5d574b;
+}
+.atelier .model-audit table button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+}
+.atelier .main-footer {
+  color: #827968;
+  border-top-color: #d9d1c1;
+}
+.admin-entry {
+  color: #edcea5;
+  font-size: 11px;
+  text-decoration: none;
+}
+.admin-console {
+  max-width: 1280px;
+  margin: auto;
+}
+.admin-access {
+  max-width: 620px;
+  margin: 72px auto;
+  padding: 40px;
+  background: #faf8f2;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.admin-access h1 {
+  font-family: Georgia, serif;
+  font-size: 32px;
+}
+.admin-access p {
+  line-height: 1.7;
+  margin: 20px 0;
+}
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 12px 0 24px;
+}
+.admin-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 1px solid #d4ccbd;
+  background: #faf8f2;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.admin-tabs button[aria-pressed="true"] {
+  background: #363f36;
+  color: #fff5e4;
+  border-color: #363f36;
+}
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.admin-card {
+  padding: 28px;
+  border: 1px solid #d9d1c1;
+  border-radius: 6px;
+  background: #faf8f2;
+}
+.admin-card h2 {
+  font-family: Georgia, serif;
+  font-size: 25px;
+  font-weight: 400;
+  margin: 0 0 20px;
+}
+.admin-card h3 {
+  font-size: 15px;
+  margin-top: 24px;
+}
+.admin-card p,
+.admin-card li {
+  line-height: 1.8;
+  color: #625e54;
+}
+.admin-card ol {
+  padding-left: 20px;
+}
+.admin-card label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 20px 0;
+}
+.admin-card input:not([type="checkbox"]),
+.admin-card select,
+.admin-card textarea {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cdc4b3;
+  border-radius: 4px;
+  background: #fffdf8;
+  font: inherit;
+  color: #292825;
+  margin-top: 8px;
+}
+.admin-card textarea {
+  font-family: monospace;
+}
+.admin-card .admin-check {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.admin-check input {
+  width: 16px;
+  height: 16px;
+}
+.admin-fixed {
+  padding: 16px;
+  background: #eee8da;
+  border: 1px solid #d6c6ad;
+  border-radius: 4px;
+}
+.admin-fixed strong,
+.admin-fixed span {
+  display: block;
+}
+.admin-fixed span {
+  font-size: 11px;
+  line-height: 1.7;
+  margin-top: 6px;
+}
+.admin-feedback {
+  padding: 16px;
+  background: #eee8da;
+  border: 1px solid #d6c6ad;
+  line-height: 1.7;
+}
+.admin-table-scroll {
+  overflow: auto;
+}
+.admin-card table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px;
+  font-size: 12px;
+}
+.admin-card th,
+.admin-card td {
+  text-align: left;
+  padding: 14px 12px;
+  border-bottom: 1px solid #ddd6c7;
+}
+.admin-card th {
+  background: #eee9de;
+}
+.admin-card td small {
+  display: block;
+  color: #77705f;
+  margin-top: 5px;
+  font-size: 10px;
+}
+.admin-card td input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+.admin-rule {
+  margin-top: 24px;
+  padding: 20px;
+  background: #eee9de;
+  border: 1px solid #d8cbb7;
+}
+.admin-rule button {
+  margin: 8px 8px 0 0;
+}
+.admin-console .page-heading {
+  align-items: center;
+}
+.admin-console .primary {
+  padding: 14px 20px;
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+  .admin-card {
+    padding: 20px;
+  }
+  .admin-console .page-heading {
+    display: block;
+  }
+  .admin-console .page-heading .primary {
+    margin-top: 16px;
+  }
+  .atelier .model-audit {
+    padding: 18px;
+  }
+  .atelier .page-heading h1 {
+    font-size: 30px;
+  }
+  .atelier .eyebrow {
+    font-size: 8px;
+  }
+  .admin-entry {
+    font-size: 10px;
+  }
+  .atelier .topbar {
+    gap: 12px;
+  }
+  .atelier .vista-wordmark {
+    font-size: 17px;
+  }
+}
+.atelier {
+  --accent: #967047;
+}
+.atelier .main {
+  background: transparent;
+}
+.atelier .welcome-shade {
+  background: linear-gradient(
+    90deg,
+    #1b211fe6 0%,
+    #2c3026a6 35%,
+    #34382a22 72%,
+    transparent
+  );
+}
+.atelier .photographic-welcome .canvas-intro h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.12;
+}
+.atelier .photographic-welcome .canvas-intro h2 em {
+  color: #e5c49d;
+}
+.atelier .photographic-welcome .outline-pill {
+  border-radius: 2px;
+  color: #f0e4d0;
+  border-color: #e3cda66b;
+}
+.atelier .photographic-welcome .canvas-upload {
+  background: #f3e8d5;
+  color: #383c32;
+  border-color: #f3e8d5;
+  border-radius: 4px;
+}
+.atelier .upload-zone strong {
+  color: #594b38;
+}
+.atelier .mode-switch button.active {
+  color: #fff5e4;
+}
+.atelier .workflow-steps li.current .step-number {
+  background: #3d473a;
+  color: #fff5e4;
+}

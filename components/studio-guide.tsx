@@ -107,8 +107,8 @@ export function StudioGuide({
           [
             t("Кредит яаж ажиллах вэ?", "How do credits work?"),
             t(
-              "1 кредит = 100₮. Starter 50,000₮ / 500 кредитээс эхэлнэ. Үүсгэхийн өмнө нийт үнэ харагдана. Одоогоор онлайн checkout холбогдоогүй; төлбөрийг админ баталгаажуулж цэнэглэнэ.",
-              "1 credit = ₮100. Starter begins at ₮50,000 / 500 credits. You see the total before generating. Online checkout is not connected; an administrator confirms and provisions top-ups.",
+              "1 кредит = 100₮. Starter 50,000₮ / 500 кредитээс эхэлнэ. Үүсгэхийн өмнө нийт үнэ харагдана. Wire.mn төлбөр баталгаажсаны дараа кредит нэг удаа нэмэгдэнэ. Холболт идэвхжээгүй үед цэнэглэх товч нээгдэхгүй.",
+              "1 credit = ₮100. Starter begins at ₮50,000 / 500 credits. You see the total before generating. Credits are added once after verified Wire.mn payment. Top-ups become available when the payment connection is active.",
             ),
           ],
           [

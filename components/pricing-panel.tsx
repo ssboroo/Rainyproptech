@@ -1,16 +1,29 @@
 "use client";
 import { Coins, Check, ArrowUpRight } from "lucide-react";
-import { creditPacks } from "@/lib/pricing";
-import type { PriceQuote } from "@/lib/pricing";
+import {
+  useCreditCheckout,
+  type CreditCheckoutApi,
+} from "@/components/credit-checkout";
+import { creditPacks } from "@/lib/public-pricing";
+import type { RetailQuote as PriceQuote } from "@/lib/public-pricing";
 export function PricingPanel({
   lang,
   image,
   video,
+  api,
+  signedIn,
+  onSignIn,
+  onPaid,
 }: {
   lang: "mn" | "en";
   image?: PriceQuote;
   video?: PriceQuote;
+  api: CreditCheckoutApi;
+  signedIn: boolean;
+  onSignIn: () => void;
+  onPaid: () => void;
 }) {
+  const checkout = useCreditCheckout({ api, signedIn, onSignIn, onPaid });
   const t = (mn: string, en: string) => (lang === "mn" ? mn : en);
   return (
     <section id="pricing" className="pricing-section">
@@ -75,6 +88,7 @@ export function PricingPanel({
           </p>
         </div>
       </div>
+      {checkout.status}
       <div className="credit-packs">
         {creditPacks.map((pack, i) => (
           <article className={i === 1 ? "featured" : ""} key={pack.name}>
@@ -107,24 +121,26 @@ export function PricingPanel({
                 "Confirmed failures are refunded",
               )}
             </p>
-            <div className="pack-status">
-              {t(
-                "Админ баталгаажуулж цэнэглэнэ",
-                "Administrator-assisted top-up",
-              )}
-              <ArrowUpRight size={14} />
-            </div>
+            <button
+              type="button"
+              className="pack-buy"
+              disabled={checkout.busy || !checkout.available}
+              onClick={() => void checkout.buy(pack.name)}
+            >
+              {checkout.busy
+                ? t("Бэлтгэж байна…", "Preparing…")
+                : checkout.available
+                  ? t("Кредит цэнэглэх", "Top up credits")
+                  : t("Цэнэглэлт удахгүй нээгдэнэ", "Top-ups opening soon")}
+              <ArrowUpRight size={16} />
+            </button>
           </article>
         ))}
       </div>
       <p className="pricing-footnote">
         {t(
-          "Эдгээр нь цэнэглэх багцын үнийн санал. Онлайн төлбөр одоогоор холбогдоогүй. Дахин шинэ рендер үүсгэх бүр тусдаа төлбөртэй; ижил хүсэлтийг дахин шалгахад давхар суутгахгүй.",
-          "These are proposed top-up packs. Online checkout is not connected yet. Each new generation is charged separately; retrying the same request does not double-charge.",
-        )}{" "}
-        {t(
-          "Үнийн шинэчлэл: 2026.10.15.",
-          "Pricing reviewed: October 15, 2026.",
+          "Wire.mn-ийн хамгаалагдсан төлбөрийн хуудсаар төлнө. Баталгаажсан төлбөрийн кредит нэг удаа нэмэгдэнэ. Үүсгэхээс өмнө нийт үнийг шалгана уу.",
+          "Pay through Wire.mn secure checkout. Credits are added once after payment is verified. Review the total before each generation.",
         )}
       </p>
     </section>

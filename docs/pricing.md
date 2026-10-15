@@ -89,3 +89,18 @@ C = API ($) × 3,700 × 1.05 + 50₮
 - `GET /api/models` зөвхөн төвлөрсөн холболт тохируулагдсан эсэх boolean буцаана. Түлхүүр, Fal дансны долларын үлдэгдлийг нийтэд гаргахгүй.
 - Starter 50,000₮; Studio 150,000₮; Business 500,000₮. Онлайн төлбөрийн gateway холбогдоогүй тул хэрэглэгч худалдан авсан мэт харагдуулахгүй; админ төлбөр баталгаажуулж цэнэглэнэ.
 - Нэмэлт тарифын баримт: `docs/additional-price-evidence.json`. Нэгжийн тариф нь тухайн хүсэлтийн эцсийн дүн биш. Vidu Q4-ийн одоогийн promotional тариф 2026-11-30 дуусна; үнийн бодлогын 2026-11-15 хаалт түүнээс өмнө дахин хянуулах зорилготой.
+
+## Архитектурын админ ба Wire.mn (2026-10-15)
+
+- Хэрэглэгчийн `/api/pricing` болон `/api/models` хариу зөвхөн `RetailQuote` (нийт ₮, кредит, model/output, version) өгнө. API $, ханш, markup, нөөц, эх сурвалжийн тариф нь зөвхөн `/api/admin/*` дээр байна.
+- Хөтчийн компонентууд `lib/pricing.ts`-ийг runtime-аар импортлохгүй. Generations хүснэгтийн `price_quote` баганы SELECT эрх authenticated-д олгоогүй.
+- Админ: `/admin`. Supabase `getUser(token)`-оор баталгаажсан, email_confirmed_at-тай, серверийн `ADMIN_EMAILS` allowlist эсвэл app_metadata.role=admin эрхтэй хэрэглэгч. User metadata ашиглахгүй. Production owner allowlist: ssboroostore@gmail.com; эхлээд өөрийн имэйлээр бүртгэлээ баталгаажуулна.
+- Админ ханш/шимтгэл/нөөц/нэг ажлын зардал, тарифын review огноо, автомат загвар, per-model тарифын matrix, нээлттэй/хаалттай төлөвийг удирдана. Markup 200% буюу cost basis ×3 хэвээр. Revision нь үнийн snapshot-д орно, хуучирсан quote-оор суутгахгүй. CAS шинэчлэлт + audit log.
+- Wire adapter нь `ssboroo/socialtool-store/src/lib/wire.ts` урсгалд суурилсан, одоогийн https://docs.wire.mn/docs/quickstart JSON API-д нийцүүлсэн. Өмнөх project-ийн webhook-ийг өөрчлөхгүй.
+- `SETTINGS_ENCRYPTION_KEY`: 32 random байт, base64, зөвхөн серверийн environment. Түлхүүрийг солихоос өмнө шифрлэсэн secrets-ийг шилжүүлэх шаардлагатай. Wire API key/signing secret AES-256-GCM-аар шифрлэгдэнэ. Admin GET нууцыг буцаадаггүй, зөвхөн configured boolean.
+- Хуучин Wire түлхүүрийн утга Railway OAuth-д redacted тул автоматаар хуулж чадаагүй. Эзэмшигч өмнөх live key-гээ `/admin` → Wire.mn холболт хэсэгт нэг удаа оруулна. Хэрэглэгчээс API түлхүүр авахгүй. Live key байгаа, paymentsEnabled үед checkout нээгдэнэ.
+- `POST /api/payments/create`: нэвтэрсэн эзэмшигч, UUID, зөвхөн pack нэр хүлээн авна. Дүн/кредит серверийн тогтмол pack-аас. Wire-д бүхэл төгрөгөөр явуулна (×100 биш). Stable idempotency key, intent-ийг checkout-оос өмнө хадгална. Checkout URL зөвхөн HTTPS pay.wire.mn. Client secret буцаахгүй.
+- `/api/payments/status` нь зөвхөн өөрийн захиалгыг уншиж, Wire API-аас intent-ийг дахин шалгана. Webhook нь raw body HMAC-SHA256 + 5 минутын replay window шалгаад Wire API-аар давхар баталгаажуулна.
+- `settle_credit_order`: order row lock, exact intent/amount/MNT шалгалт, unique intent/order ledger, нэг transaction-д paid + баланс нэмэх. Redirect эсвэл client status кредит нэмэхгүй. Replay/concurrent delivery нэг удаа биелнэ.
+- Shared project ашиглаж webhook нэмэх боломжгүй бол verified polling ажиллана: цэнэглэлтийн дэлгэц дээр 8 секунд тутам, харагдах үед, хамгийн ихдээ 15 минут; дараа нь гараар шалгана. Шинэ webhook endpoint ашиглах бол `/api/payments/webhook`, event `payment_intent.succeeded`.
+- Кредит борлуулалтын орлого Fal дансыг автоматаар цэнэглэхгүй. Fal billing тусдаа; `FAL_KEY` төвлөрсөн хэвээр.

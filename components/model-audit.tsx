@@ -1,14 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Search } from "lucide-react";
+import { Search, ArrowUpRight } from "lucide-react";
+import type { RetailQuote } from "@/lib/public-pricing";
 type Entry = {
   id: string;
   name: string;
   kind: "image" | "video";
-  docs: string;
   priced: boolean;
-  tariff?: { source: string; rates: string[] };
-  verification?: string;
+  retail?: RetailQuote;
 };
 export function ModelAudit({
   lang,
@@ -21,11 +20,8 @@ export function ModelAudit({
 }) {
   const [models, setModels] = useState<Entry[]>([]),
     [query, setQuery] = useState(""),
-    [error, setError] = useState(false);
-  const [page, setPage] = useState(0);
-  const filtered = models.filter((m) =>
-    `${m.id} ${m.name}`.toLowerCase().includes(query.toLowerCase()),
-  );
+    [error, setError] = useState(false),
+    [page, setPage] = useState(0);
   const t = (mn: string, en: string) => (lang === "mn" ? mn : en);
   useEffect(() => {
     let alive = true;
@@ -44,52 +40,53 @@ export function ModelAudit({
       alive = false;
     };
   }, []);
+  const filtered = models.filter((m) =>
+    (m.name + m.id).toLowerCase().includes(query.toLowerCase()),
+  );
   return (
     <section className="model-audit">
       <header>
+        <span className="eyebrow">THE MODEL COLLECTION</span>
         <h2>
-          {t(
-            "100 загварын шалгалтын бүртгэл",
-            "100-model verification register",
-          )}
+          {t("Таны бүтээлд тохирох загвар", "Choose your creative engine")}
         </h2>
         <p>
           {t(
-            "Схемийн шалгалт нь бодит зургийн чанарын туршилт биш. Төлбөртэй жишиг үүсгэлт хийгээгүй загварыг туршсан гэж тэмдэглээгүй.",
-            "Schema verification is separate from visual quality testing. Models without paid benchmark runs are not marked as visually tested.",
+            "Нэг үүсгэлтийн нийт үнэ. Нягтаршил, хугацаагаа өөрчилбөл шинэ үнэ студид харагдана.",
+            "The total for one generation. Your studio updates the price when resolution or duration changes.",
           )}
         </p>
       </header>
       <label className="audit-search">
         <Search size={16} />
         <input
-          aria-label={t("Бүртгэлээс загвар хайх", "Search model register")}
+          aria-label={t("Загвар хайх", "Search models")}
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
             setPage(0);
           }}
-          placeholder={t("Загварын нэрээр хайх…", "Search model name…")}
+          placeholder={t("Загварын нэрээр хайх…", "Search models…")}
         />
       </label>
       {error ? (
         <p role="alert">
           {t(
-            "Каталог ачаалсангүй. Хуудсаа шинэчилнэ үү.",
-            "Catalog unavailable. Refresh this page.",
+            "Каталог ачаалсангүй. Дахин нээнэ үү.",
+            "Catalog unavailable. Please retry.",
           )}
         </p>
       ) : !models.length ? (
-        <p role="status">{t("Бүртгэл ачаалж байна…", "Loading register…")}</p>
+        <p role="status">{t("Ачаалж байна…", "Loading…")}</p>
       ) : (
         <div className="audit-table-scroll">
           <table>
             <thead>
               <tr>
-                <th>{t("AI загвар", "Model")}</th>
-                <th>{t("Схем", "Schema")}</th>
-                <th>{t("Үнэ", "Pricing")}</th>
-                <th>{t("Үйлдэл", "Action")}</th>
+                <th>{t("Загвар", "Model")}</th>
+                <th>{t("Тохиргоо", "Output")}</th>
+                <th>{t("Нийт үнэ", "Total price")}</th>
+                <th>{t("Сонгох", "Action")}</th>
               </tr>
             </thead>
             <tbody>
@@ -99,76 +96,45 @@ export function ModelAudit({
                     <strong>{m.name}</strong>
                     <small>
                       {m.kind === "image"
-                        ? t("Зураг", "Image")
-                        : t("Видео", "Video")}{" "}
-                      · {m.id}
+                        ? t("Архитектурын дүрслэл", "Architectural render")
+                        : t("Кино мэт видео", "Cinematic video")}
                     </small>
-                    <a href={m.docs} target="_blank" rel="noreferrer">
-                      Fal API <ArrowUpRight size={11} />
-                    </a>
                   </td>
                   <td>
-                    <span
-                      className={
-                        m.verification === "matched"
-                          ? "audit-ok"
-                          : "audit-pending"
-                      }
-                    >
-                      {m.verification === "matched"
-                        ? t("Нийцсэн", "Matched")
-                        : t("Дахин шалгах", "Review required")}
-                    </span>
+                    {m.retail
+                      ? `${m.retail.resolution === "model native" ? t("Эх харьцаа", "Native output") : m.retail.resolution}${m.retail.duration ? ` · ${m.retail.duration}s` : ""}`
+                      : "—"}
                   </td>
                   <td>
-                    {m.priced
-                      ? t("Баталгаажсан", "Reviewed")
-                      : m.tariff?.rates.length
-                        ? t("Хувьсах нэгжийн тариф", "Metered tariff")
-                        : t("Өртөг баталгаажуулах", "Cost review pending")}
-                    {!!m.tariff?.rates.length && (
-                      <details className="tariff-detail">
-                        <summary>
-                          {t("Албан ёсны тариф харах", "View provider tariff")}
-                        </summary>
-                        {m.tariff.rates.map((r, i) => (
-                          <p key={i}>{r.replaceAll("**", "")}</p>
-                        ))}
-                        {!m.priced && (
-                          <p className="tariff-note">
-                            {t(
-                              "Тариф олдсон. Токен, нийт пиксел, боловсруулалтын хугацаа эсвэл оролтын хэмжээг тооцох адаптер шаардлагатай тул урьдчилсан суутгал хараахан нээгдээгүй.",
-                              "Tariff found. Prepaid selection requires an adapter that meters tokens, pixels, runtime or input size reliably.",
-                            )}
-                          </p>
-                        )}
-                        <a
-                          href={m.tariff.source}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {t("Эх сурвалж ↗", "Source ↗")}
-                        </a>
-                      </details>
+                    {m.retail ? (
+                      <>
+                        <strong>{m.retail.totalMnt.toLocaleString()}₮</strong>
+                        <small>
+                          {m.retail.credits} {t("кредит", "credits")}
+                        </small>
+                      </>
+                    ) : (
+                      t("Түр боломжгүй", "Currently unavailable")
                     )}
                   </td>
                   <td>
                     <button
-                      type="button"
-                      disabled={
-                        disabled || !m.priced || m.verification !== "matched"
-                      }
+                      disabled={disabled || !m.priced}
                       onClick={() => onChoose(m.id, m.kind)}
                     >
                       {t("Сонгох", "Select")}
+                      <ArrowUpRight size={13} />
                     </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          {!filtered.length && (
+            <p>{t("Тохирох загвар олдсонгүй.", "No matching models.")}</p>
+          )}
           <div className="audit-pagination">
-            <button disabled={page === 0} onClick={() => setPage((p) => p - 1)}>
+            <button disabled={page === 0} onClick={() => setPage(page - 1)}>
               {t("Өмнөх", "Previous")}
             </button>
             <span>
@@ -177,7 +143,7 @@ export function ModelAudit({
             </span>
             <button
               disabled={(page + 1) * 10 >= filtered.length}
-              onClick={() => setPage((p) => p + 1)}
+              onClick={() => setPage(page + 1)}
             >
               {t("Дараах", "Next")}
             </button>
