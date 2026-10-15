@@ -1075,3 +1075,159 @@ h1 + p {
     transition: none !important;
   }
 }
+.workflow-steps {
+  list-style: none;
+  margin: 0 0 23px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.workflow-steps li {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  column-gap: 10px;
+  align-items: center;
+  color: #9ba593;
+}
+.workflow-steps li > span {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 29px;
+  height: 29px;
+  border: 1px solid #dbe3d2;
+  border-radius: 50%;
+  font-size: 11px;
+}
+.workflow-steps strong {
+  font-size: 11px;
+  font-weight: 500;
+}
+.workflow-steps small {
+  font-size: 8px;
+  margin-top: 4px;
+}
+.workflow-steps .current {
+  color: #2f533c;
+}
+.workflow-steps .current > span {
+  background: #244c3e;
+  color: #e5f1d8;
+  border-color: #244c3e;
+}
+.workflow-steps .done > span {
+  background: #e2edda;
+  color: #49703c;
+}
+.source-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid #dfe6d9;
+  border-radius: 8px;
+  padding: 11px 13px;
+  margin-bottom: 13px;
+}
+.source-strip > img {
+  width: 60px;
+  height: 42px;
+  object-fit: contain;
+  border: 1px solid #e5eadd;
+  border-radius: 4px;
+}
+.source-strip strong {
+  font-size: 10px;
+  font-weight: 500;
+}
+.source-strip small {
+  display: block;
+  font-size: 9px;
+  color: #95a086;
+  margin-top: 5px;
+}
+.source-strip .button {
+  margin-left: auto;
+}
+.source-only-label {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  background: #fffef3e8;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border: 1px solid #e1e5d5;
+  border-radius: 6px;
+  font-size: 10px;
+  color: #768565;
+  max-width: calc(100% - 28px);
+}
+.result-guidance {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0 0;
+  color: #849477;
+}
+.result-guidance p {
+  font-size: 10px;
+  line-height: 1.7;
+  margin: 0;
+  flex: 1;
+}
+.result-guidance strong {
+  font-weight: 600;
+  color: #4d6940;
+}
+.result-guidance > svg {
+  flex-shrink: 0;
+}
+@media (max-width: 760px) {
+  .workflow-steps {
+    gap: 8px;
+    margin-bottom: 19px;
+  }
+  .workflow-steps li {
+    grid-template-columns: 23px 1fr;
+    column-gap: 5px;
+  }
+  .workflow-steps li > span {
+    width: 23px;
+    height: 23px;
+    font-size: 9px;
+  }
+  .workflow-steps strong {
+    font-size: 9px;
+  }
+  .workflow-steps small {
+    font-size: 7px;
+    line-height: 1.4;
+  }
+  .source-strip {
+    gap: 8px;
+  }
+  .source-strip small {
+    font-size: 8px;
+    line-height: 1.5;
+  }
+  .source-strip .small {
+    font-size: 8px;
+    padding: 7px;
+  }
+  .source-strip > img {
+    width: 45px;
+  }
+  .result-guidance {
+    align-items: flex-start;
+  }
+  .result-guidance .small {
+    font-size: 8px;
+    padding: 8px;
+  }
+  .result-guidance p {
+    font-size: 9px;
+  }
+}

@@ -412,6 +412,8 @@ export default function Studio() {
                     }
                     onClick={() => {
                       setProject(key);
+                      setRender(null);
+                      setVideo(null);
                       pendingId.current = null;
                     }}
                   >
@@ -500,6 +502,8 @@ export default function Studio() {
                     aria-pressed={style === key}
                     onClick={() => {
                       setStyle(key);
+                      setRender(null);
+                      setVideo(null);
                       pendingId.current = null;
                     }}
                   >
@@ -575,6 +579,43 @@ export default function Studio() {
               </span>
             </div>
           </div>
+          <ol
+            className="workflow-steps"
+            aria-label={t("Ажлын дараалал", "Workflow")}
+          >
+            {[
+              {
+                label: t("Эх зураг", "Source image"),
+                done: !!before,
+                active: !before,
+              },
+              {
+                label: t("Бодит мэт рендер", "Photoreal render"),
+                done: !!ready,
+                active: !!before && !ready,
+              },
+              {
+                label: t("Дрон видео", "Drone video"),
+                done: video?.status === "completed",
+                active: !!ready && video?.status !== "completed",
+              },
+            ].map((step, i) => (
+              <li
+                key={i}
+                className={step.done ? "done" : step.active ? "current" : ""}
+              >
+                <span>{step.done ? <Check size={14} /> : i + 1}</span>
+                <strong>{step.label}</strong>
+                <small>
+                  {i === 0
+                    ? t("Өөрийн зурагт тулгуурлана", "Based on your drawing")
+                    : i === 1
+                      ? t("2 кредит · 4K хүсэлт", "2 credits · 4K requested")
+                      : t("6 кредит · 5 секунд", "6 credits · 5 seconds")}
+                </small>
+              </li>
+            ))}
+          </ol>
           {!db && (
             <div className="config-note">
               {t(
@@ -592,6 +633,30 @@ export default function Studio() {
               </button>
             </div>
           )}
+          {before && (
+            <div className="source-strip">
+              <img
+                src={before}
+                alt={t("Таны оруулсан эх зураг", "Your uploaded source")}
+              />
+              <div>
+                <strong>{t("Таны эх зураг", "Your source drawing")}</strong>
+                <small>
+                  {t(
+                    "Барилгын хэлбэр, давхар, цонхны үндсэн лавлагаа",
+                    "Reference for massing, floors and window layout",
+                  )}
+                </small>
+              </div>
+              <Button
+                className="secondary small"
+                disabled={busy || !!active}
+                onClick={() => fileRef.current?.click()}
+              >
+                {t("Зураг солих", "Replace image")}
+              </Button>
+            </div>
+          )}
           <div className="canvas-panel">
             <div className="canvas-toolbar">
               <div className="view-tabs">
@@ -600,10 +665,17 @@ export default function Studio() {
                   onClick={() => setTab("render")}
                 >
                   <ImageIcon size={15} />
-                  {t("Дүрслэл", "Render")}
+                  {ready
+                    ? t("AI үр дүн", "AI result")
+                    : t("Эх зураг", "Source")}
                 </button>
                 <button
                   className={tab === "compare" ? "active" : ""}
+                  disabled={!ready || !before}
+                  title={t(
+                    "Рендер бэлэн болсны дараа харьцуулна",
+                    "Compare after your render completes",
+                  )}
                   onClick={() => setTab("compare")}
                 >
                   <ScanLine size={15} />
@@ -619,7 +691,9 @@ export default function Studio() {
               </div>
               <div className="canvas-meta">
                 <span className="live-dot" />
-                {ready ? "RENDER READY" : "4K QUALITY WORKSPACE"}
+                {ready
+                  ? t("AI РЕНДЕР БЭЛЭН", "AI RENDER READY")
+                  : t("ЭХ ЗУРГИЙН ОРЧИН", "SOURCE WORKSPACE")}
               </div>
             </div>
             <div className="output-canvas">
@@ -708,6 +782,17 @@ export default function Studio() {
                   </span>
                 </div>
               )}
+              {!ready && before && tab !== "video" && !busy && !active && (
+                <div className="source-only-label">
+                  <ImageIcon size={14} />
+                  <span>
+                    {t(
+                      "Эх зураг — AI рендер хараахан үүсээгүй",
+                      "Original source — no AI render generated yet",
+                    )}
+                  </span>
+                </div>
+              )}
               {(busy || active) && (
                 <div className="processing">
                   <Loader2 size={26} className="spin" />
@@ -724,8 +809,12 @@ export default function Studio() {
               )}
               {ready && tab === "compare" && (
                 <>
-                  <span className="compare-label left">BEFORE</span>
-                  <span className="compare-label right">AFTER</span>
+                  <span className="compare-label left">
+                    {t("ТАНЫ ЭХ ЗУРАГ", "YOUR SOURCE")}
+                  </span>
+                  <span className="compare-label right">
+                    {t("AI РЕНДЕР", "AI RENDER")}
+                  </span>
                 </>
               )}
             </div>
@@ -751,6 +840,29 @@ export default function Studio() {
               )}
             </div>
           </div>
+          {ready && (
+            <div className="result-guidance">
+              <ScanLine size={17} />
+              <p>
+                <strong>
+                  {t(
+                    "Эх зурагтайгаа харьцуулж үзээрэй.",
+                    "Compare against your source.",
+                  )}
+                </strong>{" "}
+                {t(
+                  "Өмнө / Дараа хэсгийн заагийг чирж барилгын хэлбэр, давхар, цонх, тагтыг шалгаад видео бүтээгээрэй.",
+                  "Drag the Before / After divider to review massing, floors, windows and balconies before creating your video.",
+                )}
+              </p>
+              <Button
+                className="secondary small"
+                onClick={() => setTab("compare")}
+              >
+                {t("Харьцуулах", "Compare")}
+              </Button>
+            </div>
+          )}
           <section className="drone-section">
             <div className="drone-heading">
               <div className="drone-icon">

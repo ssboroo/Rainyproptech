@@ -104,7 +104,7 @@ export function promptFor(p: Project, s: Style, notes = "") {
   return [
     projects[p].prompt,
     styles[s].prompt,
-    "PRIORITY: preserve original building massing, floor count, window grid, balconies, roof silhouette, site boundaries and camera perspective. Straight verticals, consistent geometry, realistic materials. Do not add or remove buildings.",
+    "PRIORITY: preserve original building massing, floor count, window grid, balconies, roof silhouette, site boundaries and camera perspective. Straight verticals, consistent geometry, realistic materials. Do not add or remove buildings. Treat the uploaded image as the authoritative structural reference. Preserve its framing and proportions. Change only surface finishes, plausible lighting and surroundings. Do not redesign the architecture to satisfy a style preset. Where the source is unclear, retain that uncertainty instead of inventing visible structural details.",
     "Create a finished professional architectural photograph from the supplied source, not a stylized illustration. Physically plausible global illumination, natural exposure, accurate material roughness, realistic glass reflections, subtle surface texture, contact shadows, restrained landscaping, straight verticals. No text, watermarks, collage, plastic surfaces or exaggerated HDR. The source drawing governs geometry; user styling instructions must not override its structure.",
     notes,
   ].join("\n");
