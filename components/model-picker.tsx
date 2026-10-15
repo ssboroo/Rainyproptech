@@ -7,6 +7,7 @@ type Entry = {
   name: string;
   kind: "image" | "video";
   docs: string;
+  priced: boolean;
 };
 export function ModelPicker({
   lang,
@@ -56,7 +57,9 @@ export function ModelPicker({
         <Sparkles size={14} />
         {t("AI загвар сонголт", "AI model routing")}
         <span className="model-count">
-          {models.length ? `${models.length} models` : error || "…"}
+          {models.length
+            ? `${models.filter((m) => m.priced).length} / ${models.length}`
+            : error || "…"}
         </span>
       </label>
       <div className="routing-modes">
@@ -121,8 +124,11 @@ export function ModelPicker({
                       m.id === (kind === "image" ? image : video)),
                 )
                 .map((m) => (
-                  <option key={m.id} value={m.id}>
-                    {m.name} · {m.id}
+                  <option key={m.id} value={m.id} disabled={!m.priced}>
+                    {m.name} ·{" "}
+                    {m.priced
+                      ? t("Үнэ баталгаажсан", "Priced")
+                      : t("Үнэ баталгаажуулж байна", "Price review")}
                   </option>
                 ))}
             </select>
@@ -130,8 +136,8 @@ export function ModelPicker({
         ))}
         <p className="hint">
           {t(
-            "Каталогт рендер, сайжруулалт болон видео загварууд орно. Бүх загварыг бодит төлбөртэй үүсгэлтээр туршаагүй.",
-            "Includes rendering, enhancement and video models. Not all models have been tested with paid generations.",
+            "100 загварын каталог. Үнэ баталгаажсан загваруудыг ашиглана. Токен/GPU болон хувьсах өртөгтэй загварын үнийг баталгаажуулж байна. Бүх загварыг төлбөртэй үүсгэлтээр туршаагүй.",
+            "100-model catalog. Reviewed-price models are enabled; token/GPU and variable-cost models await price verification. Not all models have been tested with paid generations.",
           )}
         </p>
       </details>

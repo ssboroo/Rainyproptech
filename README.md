@@ -10,7 +10,7 @@ Mongolian / English architectural visualization workspace built with Next.js 15 
 - Nano Banana Pro reference-image editing with native 4K output requested, original aspect ratio and one output. No separate ControlNet setup. Server-composed photorealistic prompts prioritize massing, floor count, windows, balconies, site boundaries and physically plausible materials.
 - Kling 3.0 Pro image-to-video, 5 seconds, with pull back / elevate, orbit and facade pan direction.
 - Company text overlay in the video player, generation history, private inputs and outputs, email/password Supabase Auth.
-- Images cost 2 credits, video costs 6 credits. Transactions lock the balance, reserve once per request UUID and refund definitive failed jobs once. Clients cannot change balances or write generation rows.
+- Model-aware credits use 1 credit = 100 MNT. Prices include a 70% cost markup, a planned 3% collection fee and 50 MNT/job operating allocation; see docs/pricing.md. The reviewed default 4K render is 20 credits, a 5s Kling Pro video 37 credits. Transactions lock the balance, reserve once per request UUID and refund definitive failed jobs once. Clients cannot change balances or write generation rows.
 
 ## Run
 

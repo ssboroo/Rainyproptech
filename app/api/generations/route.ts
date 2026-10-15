@@ -3,6 +3,7 @@ import { generationSchema } from "@/lib/validation";
 import { category, promptFor, videoPromptFor } from "@/lib/presets";
 import { provider } from "@/lib/fal";
 import { selectModel, buildModelInput } from "@/lib/model-router";
+import { quoteFor } from "@/lib/pricing";
 export async function POST(req: Request) {
   try {
     const { db, user } = await authorized(req);
@@ -67,6 +68,20 @@ export async function POST(req: Request) {
       throw new ApiError((e as Error).message);
     }
 
+    let quote;
+    try {
+      quote = quoteFor(selected.model, input);
+    } catch (e) {
+      throw new ApiError((e as Error).message, 409);
+    }
+    if (
+      quote.credits !== v.expected_credits ||
+      quote.version !== v.pricing_version
+    )
+      throw new ApiError(
+        "Үнэ шинэчлэгдсэн. Шинэ үнийг шалгаад дахин оролдоно уу. Price changed; review the new quote.",
+        409,
+      );
     const { data: reserved, error } = await db.rpc("reserve_generation", {
       p_id: v.id,
       p_user: user.id,
@@ -79,6 +94,8 @@ export async function POST(req: Request) {
       p_source: source,
       p_parent: v.parent_id || null,
       p_model: model,
+      p_cost: quote.credits,
+      p_quote: quote,
     });
     if (error)
       throw new ApiError(

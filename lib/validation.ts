@@ -10,6 +10,8 @@ import {
 export const generationSchema = z
   .object({
     id: z.string().uuid(),
+    expected_credits: z.number().int().positive(),
+    pricing_version: z.string().max(40),
     routing_mode: z
       .enum(["auto", "quality", "speed", "structure"])
       .default("auto"),

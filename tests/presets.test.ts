@@ -2,7 +2,6 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   category,
-  cost,
   projects,
   styles,
   promptFor,
@@ -17,14 +16,14 @@ const input = {
   style: "modern_glass",
   motion: "facade_pan",
   source_path: "owner/drawing.png",
+  expected_credits: 20,
+  pricing_version: "2026-10-15.1",
 };
 test("all architectural subtypes map to constrained database categories", () => {
   assert.equal(category("townhouse"), "exterior");
   assert.equal(category("commercial"), "exterior");
   assert.equal(category("master_plan"), "master_plan");
   assert.equal(category("interior"), "interior");
-  assert.equal(cost("image"), 2);
-  assert.equal(cost("video"), 6);
 });
 test("all requested projects and styles have bilingual labels and structure direction", () => {
   for (const p of Object.keys(projects) as (keyof typeof projects)[]) {

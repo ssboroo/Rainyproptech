@@ -125,6 +125,13 @@ export function buildModelInput(
     const v = p.enum ? choices.find((c) => p.enum!.includes(c)) : choices[0];
     if (v !== undefined) body.duration = v;
   }
+  // Explicit output settings keep quoted billing units deterministic.
+  if (model.id === "bytedance/seedream/v5/pro/edit")
+    body.image_size = { width: 2048, height: 2048 };
+  if (props.thinking_level?.enum?.includes("minimal"))
+    body.thinking_level = "minimal";
+  if (props.enable_google_search) body.enable_google_search = false;
+  if (props.enable_audio) body.enable_audio = false;
   if (props.num_images) body.num_images = 1;
   if (props.num_outputs) body.num_outputs = 1;
   if (props.limit_generations) body.limit_generations = true;

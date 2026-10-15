@@ -2,6 +2,8 @@
 import { heroVisual, visualFor } from "@/lib/visual-catalog";
 import { InspirationGallery } from "@/components/inspiration-gallery";
 import dynamic from "next/dynamic";
+import { PricingPanel } from "@/components/pricing-panel";
+import type { PriceQuote } from "@/lib/pricing";
 import { PresetLibrary } from "@/components/preset-library";
 import { ArchitectureIcon } from "@/components/architecture-icon";
 import {
@@ -286,6 +288,42 @@ export default function Studio() {
       );
     }
   }
+  const pricingSelection = JSON.stringify({
+    project,
+    motion,
+    mode: routingMode,
+    image: imageModel,
+    video: videoModel,
+  });
+  const [pricing, setPricing] = useState<{
+    selection: string;
+    image?: { quote?: PriceQuote; error?: string };
+    video?: { quote?: PriceQuote; error?: string };
+  }>({ selection: "" });
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/pricing?" + new URLSearchParams(JSON.parse(pricingSelection)), {
+      signal: controller.signal,
+    })
+      .then((r) => {
+        if (!r.ok) throw Error("Price unavailable");
+        return r.json();
+      })
+      .then((d) => setPricing({ ...d, selection: pricingSelection }))
+      .catch((e) => {
+        if (e.name !== "AbortError")
+          setPricing({
+            selection: pricingSelection,
+            image: { error: "Үнэ ачаалсангүй / Price unavailable" },
+            video: { error: "Үнэ ачаалсангүй / Price unavailable" },
+          });
+      });
+    return () => controller.abort();
+  }, [pricingSelection]);
+  const imageQuote =
+    pricing.selection === pricingSelection ? pricing.image?.quote : undefined;
+  const videoQuote =
+    pricing.selection === pricingSelection ? pricing.video?.quote : undefined;
   async function generate(kind: "image" | "video") {
     if (!user) {
       setAuthOpen(true);
@@ -297,6 +335,22 @@ export default function Studio() {
       return;
     }
     if (kind === "video" && render?.status !== "completed") return;
+    const quote = kind === "image" ? imageQuote : videoQuote;
+    if (!quote) {
+      setMessage(
+        t("Үнийг эхлээд баталгаажуулна уу.", "Wait for a verified price."),
+      );
+      return;
+    }
+    if (credits < quote.credits) {
+      setMessage(
+        t(
+          `Кредит хүрэлцэхгүй. ${quote.credits} кредит хэрэгтэй.`,
+          `Insufficient credits. ${quote.credits} credits required.`,
+        ),
+      );
+      return;
+    }
     setBusy(true);
     setMessage("");
     try {
@@ -314,6 +368,8 @@ export default function Studio() {
         body: JSON.stringify({
           id,
           kind,
+          expected_credits: quote.credits,
+          pricing_version: quote.version,
           routing_mode: routingMode,
           ...((kind === "image" ? imageModel : videoModel)
             ? { model_id: kind === "image" ? imageModel : videoModel }
@@ -429,6 +485,7 @@ export default function Studio() {
           <a href="#studio">{t("Студио", "Studio")}</a>
           <a href="#results">{t("Бодит үр дүн", "Real results")}</a>
           <a href="#workflow">{t("Хэрхэн ажиллах вэ", "How it works")}</a>
+          <a href="#pricing">{t("Үнэ & кредит", "Pricing")}</a>
         </nav>
         <div className="header-actions">
           <button
@@ -447,10 +504,10 @@ export default function Studio() {
             <Globe2 size={15} />
             {lang === "mn" ? "MN" : "EN"}
           </button>
-          <span className="credit-pill">
+          <a className="credit-pill" href="#pricing">
             <Sparkles size={14} />
             {credits} {t("кредит", "credits")}
-          </span>
+          </a>
           <Button
             onClick={() => (user ? db?.auth.signOut() : setAuthOpen(true))}
             className="small secondary"
@@ -661,11 +718,15 @@ export default function Studio() {
           <div className="sidebar-bottom">
             <div className="cost-row">
               <span>{t("Нэг дүрслэл", "Per render")}</span>
-              <b>2 {t("кредит", "credits")}</b>
+              <b>
+                {imageQuote
+                  ? `${imageQuote.credits} ${t("кредит", "credits")} · ${imageQuote.totalMnt.toLocaleString()}₮`
+                  : t("Үнэ шалгаж байна…", "Checking price…")}
+              </b>
             </div>
             <Button
               className="primary"
-              disabled={busy || !!active}
+              disabled={busy || !!active || !imageQuote}
               onClick={() => generate("image")}
             >
               {busy || active ? (
@@ -676,6 +737,17 @@ export default function Studio() {
               {t("Дүрслэл бүтээх", "Generate render")}
               <ArrowRight size={17} />
             </Button>
+            <p className="quote-detail" role="status">
+              {imageQuote
+                ? `${imageQuote.modelName} · ${imageQuote.resolution}`
+                : pricing.image?.error}
+            </p>
+            <a className="quote-link" href="#pricing">
+              {t(
+                "1 кредит = 100₮ · Багц харах",
+                "1 credit = ₮100 · View packs",
+              )}
+            </a>
             <span className="secure-caption">
               <ShieldCheck size={12} />
               {t("Эх зургийг зөвхөн та үзнэ", "Private source drawings")}
@@ -738,8 +810,14 @@ export default function Studio() {
                   {i === 0
                     ? t("Өөрийн зурагт тулгуурлана", "Based on your drawing")
                     : i === 1
-                      ? t("2 кредит · AI рендер", "2 credits · AI render")
-                      : t("6 кредит · AI видео", "6 credits · AI video")}
+                      ? t(
+                          "AI рендер · Үнэ загвараас хамаарна",
+                          "AI render · Model-based price",
+                        )
+                      : t(
+                          "AI видео · Хугацаагаар тооцно",
+                          "AI video · Priced by duration",
+                        )}
                 </small>
               </li>
             ))}
@@ -1126,21 +1204,30 @@ export default function Studio() {
               </span>
               <Button
                 className="dark"
-                disabled={!ready || busy || !!active}
+                disabled={!ready || busy || !!active || !videoQuote}
                 onClick={() => generate("video")}
               >
                 <Video size={17} />
-                {t("Дрон видео бүтээх", "Create drone tour")}
+                {t("Дрон видео бүтээх", "Create drone tour")}{" "}
+                {videoQuote
+                  ? `· ${videoQuote.credits} ${t("кредит", "credits")}`
+                  : ""}
                 <ArrowUpRight size={16} />
               </Button>
             </div>
           </section>
+          <p className="quote-detail" role="status">
+            {videoQuote
+              ? `${videoQuote.modelName} · ${videoQuote.duration}s · ${videoQuote.totalMnt.toLocaleString()}₮`
+              : pricing.video?.error}
+          </p>
           {(tab === "video" ? video?.model_name : render?.model_name) && (
             <p className="used-model">
               {t("Ашигласан загвар", "Model used")}:{" "}
               <strong>{(tab === "video" ? video : render)?.model_name}</strong>
             </p>
           )}
+          <PricingPanel lang={lang} image={imageQuote} video={videoQuote} />
           <ResultsGallery
             jobs={history}
             lang={lang}

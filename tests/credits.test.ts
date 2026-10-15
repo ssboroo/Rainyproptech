@@ -16,11 +16,22 @@ test("Postgres migration: atomic charge, retry, insufficient balance, refund exa
     id = "22222222-2222-4222-8222-222222222222",
     second = "33333333-3333-4333-8333-333333333333";
   await db.query("insert into auth.users values($1)", [user]);
-  await db.query("insert into public.profiles values($1,8)", [user]);
+  await db.query("insert into public.profiles values($1,57)", [user]);
   const reserve = (i: string, kind = "image") =>
     db.query(
-      `select * from public.reserve_generation($1,$2,$3,'exterior','villa','modern_glass','facade_pan','prompt','source',null,'model')`,
-      [i, user, kind],
+      `select * from public.reserve_generation($1,$2,$3,'exterior','villa','modern_glass','facade_pan','prompt','source',null,'model',$4,$5::jsonb)`,
+      [
+        i,
+        user,
+        kind,
+        kind === "video" ? 37 : 20,
+        JSON.stringify({
+          credits: kind === "video" ? 37 : 20,
+          version: "test",
+          model: "model",
+          apiUsd: 0.1,
+        }),
+      ],
     );
   const balance = async () =>
     Number(
@@ -31,9 +42,9 @@ test("Postgres migration: atomic charge, retry, insufficient balance, refund exa
       ).rows[0].credits,
     );
   await reserve(id);
-  assert.equal(await balance(), 6);
+  assert.equal(await balance(), 37);
   await reserve(id);
-  assert.equal(await balance(), 6);
+  assert.equal(await balance(), 37);
   await reserve(second, "video");
   assert.equal(await balance(), 0);
   await assert.rejects(
@@ -42,15 +53,26 @@ test("Postgres migration: atomic charge, retry, insufficient balance, refund exa
   );
   assert.equal(await balance(), 0);
   await db.query("select public.fail_generation($1,$2)", [second, user]);
-  assert.equal(await balance(), 6);
+  assert.equal(await balance(), 37);
   await db.query("select public.fail_generation($1,$2)", [second, user]);
-  assert.equal(await balance(), 6);
+  assert.equal(await balance(), 37);
   await db.query(
     "update public.generations set status='completed' where id=$1",
     [id],
   );
   await db.query("select public.fail_generation($1,$2)", [id, user]);
-  assert.equal(await balance(), 6);
+  assert.equal(await balance(), 37);
+  await assert.rejects(
+    db.query(
+      `select public.reserve_generation($1,$2,'image','exterior','villa','modern_glass','facade_pan','x','source',null,'model',1,'{"credits":0,"version":"test","model":"model","apiUsd":0.1}')`,
+      ["55555555-5555-4555-8555-555555555555", user],
+    ),
+    /Invalid price quote/,
+  );
+  const access = await db.query<{ allowed: boolean }>(
+    `select has_function_privilege('authenticated','public.reserve_generation(uuid,uuid,text,text,text,text,text,text,text,uuid,text,integer,jsonb)','execute') as allowed`,
+  );
+  assert.equal(access.rows[0].allowed, false);
   const grants = await db.query<{ allowed: boolean }>(
     `select has_function_privilege('authenticated','public.fail_generation(uuid,uuid)','execute') as allowed`,
   );

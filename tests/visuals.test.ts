@@ -8,6 +8,11 @@ test("every typology and architectural style resolves to a real local WebP photo
     ["project", projectKeys],
     ["style", styleKeys],
   ] as const) {
+    assert.equal(
+      new Set(keys.map((key) => visualFor(kind, key))).size,
+      keys.length,
+      `${kind} cards must use distinct photographs`,
+    );
     for (const key of keys)
       for (const large of [false, true]) {
         const path = "public" + visualFor(kind, key, large);

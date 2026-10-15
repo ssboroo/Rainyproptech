@@ -3518,3 +3518,156 @@ h1 {
     transform: none;
   }
 }
+
+/* Clear model-aware pricing, consistent with the architectural studio palette. */
+.quote-detail {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted, #777);
+  margin: 8px 0;
+  overflow-wrap: anywhere;
+}
+.quote-link {
+  font-size: 11px;
+  color: #8b6649;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pricing-section {
+  scroll-margin-top: 90px;
+  margin: 40px 0;
+  padding: 30px;
+  border: 1px solid #e5ded5;
+  background: #faf8f4;
+  border-radius: 18px;
+}
+.pricing-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  color: #876b50;
+}
+.pricing-heading h2 {
+  font-size: 28px;
+  letter-spacing: -1px;
+  color: #292722;
+  margin: 8px 0;
+}
+.pricing-heading p {
+  font-size: 13px;
+  color: #746e64;
+}
+.pricing-examples {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 24px 0;
+}
+.pricing-examples > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  background: #fff;
+  border: 1px solid #e8e1d8;
+  border-radius: 12px;
+}
+.pricing-examples span {
+  font-size: 12px;
+  color: #766c60;
+}
+.pricing-examples strong {
+  font-size: 19px;
+}
+.pricing-examples small {
+  font-size: 11px;
+  color: #857a6d;
+  overflow-wrap: anywhere;
+}
+.credit-packs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.credit-packs article {
+  position: relative;
+  padding: 22px 18px;
+  background: #fff;
+  border: 1px solid #e6dfd5;
+  border-radius: 12px;
+}
+.credit-packs article.featured {
+  border-color: #a78563;
+  box-shadow: 0 6px 24px #79604412;
+}
+.credit-packs article > span {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #8d7156;
+}
+.credit-packs h3 {
+  font-size: 32px;
+  font-weight: 500;
+  margin: 25px 0 4px;
+  letter-spacing: -1px;
+}
+.credit-packs h3 small {
+  font-size: 12px;
+  letter-spacing: 0;
+}
+.credit-packs article > strong {
+  font-size: 20px;
+}
+.credit-packs p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #766c60;
+  line-height: 1.6;
+}
+.credit-packs p:first-of-type {
+  margin-top: 22px;
+}
+.pack-badge {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #9a7753;
+  margin-top: 8px;
+}
+.pack-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px solid #e9e2d8;
+  font-size: 10px;
+  color: #8b7056;
+}
+.pricing-footnote {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #82796c;
+  margin: 20px 0 0;
+}
+@media (max-width: 700px) {
+  .pricing-section {
+    padding: 20px 16px;
+  }
+  .pricing-heading h2 {
+    font-size: 24px;
+  }
+  .pricing-examples,
+  .credit-packs {
+    grid-template-columns: 1fr;
+  }
+  .credit-packs h3 {
+    margin-top: 16px;
+  }
+  .pricing-heading > svg {
+    display: none;
+  }
+}

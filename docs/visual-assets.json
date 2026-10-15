@@ -152,6 +152,116 @@
       "key": "retail",
       "file": "public/visuals/retail.webp",
       "brief": "A beautifully designed contemporary urban street of small shops and a corner cafe, generous glass storefronts, refined brick and natural stone, black metal canopies, two storeys with planted balconies, realistic city sidewalk, soft late afternoon light, absolutely no readable signs or lettering"
+    },
+    {
+      "key": "high_tech",
+      "file": "public/visuals/high_tech.webp",
+      "brief": "High tech architecture with exposed silver structural trusses, services and glass, architectural museum"
+    },
+    {
+      "key": "classical",
+      "file": "public/visuals/classical.webp",
+      "brief": "Authentic classical civic building with Corinthian columns and pale limestone pediment"
+    },
+    {
+      "key": "industrial_loft",
+      "file": "public/visuals/industrial_loft.webp",
+      "brief": "Converted red brick industrial loft building with enormous steel grid windows and roof terraces"
+    },
+    {
+      "key": "natural_stone",
+      "file": "public/visuals/natural_stone.webp",
+      "brief": "Contemporary hillside villa in layered natural limestone and rough slate"
+    },
+    {
+      "key": "white_concrete",
+      "file": "public/visuals/white_concrete.webp",
+      "brief": "Sculptural white cast concrete courtyard house with deep geometric openings"
+    },
+    {
+      "key": "scandinavian",
+      "file": "public/visuals/scandinavian.webp",
+      "brief": "Scandinavian residential building with pale timber, pitched roofs in a birch landscape"
+    },
+    {
+      "key": "japandi",
+      "file": "public/visuals/japandi.webp",
+      "brief": "Quiet Japanese Scandinavian low courtyard home with timber screens and zen gravel garden"
+    },
+    {
+      "key": "biophilic",
+      "file": "public/visuals/biophilic.webp",
+      "brief": "Biophilic residential building with lush planted terraces, green walls and mature trees"
+    },
+    {
+      "key": "interior_scandinavian",
+      "file": "public/visuals/interior_scandinavian.webp",
+      "brief": "Bright Scandinavian living room pale oak floors, cream linen, daylight and clean practical furniture"
+    },
+    {
+      "key": "interior_luxury",
+      "file": "public/visuals/interior_luxury.webp",
+      "brief": "Luxury penthouse interior with veined marble, bronze and sculptural furniture, panoramic skyline"
+    },
+    {
+      "key": "interior_organic",
+      "file": "public/visuals/interior_organic.webp",
+      "brief": "Organic curved plaster living room with rounded niches, natural tactile earthy materials"
+    },
+    {
+      "key": "apartment_tower",
+      "file": "public/visuals/apartment_tower.webp",
+      "brief": "Slender 32-storey luxury residential apartment tower with individually defined balconies at blue hour"
+    },
+    {
+      "key": "low_rise",
+      "file": "public/visuals/low_rise.webp",
+      "brief": "Four storey low-rise apartment block around a sunlit communal garden"
+    },
+    {
+      "key": "mixed_use",
+      "file": "public/visuals/mixed_use.webp",
+      "brief": "Mixed use city block with street shops, office podium and residential towers above, urban pedestrians"
+    },
+    {
+      "key": "restaurant",
+      "file": "public/visuals/restaurant.webp",
+      "brief": "Intimate contemporary restaurant exterior with timber canopy, outdoor dining and warm amber windows"
+    },
+    {
+      "key": "shopping_mall",
+      "file": "public/visuals/shopping_mall.webp",
+      "brief": "Large contemporary shopping mall entrance, glazed multi-level atrium and inviting public forecourt"
+    },
+    {
+      "key": "sports",
+      "file": "public/visuals/sports.webp",
+      "brief": "Major indoor sports arena, aerodynamic ribbed roof, plaza with people for scale"
+    },
+    {
+      "key": "industrial",
+      "file": "public/visuals/industrial.webp",
+      "brief": "Active clean modern manufacturing factory with sawtooth roofs, loading facilities and industrial campus"
+    },
+    {
+      "key": "urban_plan",
+      "file": "public/visuals/urban_plan.webp",
+      "brief": "High aerial oblique urban master plan of a full city district, street grids, towers, transit boulevard and parks"
+    },
+    {
+      "key": "campus_plan",
+      "file": "public/visuals/campus_plan.webp",
+      "brief": "Drone aerial university campus masterplan with academic buildings, central green, pathways and sports fields"
+    },
+    {
+      "key": "landscape",
+      "file": "public/visuals/landscape.webp",
+      "brief": "Landscape architecture park masterplan from drone, winding paths, water gardens, playgrounds, lush trees"
+    },
+    {
+      "key": "living_room",
+      "file": "public/visuals/living_room.webp",
+      "brief": "Spacious contemporary family living room with sofa, armchairs, fireplace and picture window overlooking garden"
     }
   ]
 }

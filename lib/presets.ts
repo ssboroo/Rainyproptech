@@ -555,9 +555,6 @@ export function isInteriorStyle(s: Style) {
 }
 export const projectKeys = Object.keys(projects) as Project[];
 export const styleKeys = Object.keys(styles) as Style[];
-export function cost(kind: "image" | "video") {
-  return kind === "video" ? 6 : 2;
-}
 export function promptFor(p: Project, s: Style, notes = "") {
   return [
     projects[p].prompt,
