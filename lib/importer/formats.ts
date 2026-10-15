@@ -9,6 +9,10 @@ export function sourceFormat(name: string) {
 }
 export function importError(code: string, lang: "mn" | "en") {
   const mn = lang === "mn";
+  if (code === "SOFTWARE_LIMIT")
+    return mn
+      ? "Энэ төхөөрөмжийн нөөц 3D харагдацад загвар хэт том байна. WebGL дэмждэг төхөөрөмжөөр нээх эсвэл геометрээ багасгана уу."
+      : "This model is too complex for software 3D. Use a WebGL-capable device or simplify the model.";
   if (code === "BINARY_DXF")
     return mn
       ? "Binary DXF дэмжихгүй. CAD программаас ASCII DXF болгон хадгална уу."

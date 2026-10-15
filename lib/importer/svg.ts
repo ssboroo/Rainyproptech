@@ -31,8 +31,15 @@ export function cleanCadSvg(svg: string): string {
     }
     for (const a of Array.from(el.attributes)) {
       if (
+        a.name === "stroke" &&
+        /^(white|#fff(?:fff)?|rgb\(\s*255\s*,\s*255\s*,\s*255\s*\))$/i.test(
+          a.value,
+        )
+      )
+        el.setAttribute("stroke", "#24373d");
+      if (
         /^on/i.test(a.name) ||
-        (/href/i.test(a.name) && !/^#[\w:.-]+$/.test(a.value)) ||
+        (/href/i.test(a.name) && !/^#[^\s<>"']+$/.test(a.value)) ||
         (/url\s*\(|javascript:|data:|https?:/i.test(a.value) &&
           a.name !== "xmlns")
       )
@@ -49,6 +56,13 @@ export function cleanCadSvg(svg: string): string {
     view[3] <= 0
   )
     throw new Error("EMPTY_DRAWING");
+  const pad = Math.max(view[2], view[3]) * 0.04;
+  root.setAttribute(
+    "viewBox",
+    [view[0] - pad, view[1] - pad, view[2] + pad * 2, view[3] + pad * 2].join(
+      " ",
+    ),
+  );
   root.setAttribute("width", "2048");
   root.setAttribute("height", "1536");
   root.setAttribute("preserveAspectRatio", "xMidYMid meet");

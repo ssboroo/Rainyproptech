@@ -2,39 +2,47 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { SVGRenderer } from "three/addons/renderers/SVGRenderer.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RotateCcw, Box, PanelTop, Map } from "lucide-react";
 export function ModelView({
   buffer,
   capture,
   onError,
+  onReady,
+  lang,
 }: {
   buffer: ArrayBuffer;
   capture: React.MutableRefObject<null | (() => Promise<Blob>)>;
   onError: (message: string) => void;
+  onReady: () => void;
+  lang: "mn" | "en";
 }) {
   const host = useRef<HTMLDivElement>(null),
     view = useRef<(name: string) => void>(() => {});
   const [angle, setAngle] = useState("iso");
+  const [software, setSoftware] = useState(false);
   useEffect(() => {
     const el = host.current!;
     let stopped = false,
       frame = 0,
       root: THREE.Group | undefined;
-    let renderer: THREE.WebGLRenderer;
+    let renderer: THREE.WebGLRenderer | SVGRenderer;
     try {
       renderer = new THREE.WebGLRenderer({
         antialias: true,
         preserveDrawingBuffer: true,
       });
     } catch {
-      onError("WEBGL_UNAVAILABLE");
-      return;
+      renderer = new SVGRenderer();
+      renderer.setQuality("high");
+      setSoftware(true);
     }
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    const gpu = renderer instanceof THREE.WebGLRenderer;
+    if (gpu) renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
     renderer.setSize(el.clientWidth, el.clientHeight);
-    renderer.setClearColor("#f2f3ee");
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.setClearColor(new THREE.Color("#f2f3ee"), 1);
+    if (gpu) renderer.outputColorSpace = THREE.SRGBColorSpace;
     el.appendChild(renderer.domElement);
     const scene = new THREE.Scene();
     scene.add(new THREE.HemisphereLight(0xffffff, 0x64777b, 2.6));
@@ -48,11 +56,10 @@ export function ModelView({
       100000,
     );
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
+    controls.enableDamping = gpu;
     let radius = 1,
       center = new THREE.Vector3();
     const draw = () => {
-      controls.update();
       renderer.render(scene, camera);
     };
     view.current = (name) => {
@@ -82,6 +89,20 @@ export function ModelView({
           return;
         }
         root = g.scene;
+        if (!gpu) {
+          let triangles = 0;
+          root.traverse((o) => {
+            if (o instanceof THREE.Mesh)
+              triangles +=
+                (o.geometry.index?.count ||
+                  o.geometry.attributes.position?.count ||
+                  0) / 3;
+          });
+          if (triangles > 150000) {
+            onError("SOFTWARE_LIMIT");
+            return;
+          }
+        }
         scene.add(root);
         const box = new THREE.Box3().setFromObject(root);
         if (box.isEmpty()) {
@@ -93,25 +114,62 @@ export function ModelView({
         view.current("iso");
         capture.current = async () => {
           controls.update();
-          const oldSize = renderer.getSize(new THREE.Vector2());
-          const ratio = renderer.getPixelRatio();
+          const oldWidth = el.clientWidth,
+            oldHeight = el.clientHeight;
           const aspect = camera.aspect;
-          renderer.setPixelRatio(1);
-          renderer.setSize(2048, Math.round(2048 / aspect), false);
+          if (renderer instanceof THREE.WebGLRenderer) {
+            const ratio = renderer.getPixelRatio();
+            renderer.setPixelRatio(1);
+            renderer.setSize(2048, Math.round(2048 / aspect), false);
+            draw();
+            try {
+              return await new Promise<Blob>(
+                (resolve, reject) =>
+                  renderer.domElement instanceof HTMLCanvasElement &&
+                  renderer.domElement.toBlob(
+                    (b) =>
+                      b ? resolve(b) : reject(new Error("CAPTURE_FAILED")),
+                    "image/png",
+                  ),
+              );
+            } finally {
+              renderer.setPixelRatio(ratio);
+              renderer.setSize(oldWidth, oldHeight, false);
+              draw();
+            }
+          }
+          renderer.setSize(2048, Math.round(2048 / aspect));
           draw();
+          const url = URL.createObjectURL(
+            new Blob(
+              [new XMLSerializer().serializeToString(renderer.domElement)],
+              { type: "image/svg+xml" },
+            ),
+          );
           try {
+            const image = new Image();
+            image.src = url;
+            await image.decode();
+            const canvas = document.createElement("canvas");
+            canvas.width = 2048;
+            canvas.height = Math.round(2048 / aspect);
+            const ctx = canvas.getContext("2d")!;
+            ctx.fillStyle = "#f2f3ee";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(image, 0, 0);
             return await new Promise<Blob>((resolve, reject) =>
-              renderer.domElement.toBlob(
+              canvas.toBlob(
                 (b) => (b ? resolve(b) : reject(new Error("CAPTURE_FAILED"))),
                 "image/png",
               ),
             );
           } finally {
-            renderer.setPixelRatio(ratio);
-            renderer.setSize(oldSize.x, oldSize.y, false);
+            URL.revokeObjectURL(url);
+            renderer.setSize(oldWidth, oldHeight);
             draw();
           }
         };
+        onReady();
       },
       () => onError("MODEL_READ_FAILED"),
     );
@@ -120,14 +178,17 @@ export function ModelView({
       renderer.setSize(el.clientWidth, el.clientHeight);
       camera.aspect = el.clientWidth / el.clientHeight;
       camera.updateProjectionMatrix();
+      draw();
     });
     observer.observe(el);
     const animate = () => {
       if (stopped) return;
+      controls.update();
       draw();
       frame = requestAnimationFrame(animate);
     };
-    animate();
+    if (gpu) animate();
+    else controls.addEventListener("change", draw);
     return () => {
       stopped = true;
       cancelAnimationFrame(frame);
@@ -135,10 +196,10 @@ export function ModelView({
       controls.dispose();
       capture.current = null;
       if (root) dispose(root);
-      renderer.dispose();
+      if (renderer instanceof THREE.WebGLRenderer) renderer.dispose();
       renderer.domElement.remove();
     };
-  }, [buffer, capture, onError]);
+  }, [buffer, capture, onError, onReady]);
   return (
     <>
       <div
@@ -146,6 +207,13 @@ export function ModelView({
         ref={host}
         aria-label="3D model preview: drag to orbit, scroll to zoom"
       />
+      {software && (
+        <span className="software-preview">
+          {lang === "mn"
+            ? "Нөөц 3D харагдац · Материалын өнгө"
+            : "Software 3D preview · Material colors"}
+        </span>
+      )}
       <div className="model-angles">
         {[
           ["iso", "3D", Box],

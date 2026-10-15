@@ -2990,5 +2990,40 @@ h1 {
     transform: none;
   }
 }
-.source-examples {display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:12px;font-size:9px;color:#6a8077;}
-.source-examples button {border:0;border-bottom:1px solid #9cb7aa;padding:2px 0;color:#3a7161;background:transparent;font-size:10px;}
+.source-examples {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  font-size: 9px;
+  color: #6a8077;
+}
+.source-examples button {
+  border: 0;
+  border-bottom: 1px solid #9cb7aa;
+  padding: 2px 0;
+  color: #3a7161;
+  background: transparent;
+  font-size: 10px;
+}
+.model-viewport > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.software-preview {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 9px;
+  background: #ffffffd9;
+  border: 1px solid #cfdbd2;
+  color: #5d756b;
+  padding: 6px 8px;
+  border-radius: 5px;
+  pointer-events: none;
+}
+.atelier .page-heading h1 {
+  letter-spacing: -1.8px;
+}

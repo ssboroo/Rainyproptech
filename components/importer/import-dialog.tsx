@@ -39,6 +39,8 @@ export function ImportDialog({
     [confirmed, setConfirmed] = useState(false),
     [zoom, setZoom] = useState(1);
   const t = (mn: string, en: string) => (lang === "mn" ? mn : en);
+  const [modelReady, setModelReady] = useState(false);
+  const modelLoaded = useCallback(() => setModelReady(true), []);
   const fail = useCallback((e: string) => {
     setError(e);
     setLoading(false);
@@ -196,13 +198,23 @@ export function ImportDialog({
             <p>{importError(error, lang)}</p>
           </div>
         ) : glb ? (
-          <ModelView buffer={glb} capture={capture} onError={fail} />
+          <ModelView
+            buffer={glb}
+            capture={capture}
+            onError={fail}
+            onReady={modelLoaded}
+            lang={lang}
+          />
         ) : (
           <div className="drawing-preview">
             <img
               src={svgUrl}
               alt={t("CAD зургийн урьдчилсан харагдац", "CAD drawing preview")}
-              style={{ width: `${zoom * 100}%`, maxWidth: "none" }}
+              style={{
+                width: `${zoom * 100}%`,
+                height: `${zoom * 100}%`,
+                maxWidth: "none",
+              }}
             />
             <div className="drawing-zoom">
               <button
@@ -275,7 +287,13 @@ export function ImportDialog({
           )}
           <button
             className="button dark"
-            disabled={loading || !!error || !confirmed || saving}
+            disabled={
+              loading ||
+              !!error ||
+              !confirmed ||
+              saving ||
+              (!!glb && !modelReady)
+            }
             onClick={accept}
           >
             {saving ? (
